@@ -1,0 +1,9 @@
+{
+  "case_id": "EV-INF-001",
+  "category": "inference",
+  "input": "A redução da HbA1c demonstrou benefício clínico global para os pacientes.",
+  "expected": {
+    "passed": false,
+    "critical_rule": "surrogate-clinical-overclaim"
+  }
+}

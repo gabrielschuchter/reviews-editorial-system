@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 - 2026-07-25
+
+- Decompõe `reviews-writer` em sete capacidades com a fachada histórica preservada.
+- Adiciona contratos e validadores de source roles, brief, findings, inferência e tabelas.
+- Documenta pesquisa externa, licenças, migração, arquitetura e estratégia de eval.
+- Mantém corpus e documentos humanos imutáveis; não realiza upload ou publicação.
+
 ## 0.2.0 - 2026-07-25
 
 - Incorporado o catálogo incremental da pasta `Testes`: sete referências B próximas do ideal, sempre com limitações conhecidas; seis recuperáveis e uma reservada como holdout. A política também foi gravada na Skill `reviews-writer` 0.2.0.

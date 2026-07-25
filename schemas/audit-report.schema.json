@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:audit-report:1",
+  "title": "Relatório de auditoria modular",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "audit_id": {"type": "string"}, "job_id": {"type": "string"}, "mode": {"type": "string"}, "findings": {"type": "array"}, "coverage": {"type": ["string", "object"]}, "provenance": {"type": ["string", "object"]}
+  },
+  "required": ["audit_id", "job_id", "mode", "findings", "coverage", "provenance"]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Avaliação científica"
+  short_description: "Avaliar método e inferência"
+  default_prompt: "Use $reviews-scientific-appraisal para analisar o método e os limites de inferência de uma fonte."

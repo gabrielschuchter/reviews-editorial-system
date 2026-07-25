@@ -1,0 +1,18 @@
+{
+  "case_id": "EV-TAB-001",
+  "category": "table",
+  "input": {
+    "rows": [
+      {
+        "recommendation": "Realizar colonoscopia.",
+        "population": "",
+        "condition": "",
+        "action": ""
+      }
+    ]
+  },
+  "expected": {
+    "passed": false,
+    "critical_rule": "table-row-not-self-contained"
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Redação Reviews"
+  short_description: "Redigir por tipo de edição"
+  default_prompt: "Use $reviews-edition-writing para redigir uma candidata do Reviews a partir de claims autorizados."

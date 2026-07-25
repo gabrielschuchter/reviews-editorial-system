@@ -1,0 +1,4 @@
+interface:
+  display_name: "Aprendizado editorial"
+  short_description: "Transformar revisão em testes"
+  default_prompt: "Use $reviews-feedback-learning para converter feedback humano do Reviews em aprendizado rastreável."

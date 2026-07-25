@@ -7,6 +7,7 @@ from typing import Any
 
 from _bootstrap import REPO_ROOT
 from reviews_editorial.anti_ai import lint_text
+from reviews_editorial.assurance import audit_inference_text, validate_table_rows
 from reviews_editorial.claims import (
     audit_draft_text,
     build_claim_ledger,
@@ -18,6 +19,12 @@ from reviews_editorial.io import load_data
 
 def _critical_rules(category: str, result: dict[str, Any]) -> set[str]:
     if category == "anti-ai":
+        return {
+            str(item.get("rule"))
+            for item in result.get("findings", [])
+            if item.get("severity") == "critical"
+        }
+    if category in {"inference", "table"}:
         return {
             str(item.get("rule"))
             for item in result.get("findings", [])
@@ -57,6 +64,11 @@ def evaluate_case(case: dict[str, Any]) -> dict[str, Any]:
         records = payload.get("records", []) if isinstance(payload, dict) else payload
         actual = verify_number_records(records)
         actual["passed"] = actual["valid"]
+    elif category == "inference":
+        actual = audit_inference_text(str(payload or ""))
+    elif category == "table":
+        rows = payload.get("rows", []) if isinstance(payload, dict) else []
+        actual = validate_table_rows(rows)
     elif category == "corpus-selection":
         manifest = {"records": payload.get("records", [])}
         actual = select_exemplars(

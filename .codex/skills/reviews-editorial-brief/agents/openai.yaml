@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brief editorial Reviews"
+  short_description: "Planejar ângulo e contexto"
+  default_prompt: "Use $reviews-editorial-brief para construir o brief editorial de uma edição do Reviews."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Auditoria Reviews"
+  short_description: "Auditar candidata com evidência"
+  default_prompt: "Use $reviews-audit para auditar uma candidata do Reviews sem corrigi-la automaticamente."

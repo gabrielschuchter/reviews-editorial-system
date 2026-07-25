@@ -1,0 +1,4 @@
+interface:
+  display_name: "Proveniência de fontes"
+  short_description: "Validar fontes e rastreabilidade"
+  default_prompt: "Use $reviews-source-provenance para validar e normalizar um pacote de fontes do Reviews."

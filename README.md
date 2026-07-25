@@ -16,6 +16,9 @@ O repositório é o cérebro normativo; a Skill `reviews-writer` orquestra o pro
 - exportação opcional de candidata para DOCX;
 - integração com Drive documentada e deliberadamente mediada pelo Codex;
 - testes de regressão e verificador agregado.
+- arquitetura modular 0.3 com sete capacidades especializadas e `reviews-writer` como fachada compatível;
+- contratos para source roles, brief editorial, findings e padrões de aprendizado;
+- linter determinístico de saltos inferenciais, validador de recomendações tabulares e scanner local de skills.
 
 O sistema não escreve uma edição real até que o pacote documental mínimo, a extração e o claim ledger estejam válidos.
 
@@ -24,6 +27,8 @@ O sistema não escreve uma edição real até que o pacote documental mínimo, a
 ```powershell
 python -m unittest discover -s tests -v
 python scripts/run_checks.py
+python scripts/run_evals.py
+python scripts/scan_skills.py
 python scripts/create_job.py --source "C:\caminho\artigo.pdf" --topic "Tema"
 ```
 

@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-SYSTEM_VERSION = "0.2.0"
-SKILL_VERSION = "0.2.0"
+SYSTEM_VERSION = "0.3.0"
+SKILL_VERSION = "0.3.0"
 EDITORIAL_CONSTITUTION_VERSION = "0.1.0-provisional"
 
 SOURCE_LEVELS = {

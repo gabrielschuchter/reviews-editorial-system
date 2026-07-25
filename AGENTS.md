@@ -2,7 +2,7 @@
 
 ## Regras permanentes
 
-- Use a Skill `reviews-writer` em qualquer trabalho editorial do Reviews.
+- Use `reviews-writer` para orquestrar qualquer trabalho editorial e a skill especializada indicada pelo mapa de capacidades para executar cada etapa.
 - Preserve os documentos originais e trate o arquivo histórico do Drive como somente leitura.
 - Nunca redija diretamente de PDF ou DOCX: normalize e registre paginação antes de extrair evidências.
 - Nunca invente fatos, números, referências, métodos, mecanismos ou conclusões.
@@ -29,6 +29,7 @@
 
 - Execute `python -m unittest discover -s tests -v`.
 - Execute `python scripts/run_checks.py` para validar contratos, configurações e invariantes editoriais.
+- Execute `python scripts/run_evals.py` e `python scripts/scan_skills.py` antes de declarar a arquitetura pronta.
 - Execute `python scripts/validate_job.py <job-dir>` antes de avançar um job.
 - Use o Python 3.11 ou superior. Dependências de PDF e DOCX são opcionais e devem falhar com instrução explícita quando ausentes.
 

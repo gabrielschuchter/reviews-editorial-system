@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:learning-pattern:1",
+  "title": "Padrão editorial candidato",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string"}, "description": {"type": "string"}, "category": {"type": "string"}, "confidence": {"type": "string"}, "scope": {"type": "string"}, "before": {"type": "string"}, "after": {"type": "string"}, "regression_test": {"type": "string"}, "promotion_status": {"enum": ["candidate", "approved", "rejected"]}
+  },
+  "required": ["id", "description", "category", "confidence", "scope", "before", "after", "regression_test", "promotion_status"]
+}

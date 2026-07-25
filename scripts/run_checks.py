@@ -35,8 +35,15 @@ def main() -> int:
         if not path.is_file() or path.stat().st_size == 0:
             issues.append(f"arquivo obrigatório ausente ou vazio: {relative}")
     schema_files = sorted((REPO_ROOT / "schemas").glob("*.schema.json"))
-    if len(schema_files) != 13:
-        issues.append(f"esperados 13 schemas; encontrados {len(schema_files)}")
+    required_schema_names = {
+        "source-roles.schema.json",
+        "editorial-brief.schema.json",
+        "audit-report.schema.json",
+        "learning-pattern.schema.json",
+    }
+    schema_names = {path.name for path in schema_files}
+    if len(schema_files) < 17 or not required_schema_names.issubset(schema_names):
+        issues.append(f"schemas modulares ausentes ou incompletos; encontrados {len(schema_files)}")
     ids = set()
     for path in schema_files:
         try:

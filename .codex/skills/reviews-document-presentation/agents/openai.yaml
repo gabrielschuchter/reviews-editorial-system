@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apresentação Reviews"
+  short_description: "Validar tabelas e documentos"
+  default_prompt: "Use $reviews-document-presentation para preparar e verificar DOCX, tabelas e renderização do Reviews."

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:editorial-brief:1",
+  "title": "Brief editorial Reviews",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "edition_type": {"type": "string"}, "primary_source": {"type": "string"}, "central_question": {"type": "string"}, "reader": {"type": "string"}, "clinical_or_intellectual_decision": {"type": "string"}, "editorial_angle": {"type": "string"}, "why_now": {"type": "string"}, "what_changed": {"type": "string"}, "central_tension": {"type": "string"}, "strongest_supported_takeaway": {"type": "string"}, "most_important_uncertainty": {"type": "string"}, "must_include": {"type": "array"}, "must_not_claim": {"type": "array"}, "context_needed": {"type": "array"}, "numbers_that_need_context": {"type": "array"}, "counterevidence_or_disagreement": {"type": "array"}, "source_incentives_or_conflicts": {"type": "array"}, "omissions_to_avoid": {"type": "array"}, "headline_constraints": {"type": "array"}, "lead_strategy": {"type": "string"}, "nut_graf": {"type": "string"}, "ending_function": {"type": "string"}
+  },
+  "required": ["edition_type", "primary_source", "central_question", "reader", "clinical_or_intellectual_decision", "editorial_angle", "why_now", "what_changed", "central_tension", "strongest_supported_takeaway", "most_important_uncertainty", "must_include", "must_not_claim", "context_needed", "numbers_that_need_context", "counterevidence_or_disagreement", "source_incentives_or_conflicts", "omissions_to_avoid", "headline_constraints", "lead_strategy", "nut_graf", "ending_function"]
+}
