@@ -1,0 +1,12 @@
+{
+  "case_id": "EV-FAC-001",
+  "category": "factual",
+  "input": {
+    "draft": "A intervenção reduziu o escore em 12 pontos.",
+    "claims": []
+  },
+  "expected": {
+    "passed": false,
+    "critical_rule": "unmapped-number"
+  }
+}

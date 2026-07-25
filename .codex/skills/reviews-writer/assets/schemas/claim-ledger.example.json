@@ -1,0 +1,18 @@
+{
+  "claims": [
+    {
+      "claim_id": "CLM-0001",
+      "claim_text": "",
+      "claim_type": "direct-fact",
+      "source_document": "",
+      "page": null,
+      "table": null,
+      "figure": null,
+      "section": null,
+      "source_excerpt": "",
+      "verification_status": "pending",
+      "allowed_in_public_draft": false,
+      "notes": null
+    }
+  ]
+}

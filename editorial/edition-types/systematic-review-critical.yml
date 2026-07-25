@@ -1,0 +1,73 @@
+schema_version: "1.0.0"
+contract_version: "0.1.0"
+edition_type_id: systematic-review-critical
+contract_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    section: "9.4. Análise crítica extensa de revisão sistemática ou metanálise"
+
+purpose: "Avaliar em profundidade uma revisão sistemática ou metanálise sem reproduzir o artigo."
+selection:
+  use_when:
+    - central-source-is-systematic-review-or-meta-analysis
+    - extended-critical-methodological-analysis-is-important
+
+required_inputs:
+  - validated-review-document
+  - supplements-when-available
+  - protocol-or-registration-when-available
+  - verified-results
+  - risk-of-bias-information
+  - certainty-assessment-when-performed
+  - external-scrutiny-log
+
+analysis_dimensions:
+  - review-question
+  - eligibility-criteria
+  - search
+  - study-selection
+  - data-extraction
+  - risk-of-bias
+  - synthesis
+  - heterogeneity
+  - statistical-models
+  - absolute-effects
+  - certainty
+  - selective-publication
+  - multiplicity
+  - subgroup-analysis
+  - robustness
+  - conclusion-result-compatibility
+
+structure_policy:
+  fixed_sequence: false
+  display_titles_status: pending-editorial-definition
+  choose_sections_by:
+    - review-specific-methods
+    - decision-relevant-results
+    - material-critical-issues
+
+constraints:
+  must_not:
+    - reproduce-the-review-article
+    - promote-exploratory-or-subgroup-findings-without-labels-and-support
+    - treat-author-limitations-as-complete-critical-analysis
+    - state-external-criticism-as-fact-without-classification
+  must:
+    - connect-each-material-criticism-to-interpretive-consequence
+    - distinguish-potential-probable-and-demonstrated-consequences
+    - communicate-whether-a-problem-changes-the-conclusion-or-only-certainty
+
+pending_editorial_decisions:
+  - id: systematic-review-critical-section-titles-and-order
+    status: pending-editorial-decision
+    note: "O prompt define dimensões de avaliação, mas não uma sequência ou títulos fixos."
+

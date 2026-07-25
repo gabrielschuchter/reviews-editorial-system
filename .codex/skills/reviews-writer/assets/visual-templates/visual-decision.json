@@ -1,0 +1,8 @@
+{
+  "visuals": {
+    "enabled": false,
+    "use_article_figures": "conditional",
+    "use_reviews_design_system": "conditional",
+    "allow_generated_scientific_images": false
+  }
+}

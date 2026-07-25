@@ -1,0 +1,125 @@
+schema_version: "1.0.0"
+checklist_version: "0.1.0"
+checklist_id: factual
+checklist_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "2.1. Nenhuma informação pode ser inventada"
+      - "14.13. Auditor factual adversarial"
+      - "21.1. Factual"
+      - "22. Critérios de qualidade"
+
+execution:
+  independent_evaluation: true
+  run_at:
+    - factual-audit
+    - final-audit
+  allowed_results:
+    - pass
+    - fail
+    - not_applicable
+    - blocked
+    - not_checked
+  required_record_fields:
+    - item_id
+    - result
+    - evidence_locations
+    - notes
+    - auditor
+    - checked_at
+  unsupported_result_default: fail
+
+failure_policy:
+  critical: block-candidate
+  error: return-for-correction
+  review: record-and-resolve-before-final-audit
+  not_checked: block-candidate
+
+items:
+  - item_id: factual-population
+    question: "A população descrita corresponde à fonte, sem troca de estudo ou extrapolação silenciosa?"
+    severity: critical
+    evidence_required: source-document-and-location
+  - item_id: factual-design
+    question: "O desenho e suas características relevantes foram classificados corretamente?"
+    severity: critical
+    evidence_required: source-document-and-methods-location
+  - item_id: factual-participant-count
+    question: "Números recrutados, randomizados, analisados e perdidos estão corretos e claramente distinguidos?"
+    severity: critical
+    evidence_required: source-location-for-each-count
+  - item_id: factual-intervention
+    question: "Intervenção, dose, duração e modo de uso correspondem à fonte?"
+    severity: critical
+    evidence_required: source-document-and-location
+  - item_id: factual-comparator
+    question: "O comparador foi identificado corretamente e não foi simplificado de modo enganoso?"
+    severity: critical
+    evidence_required: source-document-and-location
+  - item_id: factual-duration-and-timepoints
+    question: "Duração do estudo e tempos de avaliação usados no texto estão corretos?"
+    severity: error
+    evidence_required: source-document-and-location
+  - item_id: factual-primary-outcome
+    question: "O desfecho primário foi identificado com base documental e não foi trocado por um desfecho secundário ou exploratório?"
+    severity: critical
+    evidence_required: protocol-registration-or-article-location
+  - item_id: factual-estimates
+    question: "Todas as estimativas quantitativas publicadas no rascunho correspondem ao valor verificado?"
+    severity: critical
+    evidence_required: claim-ledger-entry-and-source-location
+  - item_id: factual-intervals
+    question: "Intervalos, limites e nível de confiança estão transcritos corretamente?"
+    severity: critical
+    evidence_required: claim-ledger-entry-and-source-location
+  - item_id: factual-direction
+    question: "A direção do efeito e o sentido das escalas estão corretos?"
+    severity: critical
+    evidence_required: source-location-and-direction-check
+  - item_id: factual-safety
+    question: "Eventos adversos, eventos graves, interrupções e denominadores de segurança estão corretos quando usados?"
+    severity: critical
+    evidence_required: source-location-for-each-safety-claim
+  - item_id: factual-denominators
+    question: "Cada proporção, risco ou taxa usa o denominador correto?"
+    severity: critical
+    evidence_required: numerator-denominator-source-map
+  - item_id: factual-references
+    question: "Autores, títulos, datas, DOI e demais referências existem e correspondem à afirmação citada?"
+    severity: critical
+    evidence_required: bibliographic-verification
+  - item_id: factual-source-separation
+    question: "Nenhum resultado, número ou conclusão de outro estudo foi atribuído à fonte central?"
+    severity: critical
+    evidence_required: claim-ledger-source-map
+  - item_id: factual-missing-information
+    question: "Informações ausentes ou ambíguas foram registradas explicitamente, sem preenchimento criativo?"
+    severity: critical
+    evidence_required: missing-information-register
+  - item_id: factual-discrepancies
+    question: "Divergências entre texto, tabela, figura, suplemento, protocolo ou registro foram preservadas e não resolvidas silenciosamente?"
+    severity: critical
+    evidence_required: discrepancy-register
+  - item_id: factual-external-criticism
+    question: "Críticas externas foram verificadas, atribuídas e classificadas sem serem promovidas automaticamente a fato?"
+    severity: critical
+    evidence_required: external-scrutiny-log
+  - item_id: factual-claim-ledger-coverage
+    question: "Cada afirmação factual publicável tem claim_id, fonte, localização, trecho e estado de verificação?"
+    severity: critical
+    evidence_required: claim-ledger
+
+candidate_gate:
+  require_all_critical_pass: true
+  permitted_unresolved_critical_count: 0
+  permitted_unverified_number_count: 0
+  permitted_invented_reference_count: 0
+

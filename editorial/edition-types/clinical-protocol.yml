@@ -1,0 +1,64 @@
+schema_version: "1.0.0"
+contract_version: "0.1.0"
+edition_type_id: clinical-protocol
+contract_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    section: "9.5. Protocolo clínico ou edição orientada à conduta"
+
+purpose: "Organizar evidência sustentada pelas fontes segundo decisões clínicas."
+selection:
+  use_when:
+    - the-objective-is-clinical-conduct
+    - authoritative-sources-support-operational-guidance
+  do_not_use_when:
+    - sources-do-not-support-the-required-level-of-guidance
+
+required_inputs:
+  - validated-authoritative-sources
+  - source-version-and-date
+  - recommendation-or-conduct-source-map
+  - population-and-context-boundaries
+  - contraindication-and-safety-evidence-when-applicable
+
+structure_policy:
+  orientation: clinical-decisions
+  fixed_sequence: false
+  display_titles_status: pending-editorial-definition
+  possible_modules:
+    - identification
+    - initial-assessment
+    - tests
+    - diagnostic-criteria
+    - therapeutic-options
+    - contraindications
+    - follow-up
+    - therapeutic-failure
+    - referral
+    - safety
+  module_inclusion_rule: include-only-when-supported-and-relevant
+
+constraints:
+  must:
+    - preserve-source-conditions-and-exceptions
+    - identify-population-and-context
+    - distinguish-source-recommendation-from-editorial-explanation
+  must_not:
+    - create-conduct-from-plausibility
+    - fill-source-gaps-with-opinion
+    - extrapolate-beyond-source-population
+    - imply-completeness-when-source-coverage-is-limited
+
+pending_editorial_decisions:
+  - id: clinical-protocol-module-order-and-display-titles
+    status: pending-editorial-decision
+    note: "Os módulos do prompt são possíveis, não obrigatórios nem ordenados."
+

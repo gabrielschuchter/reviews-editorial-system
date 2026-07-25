@@ -1,0 +1,78 @@
+schema_version: "1.0.0"
+contract_version: "0.1.0"
+edition_type_id: guideline-summary
+contract_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    section: "9.3. Edição de diretriz clínica"
+
+purpose: "Apresentar recomendações centrais de uma diretriz de modo curto, direto e clinicamente útil."
+selection:
+  use_when:
+    - a-clinical-guideline-is-the-central-source
+    - the-editorial-objective-is-recommendation-and-decision-support
+  blocking_condition:
+    - correct-guideline-version-cannot-be-confirmed
+
+required_inputs:
+  - confirmed-guideline-version
+  - validated-guideline-document
+  - recommendation-source-map
+  - documented-strength-and-certainty-when-reported
+  - inference-boundaries
+
+structure_policy:
+  fixed_sequence: false
+  display_titles_status: pending-editorial-definition
+  organization: central-recommendations-and-decision-points
+
+required_content:
+  prioritize:
+    - affected-population
+    - recommended-action
+    - applicable-circumstances
+    - recommendation-strength
+    - evidence-certainty-or-quality
+    - exceptions
+    - contraindications
+    - monitoring
+    - decision-points
+    - material-changes-from-prior-recommendations
+  explain_when_useful:
+    - studies-supporting-recommendation
+    - limitations-behind-conditional-recommendation
+    - role-of-values-and-preferences
+
+constraints:
+  objectivity: extremely-high
+  must_not:
+    - summarize-entire-guideline
+    - include-peripheral-recommendations
+    - create-original-recommendations
+    - fill-gaps-with-opinion
+    - extrapolate-to-uncovered-populations
+    - equate-strong-recommendation-with-high-certainty-evidence
+
+traceability:
+  each_recommendation_requires:
+    - source-location
+    - target-population
+    - action
+    - context-or-conditions
+    - strength-if-reported
+    - certainty-if-reported
+  unavailable_field_policy: explicit-not-found-or-not-reported
+
+pending_editorial_decisions:
+  - id: guideline-summary-section-titles-and-order
+    status: pending-editorial-decision
+    note: "O prompt define prioridades e limites, mas não uma sequência ou títulos fixos."
+

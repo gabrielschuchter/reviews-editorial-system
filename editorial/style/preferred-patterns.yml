@@ -1,0 +1,77 @@
+schema_version: "1.0.0"
+config_version: "0.1.0"
+config_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  rule: "Estes padrões operacionalizam o prompt mestre; não descrevem preferências extraídas do corpus."
+
+patterns:
+  - id: source-bounded-claim
+    function: factual-precision
+    requirement: "Delimitar a afirmação pela população, comparação, tempo e fonte que a sustentam."
+    approval_basis: specified-by-master-prompt
+
+  - id: explicit-missing-information
+    function: factual-safety
+    preferred_text: "Informação não localizada nos materiais consultados."
+    use_when: information-was-sought-and-not-found
+    approval_basis: specified-by-master-prompt
+
+  - id: explicit-ambiguity
+    function: factual-safety
+    preferred_text: "Informação ambígua ou insuficientemente descrita no material disponível."
+    use_when: available-description-does-not-support-a-safe-choice
+    approval_basis: specified-by-master-prompt
+
+  - id: result-before-inference
+    function: reasoning
+    requirement: "Apresentar a estimativa e sua precisão antes de formular a inferência."
+    approval_basis: specified-by-master-prompt
+
+  - id: function-led-paragraph
+    function: structure
+    requirement: "Dar a cada parágrafo uma função e ligar evidência, significado e consequência."
+    approval_basis: specified-by-master-prompt
+
+  - id: logic-led-transition
+    function: cohesion
+    requirement: "Fazer a transição nascer da relação entre ideias, não de um conector automático."
+    approval_basis: specified-by-master-prompt
+
+  - id: specific-critique
+    function: methodological-analysis
+    requirement: "Localizar o problema, explicar o viés ou limitação e dizer se muda a conclusão ou sua segurança."
+    approval_basis: specified-by-master-prompt
+
+  - id: calibrated-bottom-line
+    function: conclusion
+    requirement: "Comunicar o que provavelmente ocorre, parece ocorrer, não parece trazer benefício relevante ou permanece incerto, com a razão principal."
+    approval_basis: specified-by-master-prompt
+
+  - id: native-portuguese
+    function: language
+    requirement: "Usar sintaxe, verbos e conectores naturais do português brasileiro sem perder precisão."
+    approval_basis: specified-by-master-prompt
+
+  - id: uncertainty-with-cause
+    function: modality
+    requirement: "Nomear a fonte e a consequência da incerteza em vez de usar cautela vaga."
+    approval_basis: specified-by-master-prompt
+
+corpus_candidates:
+  status: candidate-unapproved
+  entries: []
+  promotion_requires:
+    - source-tier
+    - corpus-version
+    - positive-examples
+    - negative-examples
+    - rationale
+    - scope
+    - human-editor-approval

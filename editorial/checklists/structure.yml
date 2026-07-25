@@ -1,0 +1,111 @@
+schema_version: "1.0.0"
+checklist_version: "0.1.0"
+checklist_id: structure
+checklist_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "9. Tipos de edição"
+      - "10. Roteador de tipo de edição"
+      - "12.2. Condução da leitura"
+      - "14.9. Arquiteto da edição"
+      - "14.15. Editor de coerência"
+      - "21.4. Estrutural"
+
+execution:
+  independent_evaluation: true
+  run_at:
+    - structural-review
+    - coherence-review
+    - final-audit
+  allowed_results:
+    - pass
+    - fail
+    - not_applicable
+    - blocked
+    - not_checked
+  required_record_fields:
+    - item_id
+    - result
+    - evidence_locations
+    - notes
+    - auditor
+    - checked_at
+
+failure_policy:
+  critical: block-candidate
+  error: return-for-correction
+  review: require-documented-disposition
+  not_checked: block-candidate
+
+items:
+  - item_id: structure-contract-selected
+    question: "Há um tipo-base registrado, com justificativa quando recomendado e override do editor preservado?"
+    severity: critical
+    evidence_required: planning-edition-selection
+  - item_id: structure-no-silent-mixing
+    question: "Combinações de contratos, se houver, registram tipo-base, overlays, origem das seções e resolução de conflitos?"
+    severity: critical
+    evidence_required: combination-record-or-not-applicable
+  - item_id: structure-required-sections
+    question: "Todas as seções obrigatórias do contrato selecionado estão presentes?"
+    severity: critical
+    evidence_required: edition-contract-and-outline
+  - item_id: structure-optional-sections
+    question: "Cada seção opcional tem função real e suporte, em vez de existir apenas para completar o template?"
+    severity: error
+    evidence_required: outline-section-rationale
+  - item_id: structure-pending-titles
+    question: "Títulos pendentes permanecem marcados como candidatos e nenhuma decisão ampla foi tomada silenciosamente?"
+    severity: critical
+    evidence_required: contract-and-outline-title-status
+  - item_id: structure-analytical-section-i
+    question: "No modelo analítico, o título da Seção I permanece pending-editorial-decision, salvo decisão humana registrada?"
+    severity: critical
+    applies_when: edition-type-is-clinical-answer-analytical
+    evidence_required: edition-plan-and-editorial-decision-log
+  - item_id: structure-results-position
+    question: "Resultados aparecem na posição definida pelo contrato e pela hierarquia editorial?"
+    severity: error
+    evidence_required: outline-and-draft
+  - item_id: structure-analysis-position
+    question: "A análise crítica vem após informação suficiente para ser compreendida e não interrompe indevidamente a apresentação factual?"
+    severity: error
+    evidence_required: draft-section-map
+  - item_id: structure-result-hierarchy
+    question: "A ordem prioriza desfechos primários, críticos para decisão, segurança e achados que mudam a interpretação?"
+    severity: error
+    evidence_required: content-selection-and-draft
+  - item_id: structure-progressive-reading
+    question: "Cada seção nasce logicamente da anterior e prepara a seguinte?"
+    severity: error
+    evidence_required: structural-audit-notes
+  - item_id: structure-paragraph-function
+    question: "Cada parágrafo tem função identificável e transições decorrem do conteúdo?"
+    severity: error
+    evidence_required: paragraph-function-map-or-audit-notes
+  - item_id: structure-redundancy
+    question: "Resposta inicial, cartão, resultados e conclusão evitam repetição mecânica?"
+    severity: error
+    evidence_required: redundancy-review
+  - item_id: structure-opening-conclusion-consistency
+    question: "A abertura, a análise e a conclusão são consistentes entre si?"
+    severity: critical
+    evidence_required: coherence-audit
+  - item_id: structure-bottom-line
+    question: "Há conclusão clara, em localização permitida pelo contrato, proporcional à evidência?"
+    severity: critical
+    evidence_required: bottom-line-record-and-draft-location
+
+candidate_gate:
+  require_all_critical_pass: true
+  permitted_silent_contract_mixes: 0
+  permitted_silently-finalized-pending-titles: 0
+

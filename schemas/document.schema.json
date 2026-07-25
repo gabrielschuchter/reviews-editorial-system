@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:document:1",
+  "title": "Documento editorial",
+  "description": "Inventário e validação de um documento sem modificar o material original.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "document_id",
+    "job_id",
+    "title",
+    "document_type",
+    "filename",
+    "format",
+    "source",
+    "sha256",
+    "corpus_level",
+    "validation",
+    "provenance"
+  ],
+  "properties": {
+    "document_id": { "$ref": "#/$defs/documentId" },
+    "job_id": { "$ref": "#/$defs/jobId" },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Título identificado no documento ou no inventário de origem."
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "artigo-primario",
+        "suplemento",
+        "protocolo",
+        "registro",
+        "plano-de-analise",
+        "diretriz-clinica",
+        "revisao-sistematica",
+        "metanalise",
+        "revisao-narrativa",
+        "errata",
+        "retratacao",
+        "expressao-de-preocupacao",
+        "carta-ao-editor",
+        "resposta-dos-autores",
+        "critica-metodologica",
+        "edicao-publicada",
+        "documento-editorial",
+        "design-system",
+        "outro"
+      ],
+      "description": "Natureza documental relevante para o pipeline."
+    },
+    "filename": { "type": "string", "minLength": 1 },
+    "format": {
+      "type": "string",
+      "enum": ["pdf", "docx", "doc", "md", "txt", "html", "csv", "xlsx", "json", "yaml", "image", "other"]
+    },
+    "author": { "type": ["string", "null"] },
+    "publication_date": {
+      "description": "Data conhecida da publicação; nula quando não localizada.",
+      "oneOf": [
+        { "type": "string", "format": "date" },
+        { "type": "null" }
+      ]
+    },
+    "associated_article": { "type": ["string", "null"] },
+    "study_id": {
+      "description": "Estudo associado, quando já identificado.",
+      "oneOf": [
+        { "$ref": "#/$defs/studyId" },
+        { "type": "null" }
+      ]
+    },
+    "source": { "$ref": "#/$defs/source" },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$",
+      "description": "Hash do arquivo original usado para reprodutibilidade."
+    },
+    "corpus_level": {
+      "type": "string",
+      "enum": ["A-canonico-atual", "B-exemplo-editorial-exemplar", "C-publicado-historico", "D-material-de-discussao", "E-legado-desatualizado", "F-excluido"],
+      "description": "Classificação obrigatória da hierarquia de fontes."
+    },
+    "editorial_state": {
+      "type": ["string", "null"],
+      "description": "Estado editorial conhecido do documento."
+    },
+    "duplicate_of": {
+      "description": "Documento canônico equivalente quando este item for duplicata.",
+      "oneOf": [
+        { "$ref": "#/$defs/documentId" },
+        { "type": "null" }
+      ]
+    },
+    "validation": { "$ref": "#/$defs/validation" },
+    "notes": { "type": ["string", "null"] },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "$defs": {
+    "documentId": { "type": "string", "pattern": "^DOC-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "jobId": { "type": "string", "pattern": "^JOB-[0-9]{4}-[0-9]{3,}$" },
+    "studyId": { "type": "string", "pattern": "^STUDY-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["location", "access_method", "acquired_at", "original_preserved"],
+      "properties": {
+        "location": { "type": "string", "minLength": 1 },
+        "access_method": {
+          "type": "string",
+          "enum": ["arquivo-fornecido", "google-drive", "web", "gerado-no-job", "outro"]
+        },
+        "acquired_at": { "type": "string", "format": "date-time" },
+        "original_preserved": { "const": true },
+        "drive_file_id": { "type": ["string", "null"] },
+        "url": {
+          "oneOf": [
+            { "type": "string", "format": "uri" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["complete", "integrity", "legibility", "title_match", "tables", "figures", "validated_at"],
+      "properties": {
+        "complete": { "type": "boolean" },
+        "integrity": { "type": "string", "enum": ["integro", "incompleto", "corrompido", "nao-verificado"] },
+        "legibility": { "type": "string", "enum": ["legivel", "parcialmente-legivel", "ilegivel", "nao-verificada"] },
+        "title_match": { "type": "string", "enum": ["confirmada", "divergente", "ambigua", "nao-verificada"] },
+        "tables": { "type": "string", "enum": ["legiveis", "parcialmente-legiveis", "ilegíveis", "ausentes", "nao-aplicavel"] },
+        "figures": { "type": "string", "enum": ["legiveis", "parcialmente-legiveis", "ilegíveis", "ausentes", "nao-aplicavel"] },
+        "validated_at": { "type": "string", "format": "date-time" },
+        "issues": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["created_at", "created_by", "method", "source_inventory"],
+      "properties": {
+        "created_at": { "type": "string", "format": "date-time" },
+        "created_by": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "source_inventory": { "type": "string", "minLength": 1 },
+        "notes": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

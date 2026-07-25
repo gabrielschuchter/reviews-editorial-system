@@ -1,0 +1,159 @@
+schema_version: "1.0.0"
+checklist_version: "0.1.0"
+checklist_id: publication
+checklist_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "5. Google Drive e controle de permissões"
+      - "15. Pipeline obrigatório"
+      - "22. Critérios de qualidade"
+      - "23. Versionamento"
+
+execution:
+  run_at:
+    - final-audit
+    - candidate-delivery
+    - post-human-approval
+  allowed_results:
+    - pass
+    - fail
+    - not_applicable
+    - blocked
+    - not_checked
+  required_record_fields:
+    - item_id
+    - result
+    - evidence_locations
+    - notes
+    - responsible_party
+    - checked_at
+
+state_policy:
+  pre-human-review_status: "AGUARDANDO REVISÃO EDITORIAL"
+  publishable_status: "APROVADA PARA PUBLICAÇÃO"
+  publishable_status_authority: human-editor-only
+  automatic-site-publication: forbidden
+
+quality_scoring:
+  status: provisional-suggestion-from-master-prompt
+  total_weight: 100
+  weights:
+    factual_accuracy: 30
+    methodological_quality: 25
+    statistical_accuracy: 15
+    editorial_structure: 10
+    reviews_style_fidelity: 10
+    clinical_relevance: 5
+    coherence_and_naturalness: 5
+  high_score_overrides-critical-error: false
+  high_score_authorizes-publication: false
+
+failure_policy:
+  critical: block-delivery-or-publication-as-specified
+  error: return-for-correction
+  review: require-documented-disposition
+  not_checked: block-publication
+
+items:
+  - item_id: publication-factual-audit
+    question: "A auditoria factual final foi reexecutada e todos os itens críticos passaram?"
+    severity: critical
+    evidence_required: final-factual-audit
+  - item_id: publication-statistical-audit
+    question: "A verificação numérica e estatística final foi reexecutada e todos os itens críticos passaram?"
+    severity: critical
+    evidence_required: final-statistical-audit
+  - item_id: publication-methodological-audit
+    question: "A auditoria metodológica final foi reexecutada e a conclusão permanece proporcional à evidência?"
+    severity: critical
+    evidence_required: final-methodological-audit
+  - item_id: publication-reference-audit
+    question: "Referências e citações foram verificadas e sustentam as afirmações correspondentes?"
+    severity: critical
+    evidence_required: final-reference-audit
+  - item_id: publication-structure-style
+    question: "Estrutura, coerência, estilo e anti-IA passaram pelos gates aplicáveis?"
+    severity: critical
+    evidence_required: final-structural-style-and-anti-ai-audits
+  - item_id: publication-zero-critical-errors
+    question: "Não há número sem fonte, referência inventada, direção errada, população trocada, intervenção/comparador incorretos, resultado de outro estudo, causalidade incompatível, crítica externa indevida ou erro crítico pendente?"
+    severity: critical
+    evidence_required: quality-report
+  - item_id: publication-required-files
+    question: "candidate.md, candidate.docx, editorial-report.md, source-map.json, quality-report.json e visual-plan.md existem ou têm indisponibilidade explicitamente justificada?"
+    severity: critical
+    evidence_required: final-directory-inventory
+  - item_id: publication-source-map
+    question: "O mapa de fontes cobre todas as afirmações publicáveis e preserva discrepâncias?"
+    severity: critical
+    evidence_required: final-source-map
+  - item_id: publication-version-metadata
+    question: "A edição registra todas as versões e metadados exigidos?"
+    severity: critical
+    evidence_required: version-record
+    required_fields:
+      - system_version
+      - skill_version
+      - editorial_constitution_version
+      - edition_contract_version
+      - methodology_rules_version
+      - style_profile_version
+      - anti_ai_rules_version
+      - corpus_version
+      - design_system_version
+      - model
+      - generation_date
+      - source_documents_hash
+  - item_id: publication-candidate-status
+    question: "Antes da decisão humana, o documento está marcado exatamente como AGUARDANDO REVISÃO EDITORIAL?"
+    severity: critical
+    applies_when: before-human-approval
+    evidence_required: candidate-status
+  - item_id: publication-human-approval
+    question: "Há autorização humana explícita antes de marcar APROVADA PARA PUBLICAÇÃO?"
+    severity: critical
+    applies_when: requesting-publishable-status
+    evidence_required: human-approval-record
+  - item_id: publication-drive-capability
+    question: "Permissão real de escrita no destino foi verificada, sem presumir capacidade do conector?"
+    severity: critical
+    applies_when: drive-delivery-requested
+    evidence_required: connector-capability-check
+  - item_id: publication-authorized-destination
+    question: "A escrita ocorre somente na pasta de produção autorizada?"
+    severity: critical
+    applies_when: drive-write-available
+    evidence_required: destination-id-and-authorization
+  - item_id: publication-no-source-modification
+    question: "Nenhum arquivo histórico foi modificado, movido, renomeado, comentado ou sobrescrito?"
+    severity: critical
+    applies_when: drive-access-used
+    evidence_required: operation-log
+  - item_id: publication-no-overwrite
+    question: "O arquivo de saída usa identificador e versão e não sobrescreve documento existente?"
+    severity: critical
+    applies_when: external-delivery
+    evidence_required: destination-name-and-operation-log
+  - item_id: publication-local-fallback
+    question: "Se escrita no Drive não estiver disponível, os arquivos locais compatíveis e o passo de envio foram documentados?"
+    severity: error
+    applies_when: drive-write-unavailable
+    evidence_required: local-deliverables-and-handoff-note
+  - item_id: publication-visual-gate
+    question: "Visuais incluídos passaram pelo checklist visual; ausência de visual não bloqueou o texto?"
+    severity: critical
+    applies_when: visuals-included
+    evidence_required: visual-audit
+
+candidate_gate:
+  permitted_critical_error_count: 0
+  high_score_overrides-critical-error: false
+  human_editor_is_final_authority: true

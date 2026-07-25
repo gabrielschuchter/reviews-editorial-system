@@ -1,0 +1,126 @@
+schema_version: "1.0.0"
+config_version: "0.1.0"
+config_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "2.4. Toda conclusão deve ter força proporcional à evidência"
+      - "2.7. Ausência de significância não é ausência de efeito"
+      - "2.8. Mudança intragrupo não demonstra efeito da intervenção"
+      - "2.9. Desfechos exploratórios devem permanecer exploratórios"
+      - "9.1. Resposta clínica clássica"
+      - "14.6. Verificador estatístico"
+
+rule_set:
+  - id: quantitative-claim-needs-values
+    requirement: "Toda afirmação quantitativa ou sobre magnitude deve incluir ou apontar os valores que a sustentam."
+    minimum_support_when_available:
+      - point-estimate
+      - confidence-interval
+      - unit
+      - comparison
+      - timepoint
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+  - id: magnitude-label-needs-criterion
+    requirement: "Pequeno, moderado ou grande só podem caracterizar magnitude com estimativa adequada e critério explicitamente justificável."
+    severity: error
+    approval_status: specified-by-master-prompt
+
+  - id: nonsignificance-language
+    requirement: "p > 0,05 não autoriza dizer que não houve efeito."
+    assess:
+      - point-estimate
+      - confidence-interval
+      - compatibility-with-benefit
+      - compatibility-with-harm
+      - imprecision
+      - sample-size
+      - assumptions
+      - clinical-relevance
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+  - id: between-group-priority
+    requirement: "Em desenhos comparativos, a linguagem de efeito deve se basear na comparação compatível com o desenho."
+    prioritize:
+      - between-group-estimate
+      - group-by-time-interaction
+      - adjusted-contrast
+      - difference-in-changes
+      - design-compatible-model
+    reject_as-sole-support:
+      - statistically-significant-within-group-change
+      - significance-in-one-group-but-not-the-other
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+  - id: adjusted-unadjusted-distinction
+    requirement: "Identificar se a estimativa é ajustada ou não ajustada e não alternar entre elas silenciosamente."
+    severity: error
+    approval_status: specified-by-master-prompt
+
+  - id: estimate-context
+    requirement: "Toda estimativa selecionada deve preservar direção, unidade, escala, denominador, comparação e tempo pertinentes."
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+  - id: exploratory-language
+    requirement: "Achados exploratórios devem permanecer explicitamente exploratórios e não podem sustentar silenciosamente a conclusão principal."
+    assess:
+      - prespecification
+      - analytical-hierarchy
+      - multiplicity
+      - group-count
+      - outcome-count
+      - timepoint-count
+      - comparison-count
+      - multiplicity-adjustment
+      - plausibility
+      - consistency
+      - interaction-test
+      - power
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+  - id: subgroup-language
+    requirement: "Não inferir diferença entre subgrupos apenas por significância em um e ausência no outro; verificar interação e suporte analítico."
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+  - id: precision-language
+    requirement: "Comunicar a incerteza pela amplitude e pelas consequências compatíveis com o intervalo, não apenas pelo valor de p."
+    severity: error
+    approval_status: specified-by-master-prompt
+
+  - id: absolute-effects
+    requirement: "Apresentar medidas absolutas quando estiverem disponíveis e forem úteis para a decisão."
+    enforcement: conditional
+    severity: review
+    approval_status: specified-by-master-prompt
+
+  - id: derived-calculation-label
+    requirement: "Todo cálculo derivado deve ser marcado como cálculo do sistema e nunca como valor relatado pelo artigo."
+    required_metadata:
+      - input-values
+      - input-sources
+      - formula-or-method
+      - output-unit
+      - verification
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+phrasing_policy:
+  fixed_templates: []
+  status: no-corpus-derived-statistical-phrasing-approved
+  rule: "Escolher linguagem natural em português brasileiro sem alterar a interpretação estatística."
+

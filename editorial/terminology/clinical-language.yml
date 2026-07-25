@@ -1,0 +1,117 @@
+schema_version: "1.0.0"
+config_version: "0.1.0"
+config_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "1. Objetivo editorial do Reviews"
+      - "2. Princípios inegociáveis"
+      - "9. Tipos de edição"
+      - "12. Escrita no estilo do Reviews"
+
+voice_constraints:
+  must_be:
+    - close
+    - natural
+    - clear
+    - technically-correct
+    - sufficiently-explanatory
+    - predominantly-objective
+    - originally-written-in-brazilian-portuguese
+  must_not:
+    - infantilize-reader
+    - presume-methodological-mastery
+    - use-excessive-informality
+    - sacrifice-precision-for-warmth
+    - read-like-literal-english-translation
+
+clinical_interpretation_rules:
+  - id: proportional-conclusion
+    requirement: "A força da conclusão deve ser proporcional ao desenho, risco de viés, precisão, consistência e demais limitações."
+    allowed_bottom_line_functions:
+      - what-probably-occurs
+      - what-appears-to-occur
+      - what-does-not-appear-to-produce-relevant-benefit
+      - what-remains-uncertain
+      - why-a-safer-conclusion-is-not-supported
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+  - id: clear-uncertainty
+    requirement: "Quando a evidência for incerta, a incerteza deve ser comunicada como conclusão clara, com sua causa."
+    must_not:
+      - be-vague-by-default
+      - fabricate-certainty
+    severity: error
+    approval_status: specified-by-master-prompt
+
+  - id: causality-by-design
+    requirement: "A linguagem causal deve respeitar o que o delineamento permite inferir."
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+  - id: applicability-specificity
+    requirement: "Uma limitação de aplicabilidade deve identificar a característica diferente, possível modificador de efeito, razão clínica e população cuja inferência permanece limitada."
+    distinctions:
+      - internal-validity
+      - causal-inference
+      - applicability
+      - transportability
+      - statistical-generalization
+      - descriptive-representativeness
+    severity: error
+    approval_status: specified-by-master-prompt
+
+  - id: surrogate-boundary
+    requirement: "Não equiparar mudança em marcador a benefício clínico sem justificativa de validade substituta."
+    distinctions:
+      - marker-change
+      - marker-risk-association
+      - surrogate-validation
+      - patient-perceived-benefit
+      - clinical-event-reduction
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+  - id: recommendation-versus-certainty
+    requirement: "Não confundir força da recomendação com certeza ou qualidade da evidência."
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+  - id: hypothesis-label
+    requirement: "Explicações possíveis não demonstradas devem ser apresentadas como hipótese e ter suporte documental ou plausibilidade explicitamente qualificada."
+    severity: error
+    approval_status: specified-by-master-prompt
+
+  - id: values-and-preferences
+    requirement: "Quando relevantes, explicar quais decisões dependem de valores e preferências, quais benefícios e riscos são ponderados e por que decisões podem diferir."
+    enforcement: conditional
+    severity: review
+    approval_status: specified-by-master-prompt
+
+  - id: practical-meaning
+    requirement: "Interpretar o que os resultados significam clinicamente sem repetir mecanicamente todos os números nem extrapolar a evidência."
+    severity: error
+    approval_status: specified-by-master-prompt
+
+external_criticism_labels:
+  approval_status: specified-by-master-prompt
+  values:
+    - documented-criticism
+    - plausible-concern
+    - unconfirmed-allegation
+    - author-acknowledged-problem
+    - verified-discrepancy
+
+phrasing_policy:
+  fixed_templates: []
+  status: no-corpus-derived-clinical-phrasing-approved
+  rule: "A formulação final deve ser natural e auditável, sem converter preferência lexical local em regra geral."

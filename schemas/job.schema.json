@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:job:2",
+  "title": "Job editorial operacional do Reviews",
+  "description": "Contrato do job.yml realmente criado e consumido pelo pipeline local.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "job_id",
+    "schema_version",
+    "created_at",
+    "updated_at",
+    "state",
+    "status",
+    "request",
+    "source_documents",
+    "versions",
+    "gates",
+    "history"
+  ],
+  "properties": {
+    "job_id": { "$ref": "#/$defs/jobId" },
+    "schema_version": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "state": { "$ref": "#/$defs/pipelineState" },
+    "status": {
+      "type": "string",
+      "enum": [
+        "EM PROCESSAMENTO",
+        "AGUARDANDO REVISÃO EDITORIAL",
+        "APROVADA PARA PUBLICAÇÃO",
+        "BLOQUEADO"
+      ]
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "topic",
+        "requested_edition_type",
+        "source_folder",
+        "editor",
+        "notes"
+      ],
+      "properties": {
+        "topic": { "type": "string", "minLength": 1 },
+        "requested_edition_type": {
+          "oneOf": [
+            { "$ref": "#/$defs/editionType" },
+            { "type": "null" }
+          ]
+        },
+        "source_folder": { "type": ["string", "null"] },
+        "editor": { "type": ["string", "null"] },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "source_documents": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/sourceDocument" }
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "system_version",
+        "skill_version",
+        "editorial_constitution_version",
+        "edition_contract_version",
+        "methodology_rules_version",
+        "style_profile_version",
+        "anti_ai_rules_version",
+        "corpus_version",
+        "design_system_version",
+        "model",
+        "generation_date",
+        "source_documents_hash"
+      ],
+      "properties": {
+        "system_version": { "type": "string", "minLength": 1 },
+        "skill_version": { "type": "string", "minLength": 1 },
+        "editorial_constitution_version": { "type": "string", "minLength": 1 },
+        "edition_contract_version": { "type": "string", "minLength": 1 },
+        "methodology_rules_version": { "type": "string", "minLength": 1 },
+        "style_profile_version": { "type": "string", "minLength": 1 },
+        "anti_ai_rules_version": { "type": "string", "minLength": 1 },
+        "corpus_version": { "type": "string", "minLength": 1 },
+        "design_system_version": { "type": "string", "minLength": 1 },
+        "model": { "type": ["string", "null"] },
+        "generation_date": { "type": "string", "format": "date-time" },
+        "source_documents_hash": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "critical_errors",
+        "document_validation_confirmed_by",
+        "human_approval_required"
+      ],
+      "properties": {
+        "critical_errors": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "document_validation_confirmed_by": { "type": ["string", "null"] },
+        "human_approval_required": { "const": true }
+      }
+    },
+    "history": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["state", "at", "actor"],
+        "properties": {
+          "state": { "$ref": "#/$defs/pipelineState" },
+          "at": { "type": "string", "format": "date-time" },
+          "actor": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "jobId": {
+      "type": "string",
+      "pattern": "^JOB-[0-9]{4}-[0-9]{3}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "pipelineState": {
+      "type": "string",
+      "enum": [
+        "received",
+        "documents_validated",
+        "document_package_normalized",
+        "study_classified",
+        "evidence_extracted",
+        "numbers_verified",
+        "claim_ledger_complete",
+        "methodology_complete",
+        "external_research_complete",
+        "editorial_plan_complete",
+        "first_draft",
+        "factual_audit_complete",
+        "statistical_methodological_audit_complete",
+        "structural_review_complete",
+        "style_review_complete",
+        "coherence_review_complete",
+        "final_audit_complete",
+        "candidate_for_review",
+        "human_review",
+        "approved"
+      ]
+    },
+    "editionType": {
+      "type": "string",
+      "enum": [
+        "clinical-answer-classic",
+        "clinical-answer-analytical",
+        "guideline-summary",
+        "systematic-review-critical",
+        "clinical-protocol",
+        "thematic-narrative",
+        "primary-study-deep-dive"
+      ]
+    },
+    "sourceDocument": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "kind",
+        "original_name",
+        "location",
+        "job_copy",
+        "sha256",
+        "size_bytes",
+        "immutable_source"
+      ],
+      "properties": {
+        "source_id": { "type": "string", "minLength": 1 },
+        "kind": {
+          "type": "string",
+          "enum": ["local-file", "google-drive-file", "other"]
+        },
+        "original_name": { "type": "string", "minLength": 1 },
+        "location": { "type": "string", "minLength": 1 },
+        "job_copy": { "type": ["string", "null"] },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "size_bytes": { "type": "integer", "minimum": 0 },
+        "immutable_source": { "const": true }
+      }
+    }
+  }
+}

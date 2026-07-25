@@ -1,0 +1,111 @@
+schema_version: "1.0.0"
+config_version: "0.1.0"
+config_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "2.1. Nenhuma informação pode ser inventada"
+      - "2.3. Resultado, evidência e inferência são coisas diferentes"
+      - "12. Escrita no estilo do Reviews"
+
+activation_policy:
+  master_prompt_terms: active
+  corpus_derived_terms: inactive-until-approved
+  automatic_frequency_to_preference: forbidden
+  local_editorial_choice_to_global_rule: forbidden
+
+concept_vocabulary:
+  - concept_id: data
+    preferred_label: "dado"
+    definition: "Número ou informação diretamente extraída da fonte."
+    approval_status: specified-by-master-prompt
+    scope: evidence-classification
+    non_equivalents:
+      - resultado
+      - evidência
+      - inferência
+      - hipótese
+  - concept_id: result
+    preferred_label: "resultado"
+    definition: "Comparação ou estimativa produzida pelo estudo."
+    approval_status: specified-by-master-prompt
+    scope: evidence-classification
+    non_equivalents:
+      - dado
+      - evidência
+      - inferência
+      - hipótese
+  - concept_id: evidence
+    preferred_label: "evidência"
+    definition: "Resultado interpretado considerando delineamento, risco de viés, imprecisão, consistência e demais limitações."
+    approval_status: specified-by-master-prompt
+    scope: evidence-classification
+    non_equivalents:
+      - dado
+      - resultado
+      - inferência
+      - hipótese
+  - concept_id: inference
+    preferred_label: "inferência"
+    definition: "Conclusão que pode ser sustentada a partir da evidência."
+    approval_status: specified-by-master-prompt
+    scope: evidence-classification
+    non_equivalents:
+      - dado
+      - resultado
+      - hipótese
+  - concept_id: hypothesis
+    preferred_label: "hipótese"
+    definition: "Explicação possível, mas não demonstrada."
+    approval_status: specified-by-master-prompt
+    scope: evidence-classification
+    non_equivalents:
+      - fato
+      - resultado
+      - inferência-demonstrada
+
+required_missing_information_language:
+  - id: information-not-found
+    exact_text: "Informação não localizada nos materiais consultados."
+    use_when: information-could-not-be-located
+    approval_status: specified-by-master-prompt
+    paraphrase_allowed: false
+  - id: information-ambiguous
+    exact_text: "Informação ambígua ou insuficientemente descrita no material disponível."
+    use_when: information-is-ambiguous-or-insufficiently-described
+    approval_status: specified-by-master-prompt
+    paraphrase_allowed: false
+
+methodological_distinctions_to_preserve:
+  - validity-internal-versus-applicability
+  - causal-inference-versus-descriptive-representativeness
+  - applicability-versus-transportability
+  - point-estimate-versus-confidence-interval
+  - statistical-significance-versus-clinical-relevance
+  - within-group-change-versus-between-group-effect
+  - exploratory-versus-primary-outcome
+  - surrogate-outcome-versus-patient-important-benefit
+  - recommendation-strength-versus-evidence-certainty
+
+candidate_corpus_preferences:
+  status: empty-pending-corpus-curation-and-editor-approval
+  entries: []
+
+rule_admission_requirements:
+  - origin
+  - justification
+  - date
+  - version
+  - scope
+  - positive_examples
+  - negative_examples
+  - approval_status
+

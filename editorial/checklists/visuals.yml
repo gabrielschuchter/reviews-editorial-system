@@ -1,0 +1,97 @@
+schema_version: "1.0.0"
+checklist_version: "0.1.0"
+checklist_id: visuals
+checklist_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    section: "18. Imagens e elementos visuais"
+
+defaults:
+  visuals_enabled: false
+  use_article_figures: conditional
+  use_reviews_design_system: conditional
+  allow_generated_scientific_images: false
+  missing_visual_blocks_textual-edition: false
+
+execution:
+  run_at:
+    - visual-plan
+    - final-audit-when-visuals-included
+  allowed_results:
+    - pass
+    - fail
+    - not_applicable
+    - blocked
+    - not_checked
+  not_applicable_when: no-visual-is-proposed-or-included
+  required_record_fields:
+    - item_id
+    - result
+    - evidence_locations
+    - rights_or_permission_status
+    - interpretation_risk
+    - notes
+    - auditor
+    - checked_at
+
+failure_policy:
+  critical_visual_failure: remove-or-block-visual-not-textual-edition
+  permission_unknown: do-not-use-visual
+  not_checked_when-visual-included: do-not-use-visual
+
+items:
+  - item_id: visuals-functional-need
+    question: "O elemento é realmente importante para compreensão e tem função registrada?"
+    severity: review
+  - item_id: visuals-source
+    question: "A origem do elemento e sua localização na fonte estão registradas?"
+    severity: critical
+  - item_id: visuals-legibility
+    question: "A figura permanece legível no formato de entrega?"
+    severity: error
+  - item_id: visuals-result-integrity
+    question: "O elemento não distorce resultados, escala, direção ou contexto?"
+    severity: critical
+  - item_id: visuals-rights
+    question: "Direitos, licença e permissão de uso são compatíveis com a entrega proposta?"
+    severity: critical
+  - item_id: visuals-caption-context
+    question: "Legenda, população, comparação, tempo e contexto interpretativo necessários foram preservados?"
+    severity: critical
+  - item_id: visuals-no-selective-crop
+    question: "Nenhum recorte remove elemento que altere a interpretação ou selecione resultados de modo enganoso?"
+    severity: critical
+  - item_id: visuals-recreated-graph-data
+    question: "Se o gráfico foi recriado, todos os dados estão disponíveis e os valores foram verificados com dupla conferência?"
+    applies_when: recreated-graph
+    severity: critical
+  - item_id: visuals-recreated-graph-label
+    question: "A recriação está claramente identificada, cita a fonte e não aparenta ser a figura original?"
+    applies_when: recreated-graph
+    severity: critical
+  - item_id: visuals-design-system
+    question: "Se o design system foi usado, componentes, cores, tipografia, contraste e aplicações vêm de fonte inventariada, sem componente inventado?"
+    applies_when: reviews-design-system-used
+    severity: error
+  - item_id: visuals-generated-scientific-image
+    question: "Nenhuma imagem científica, anatômica, de mecanismo ou de resultado foi gerada de modo que possa ser confundida com evidência?"
+    severity: critical
+  - item_id: visuals-editorial-illustration
+    question: "Ilustração editorial, se usada, não representa dados, não sugere precisão científica, está identificada, segue o design system e tem função real?"
+    applies_when: generated-editorial-illustration
+    severity: critical
+  - item_id: visuals-plan-complete
+    question: "O visual-plan registra elemento, função, origem, localização, risco, permissão e decisão?"
+    severity: error
+
+candidate_gate:
+  text_delivery_allowed-without-visual: true
+  visual_delivery_requires-all-applicable-critical-pass: true
+

@@ -1,0 +1,137 @@
+schema_version: "1.0.0"
+registry_version: "0.1.0"
+registry_status: provisional
+language: pt-BR
+governance:
+  normative_scope: prompt-mandated-only
+  operational_use: allowed-for-mvp
+  canonical: false
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "9. Tipos de edição"
+      - "10. Roteador de tipo de edição"
+
+selection_policy:
+  explicit_editor_choice:
+    priority: highest
+    action: respect
+    exception: critical-incompatibility
+    on_exception:
+      - record_incompatibility
+      - explain_risk
+      - propose_adaptation
+      - preserve_editor_override
+  no_editor_choice:
+    required_steps:
+      - classify_material
+      - recommend_one_base_type
+      - record_rationale
+      - select_similar_exemplars
+      - preserve_override
+  recommendation_factors:
+    - explicit_editor_request
+    - article_count
+    - study_design
+    - result_volume
+    - methodological_complexity
+    - edition_objective
+    - conduct_guidance_needed
+    - critical_analysis_importance
+    - guideline_available
+    - thematic_nature
+    - desired_length
+  recommendation_output_required:
+    - recommended_type_id
+    - material_classification
+    - rationale
+    - considered_alternatives
+    - incompatibilities
+    - editor_override_available
+
+combination_policy:
+  allowed: controlled
+  silent_mixing_allowed: false
+  required_record:
+    - base_type_id
+    - overlay_type_ids
+    - reason_for_combination
+    - section_origin_map
+    - conflicts_found
+    - conflict_resolution
+    - approving_authority
+  conflict_rule: explicit-editor-decision-required
+
+types:
+  - id: clinical-answer-classic
+    display_name: "Resposta clínica clássica"
+    display_name_status: specified-by-master-prompt
+    contract_file: clinical-answer-classic.yml
+    source_section: "9.1"
+    primary_fit:
+      - direct-clinical-question
+      - concise-clinical-answer-plus-evidence-synthesis
+  - id: clinical-answer-analytical
+    display_name: "Resposta clínica analítica"
+    display_name_status: specified-by-master-prompt
+    contract_file: clinical-answer-analytical.yml
+    source_section: "9.2"
+    primary_fit:
+      - clinical-answer-needing-explicit-method-and-critical-analysis
+      - classic-model-would-create-result-redundancy
+    preference_note: "Provavelmente preferencial quando o modelo clássico gerar redundância; não é default universal."
+  - id: guideline-summary
+    display_name: "Edição de diretriz clínica"
+    display_name_status: specified-by-master-prompt
+    contract_file: guideline-summary.yml
+    source_section: "9.3"
+    primary_fit:
+      - current-clinical-guideline
+      - central-recommendations-and-decision-points
+  - id: systematic-review-critical
+    display_name: "Análise crítica extensa de revisão sistemática ou metanálise"
+    display_name_status: specified-by-master-prompt
+    contract_file: systematic-review-critical.yml
+    source_section: "9.4"
+    primary_fit:
+      - systematic-review
+      - meta-analysis
+      - extended-methodological-critique
+  - id: clinical-protocol
+    display_name: "Protocolo clínico ou edição orientada à conduta"
+    display_name_status: specified-by-master-prompt
+    contract_file: clinical-protocol.yml
+    source_section: "9.5"
+    primary_fit:
+      - decision-oriented-clinical-guidance
+      - sources-support-operational-conduct
+  - id: thematic-narrative
+    display_name: "Revisão temática, narrativa ou editorial"
+    display_name_status: specified-by-master-prompt
+    contract_file: thematic-narrative.yml
+    source_section: "9.6"
+    primary_fit:
+      - multiple-source-theme
+      - conceptual-question
+      - controversy
+      - rigid-structure-would-harm-text
+  - id: primary-study-deep-dive
+    display_name: "Análise extensa de estudo primário"
+    display_name_status: specified-by-master-prompt
+    contract_file: primary-study-deep-dive.yml
+    source_section: "9.7"
+    primary_fit:
+      - trial-or-other-primary-study
+      - analysis-deeper-than-common-clinical-answer
+
+validation:
+  unknown_type: fail
+  missing_contract: fail
+  missing_selection_rationale_when_recommended: fail
+  silent_combination: fail
+  unresolved_critical_incompatibility: blocked
+

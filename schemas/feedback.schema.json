@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:feedback:1",
+  "title": "Feedback editorial",
+  "description": "Diferença rastreável entre a candidata e a versão revisada, sem aprendizado silencioso.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "feedback_id",
+    "job_id",
+    "edition_id",
+    "candidate_version",
+    "revised_version",
+    "section",
+    "feedback_type",
+    "original",
+    "edited",
+    "difference",
+    "reason",
+    "generalizable",
+    "generalization_status",
+    "candidate_rule",
+    "target_destination",
+    "regression_test",
+    "editor_approval",
+    "sources",
+    "provenance"
+  ],
+  "properties": {
+    "feedback_id": { "type": "string", "pattern": "^FDB-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "job_id": { "$ref": "#/$defs/jobId" },
+    "edition_id": { "type": "string", "pattern": "^EDITION-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "candidate_version": { "type": "string", "minLength": 1 },
+    "revised_version": { "type": "string", "minLength": 1 },
+    "section": { "type": "string", "minLength": 1 },
+    "feedback_type": {
+      "type": "string",
+      "enum": [
+        "factual-correction",
+        "statistical-correction",
+        "methodological-correction",
+        "structural-correction",
+        "style-correction",
+        "native-portuguese-correction",
+        "anti-ai-correction",
+        "terminology-preference",
+        "local-editorial-choice",
+        "candidate-general-rule"
+      ],
+      "description": "Classes definidas literalmente no prompt mestre."
+    },
+    "original": { "type": "string" },
+    "edited": { "type": "string" },
+    "difference": { "type": "string", "minLength": 1 },
+    "reason": { "type": "string", "minLength": 1 },
+    "generalizable": { "type": "boolean" },
+    "generalization_status": {
+      "type": "string",
+      "enum": ["local-only", "candidate", "approved", "rejected"]
+    },
+    "candidate_rule": { "type": ["string", "null"] },
+    "target_destination": { "type": ["string", "null"] },
+    "regression_test": {
+      "oneOf": [
+        { "$ref": "#/$defs/regressionTest" },
+        { "type": "null" }
+      ]
+    },
+    "editor_approval": { "$ref": "#/$defs/editorApproval" },
+    "sources": {
+      "type": "array",
+      "minItems": 2,
+      "contains": { "type": "object", "properties": { "version_role": { "const": "candidate" } }, "required": ["version_role"] },
+      "minContains": 1,
+      "items": { "$ref": "#/$defs/sourceVersion" }
+    },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "allOf": [
+    {
+      "properties": {
+        "sources": {
+          "contains": {
+            "type": "object",
+            "properties": { "version_role": { "const": "revised" } },
+            "required": ["version_role"]
+          },
+          "minContains": 1
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "generalizable": { "const": true } },
+        "required": ["generalizable"]
+      },
+      "then": {
+        "properties": {
+          "candidate_rule": { "type": "string", "minLength": 1 },
+          "target_destination": { "type": "string", "minLength": 1 },
+          "regression_test": { "$ref": "#/$defs/regressionTest" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "feedback_type": { "const": "candidate-general-rule" } },
+        "required": ["feedback_type"]
+      },
+      "then": {
+        "properties": { "generalizable": { "const": true } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "generalization_status": { "const": "approved" } },
+        "required": ["generalization_status"]
+      },
+      "then": {
+        "properties": {
+          "editor_approval": {
+            "type": "object",
+            "properties": { "decision": { "const": "approved" } },
+            "required": ["decision"]
+          },
+          "regression_test": {
+            "type": "object",
+            "properties": { "passed_existing_cases": { "const": true } },
+            "required": ["passed_existing_cases"]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "jobId": { "type": "string", "pattern": "^JOB-[0-9]{4}-[0-9]{3,}$" },
+    "sourceVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version_role", "location", "hash"],
+      "properties": {
+        "version_role": { "type": "string", "enum": ["candidate", "revised"] },
+        "location": { "type": "string", "minLength": 1 },
+        "hash": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" }
+      }
+    },
+    "regressionTest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["test_id", "location", "passed_existing_cases"],
+      "properties": {
+        "test_id": { "type": "string", "minLength": 1 },
+        "location": { "type": "string", "minLength": 1 },
+        "passed_existing_cases": { "type": "boolean" }
+      }
+    },
+    "editorApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "editor", "decided_at"],
+      "properties": {
+        "decision": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "editor": { "type": ["string", "null"] },
+        "decided_at": {
+          "oneOf": [
+            { "type": "string", "format": "date-time" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["compared_at", "compared_by", "method"],
+      "properties": {
+        "compared_at": { "type": "string", "format": "date-time" },
+        "compared_by": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "notes": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

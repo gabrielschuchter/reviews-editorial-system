@@ -1,0 +1,22 @@
+{
+  "case_id": "EV-NUM-001",
+  "category": "number-verification",
+  "input": {
+    "records": [
+      {
+        "record_id": "NUM-0001",
+        "reported_value": "12",
+        "source_document": "DOC-article",
+        "locator": "p. 4, Table 2",
+        "unit": "points",
+        "direction": "decrease",
+        "derived": false,
+        "verification_status": "divergent"
+      }
+    ]
+  },
+  "expected": {
+    "passed": false,
+    "critical_rule": "divergent-number"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "job_id": "JOB-2099-001",
+  "schema_version": "0.2.0",
+  "created_at": "2099-01-01T00:00:00Z",
+  "updated_at": "2099-01-01T00:00:00Z",
+  "state": "received",
+  "status": "EM PROCESSAMENTO",
+  "request": {
+    "topic": "SUBSTITUIR PELO TEMA REAL",
+    "requested_edition_type": null,
+    "source_folder": null,
+    "editor": null,
+    "notes": "Exemplo estrutural válido; crie jobs reais com scripts/create_job.py."
+  },
+  "source_documents": [
+    {
+      "source_id": "local:0000000000000000",
+      "kind": "local-file",
+      "original_name": "SUBSTITUIR-POR-FONTE.pdf",
+      "location": "SUBSTITUIR-POR-CAMINHO-ABSOLUTO",
+      "job_copy": null,
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "size_bytes": 0,
+      "immutable_source": true
+    }
+  ],
+  "versions": {
+    "system_version": "0.2.0",
+    "skill_version": "0.2.0",
+    "editorial_constitution_version": "0.1.0-provisional",
+    "edition_contract_version": "0.1.0-provisional",
+    "methodology_rules_version": "0.1.0-provisional",
+    "style_profile_version": "candidate-testes-0.1.0",
+    "anti_ai_rules_version": "0.1.0-provisional",
+    "corpus_version": "0.1.0-plus-testes-catalog",
+    "design_system_version": "1.0.0-candidate-unverified",
+    "model": null,
+    "generation_date": "2099-01-01T00:00:00Z",
+    "source_documents_hash": [
+      "0000000000000000000000000000000000000000000000000000000000000000"
+    ]
+  },
+  "gates": {
+    "critical_errors": [],
+    "document_validation_confirmed_by": null,
+    "human_approval_required": true
+  },
+  "history": [
+    {
+      "state": "received",
+      "at": "2099-01-01T00:00:00Z",
+      "actor": "system"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "case_id": "EV-AI-001",
+  "category": "anti-ai",
+  "input": "Segundo turn0search0, o resultado foi favorável.",
+  "expected": {
+    "passed": false,
+    "critical_rule": "tool-token-leak"
+  }
+}

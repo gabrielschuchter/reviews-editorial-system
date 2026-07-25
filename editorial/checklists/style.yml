@@ -1,0 +1,110 @@
+schema_version: "1.0.0"
+checklist_version: "0.1.0"
+checklist_id: style
+checklist_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "1. Objetivo editorial do Reviews"
+      - "3. O que significa aprender o estilo do Reviews"
+      - "11. Corpus editorial"
+      - "12. Escrita no estilo do Reviews"
+      - "21.5. Estilo Reviews"
+
+execution:
+  independent_evaluation: true
+  run_at:
+    - style-review
+    - final-audit
+  allowed_results:
+    - pass
+    - fail
+    - not_applicable
+    - blocked
+    - not_checked
+  required_record_fields:
+    - item_id
+    - result
+    - evidence_locations
+    - notes
+    - auditor
+    - checked_at
+
+failure_policy:
+  critical: block-candidate
+  error: return-for-correction
+  review: require-documented-disposition
+  not_checked: block-candidate
+
+corpus_policy:
+  use_only_selected_examples: true
+  require_source_tier_and-editorial_status: true
+  frequency_equals-quality: false
+  candidate_profile_may_be-treated-as-canonical: false
+
+items:
+  - item_id: style-natural-portuguese
+    question: "O texto soa originalmente escrito em português brasileiro, sem ordem artificial, falsos cognatos ou conectores traduzidos literalmente?"
+    severity: error
+    evidence_required: style-audit-notes
+  - item_id: style-clarity
+    question: "A linguagem é clara e suficientemente explicativa para quem não domina metodologia?"
+    severity: error
+    evidence_required: style-audit-notes
+  - item_id: style-proximity
+    question: "O texto é próximo sem infantilizar, exagerar informalidade ou conversar diretamente com o leitor em todas as frases?"
+    severity: review
+    evidence_required: style-audit-notes
+  - item_id: style-objectivity
+    question: "O texto remove introduções, repetições, qualificadores vazios e listas sem hierarquia, preservando contexto necessário?"
+    severity: error
+    evidence_required: style-audit-notes
+  - item_id: style-technical-precision
+    question: "Nenhuma edição de estilo alterou número, resultado, inferência ou ressalva metodológica sem registro?"
+    severity: critical
+    evidence_required: before-after-diff-and-change-log
+  - item_id: style-rhythm
+    question: "Frases e parágrafos têm ritmo natural, sem estrutura telegráfica ou simetria mecânica?"
+    severity: review
+    evidence_required: style-audit-notes
+  - item_id: style-transitions
+    question: "As transições decorrem da lógica do conteúdo e não apenas anunciam a estrutura?"
+    severity: error
+    evidence_required: draft-and-audit-notes
+  - item_id: style-titles
+    question: "Títulos são objetivos, cumprem função editorial e respeitam o status aprovado, candidato ou pendente do contrato?"
+    severity: error
+    evidence_required: contract-and-title-review
+  - item_id: style-vocabulary
+    question: "Vocabulário preferido ou evitado vem de regra aprovada ou está marcado como candidato, sem preferência corpus-derivada silenciosa?"
+    severity: critical
+    evidence_required: terminology-config-and-rule-provenance
+  - item_id: style-exemplar-fit
+    question: "Quando exemplares foram usados, eles são pertinentes ao tipo, seção e função, e sua classificação editorial está registrada?"
+    severity: error
+    evidence_required: selected-exemplars-file
+  - item_id: style-no-copying
+    question: "A edição usa exemplares como orientação e não copia formulações desnecessariamente?"
+    severity: critical
+    evidence_required: exemplar-comparison
+  - item_id: style-conclusion
+    question: "A conclusão comunica o bottom line naturalmente, sem fórmula vazia nem cautela genérica?"
+    severity: error
+    evidence_required: bottom-line-and-conclusion-comparison
+  - item_id: style-explanation-level
+    question: "O grau de explicação metodológica ajuda a leitura sem exibir erudição como fim em si?"
+    severity: review
+    evidence_required: style-audit-notes
+
+candidate_gate:
+  require_all_critical_pass: true
+  editor_final_authority_preserved: true
+

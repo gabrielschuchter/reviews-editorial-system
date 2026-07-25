@@ -1,0 +1,195 @@
+schema_version: "1.0.0"
+contract_version: "0.1.0"
+edition_type_id: clinical-answer-analytical
+contract_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    section: "9.2. Resposta clínica analítica — modelo atualizado"
+
+purpose: "Organizar uma resposta clínica com síntese inicial, explicação do desenho, achados e análise crítica, reduzindo redundância."
+selection:
+  use_when:
+    - clinical-answer-is-required
+    - classic-model-would-repeat-the-initial-answer-in-detailed-results
+  preference_status: probable-not-universal
+  editor_override: allowed
+
+required_inputs:
+  - validated-evidence-package
+  - verified-numerical-results
+  - methodological-review
+  - inference-boundaries
+  - approved-or-provisional-editorial-plan
+
+base_sequence:
+  - title
+  - subtitle
+  - introduction
+  - evidence-card-or-key-findings
+  - study-methods-and-inference
+  - main-findings
+  - critical-analysis
+  - discussion-or-practical-implications-when-needed
+
+structure:
+  - section_id: title
+    requirement: required
+    display_title: null
+    display_title_status: not-applicable
+
+  - section_id: subtitle
+    requirement: required
+    display_title: null
+    display_title_status: not-applicable
+
+  - section_id: introduction
+    requirement: required
+    display_title: null
+    display_title_status: not-applicable
+
+  - section_id: evidence-summary
+    requirement: required-one-of
+    variants:
+      - evidence-card
+      - key-findings
+    display_title: null
+    display_title_status: pending-editorial-decision
+    evidence_card_may_contain:
+      - question
+      - design
+      - population
+      - intervention
+      - comparison
+      - duration
+      - main-result
+      - conclusion
+      - main-caveats
+    constraints:
+      - must-be-a-true-synthesis
+      - must-not-mechanically-repeat-the-edition
+      - avoid-repeating-all-numbers-presented-immediately-afterward
+
+  - section_id: study-methods-and-inference
+    requirement: required
+    display_title: null
+    display_title_status: pending-editorial-decision
+    candidate_titles:
+      - "O que o estudo fez"
+      - "Como o estudo investigou a questão"
+      - "Como a questão foi investigada"
+    candidate_titles_status: candidate-not-canonical
+    pending_decision:
+      id: analytical-section-i-display-title
+      owner: human-editor
+      choose_silently: false
+    must_explain:
+      - design
+      - population
+      - intervention
+      - comparator
+      - methodology
+      - duration
+      - outcomes
+      - analysis
+      - what-the-design-can-investigate
+      - intended-inference
+      - design-inherent-limits
+    must_not:
+      - become-a-mechanical-methods-list
+    reader_outcome: "Compreender como o estudo tentou responder à pergunta."
+
+  - section_id: main-findings
+    requirement: required
+    display_title: "Principais achados"
+    display_title_status: pending-editorial-decision
+    candidate_titles:
+      - "Principais achados"
+    editorial_note: "O prompt o aprova como bom candidato, não como título canônico definitivo."
+    must_present:
+      - primary-results
+      - main-estimates
+      - confidence-intervals
+      - absolute-measures-when-useful
+      - safety
+      - decisive-secondary-findings
+    must_not:
+      - repeat-all-methodological-details
+      - list-all-outcomes
+      - overvalue-exploratory-results
+      - describe-only-p-values
+
+  - section_id: critical-analysis
+    requirement: required
+    display_title: "Análise crítica"
+    display_title_status: pending-editorial-decision
+    candidate_titles:
+      - "Análise crítica"
+    editorial_note: "O prompt o aprova como bom candidato, não como título canônico definitivo."
+    must:
+      - identify-methodological-strengths
+      - identify-specific-limitations
+      - distinguish-possible-bias-from-demonstrated-problem
+      - explain-methodological-implications
+      - assess-analysis-coherence
+      - assess-selectivity
+      - assess-multiplicity
+      - assess-imprecision
+      - assess-clinical-relevance
+      - compare-author-conclusion-with-results
+      - use-only-pertinent-external-criticism
+    allowed_organization:
+      - narrative
+      - question-structured
+      - study-dependent-subtopics
+    organization_rule: study-dependent
+
+  - section_id: discussion-or-practical-implications
+    requirement: optional-when-functionally-needed
+    display_title: null
+    display_title_status: pending-editorial-decision
+    candidate_titles:
+      - "Discussão"
+      - "Implicações práticas"
+    variant_rules:
+      discussion_use_when_integrating:
+        - main-findings
+        - relation-to-other-studies
+        - implications
+        - limitations
+        - general-interpretation
+        - possible-explanations
+      practical_implications_use_when:
+        - direct-practical-focus-is-supported
+    must_not:
+      - exist-only-to-follow-template
+
+conclusion_policy:
+  required: true
+  allowed_locations:
+    - evidence-summary
+    - end-of-critical-analysis
+    - discussion-or-practical-implications
+  constraint: clearly-communicate-bottom-line
+
+pending_editorial_decisions:
+  - id: analytical-section-i-display-title
+    status: pending-editorial-decision
+    impact: cross-edition-display-language
+    options:
+      - "O que o estudo fez"
+      - "Como o estudo investigou a questão"
+      - "Como a questão foi investigada"
+  - id: analytical-section-ii-title-canonicalization
+    status: candidate
+    current_candidate: "Principais achados"
+  - id: analytical-section-iii-title-canonicalization
+    status: candidate
+    current_candidate: "Análise crítica"

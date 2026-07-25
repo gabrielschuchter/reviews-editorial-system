@@ -1,0 +1,126 @@
+schema_version: "1.0.0"
+config_version: "0.1.0"
+config_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    section: "13. Revisão anti-IA"
+    descriptive_reference: "https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing"
+
+enforcement:
+  automatic_authorship_inference: false
+  detector_is_authority: false
+  phrase_is-automatic-failure: false
+  contextual_human_review_required: true
+  rule: "Sinais superficiais geram revisão contextual; invenção e citação sem suporte são falhas factuais."
+
+rules:
+  - id: fabricated-detail
+    kind: hard-prohibition
+    description: "Detalhe, número, mecanismo, referência ou atribuição criado para dar fluidez ou autoridade."
+    severity: critical
+    action: block-and-run-factual-audit
+
+  - id: unsupported-citation
+    kind: hard-prohibition
+    description: "Citação existente que não sustenta a afirmação à qual foi ligada."
+    severity: critical
+    action: block-and-correct-claim-ledger
+
+  - id: chatbot-artifact
+    kind: hard-prohibition
+    description: "Metacomentário, marcador interno, instrução ao operador ou fragmento de resposta de chatbot no texto editorial."
+    severity: error
+    action: remove-and-review-context
+
+  - id: generic-opening
+    kind: contextual-review
+    description: "Abertura ampla que não delimita pergunta, tensão clínica ou evidência."
+    severity: review
+    action: rewrite-around-editorial-function
+
+  - id: formulaic-conclusion
+    kind: contextual-review
+    description: "Conclusão que recapitula fórmulas sem comunicar o bottom line e sua certeza."
+    severity: error
+    action: rebuild-from-bottom-line
+
+  - id: excessive-headings-or-lists
+    kind: contextual-review
+    description: "Títulos ou listas usados para simular hierarquia em vez de desenvolver raciocínio."
+    severity: review
+    action: consolidate-by-function
+
+  - id: artificial-rule-of-three
+    kind: contextual-review
+    description: "Tríade, paralelismo ou frase excessivamente simétrica imposta ao conteúdo."
+    severity: review
+    action: preserve-only-natural-structure
+
+  - id: artificial-negative-parallelism
+    kind: contextual-review
+    description: "Uso ornamental e recorrente de construções como 'não apenas X, mas também Y'."
+    severity: review
+    action: state-the-actual-relation
+
+  - id: mechanical-connectors
+    kind: contextual-review
+    phrases:
+      - "além disso"
+      - "nesse contexto"
+      - "é importante destacar"
+      - "vale ressaltar"
+      - "de maneira geral"
+      - "em suma"
+      - "em conclusão"
+    description: "Expressões não são proibidas isoladamente; repetição ou ausência de função exige revisão."
+    severity: review
+    action: verify-logical-function
+
+  - id: promotional-or-grandiose-tone
+    kind: contextual-review
+    description: "Adjetivo vago, promessa, grandiosidade ou metáfora sem função clínica e suporte."
+    severity: error
+    action: replace-with-specific-supported-meaning
+
+  - id: empty-transition
+    kind: contextual-review
+    description: "Transição que apenas anuncia, resume ou recapitula sem avançar a análise."
+    severity: error
+    action: connect-content-relations
+
+  - id: excessive-dashes
+    kind: contextual-review
+    description: "Travessões repetidos substituindo pontuação, hierarquia ou construção sintática."
+    severity: review
+    action: revise-sentence-structure
+
+  - id: repeated-question
+    kind: contextual-review
+    description: "Repetição mecânica da pergunta antes de oferecer a resposta."
+    severity: review
+    action: answer-or-advance
+
+  - id: generic-limitations
+    kind: contextual-review
+    description: "Lista de limitações sem localização, mecanismo, direção possível e efeito na conclusão."
+    severity: error
+    action: apply-specific-critique-contract
+
+  - id: unapproved-corpus-vocabulary
+    kind: governance-prohibition
+    description: "Vocabulário tratado como típico do Reviews sem curadoria, proveniência e aprovação humana."
+    severity: critical
+    action: revert-to-neutral-native-portuguese
+
+candidate_gate:
+  require_all_critical_resolved: true
+  detector_score_threshold: null
+  unresolved_contextual_flags_require-disposition: true

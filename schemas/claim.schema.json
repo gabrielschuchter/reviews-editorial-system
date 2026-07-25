@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:claim:1",
+  "title": "Claim ledger",
+  "description": "Registro unitário de afirmação potencial com localização da fonte, verificação e permissão de uso público.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claim_id",
+    "job_id",
+    "claim_text",
+    "claim_type",
+    "source_document",
+    "page",
+    "table",
+    "figure",
+    "section",
+    "source_excerpt",
+    "verification_status",
+    "allowed_in_public_draft",
+    "notes",
+    "provenance"
+  ],
+  "properties": {
+    "claim_id": { "$ref": "#/$defs/claimId" },
+    "job_id": { "$ref": "#/$defs/jobId" },
+    "claim_text": { "type": "string", "minLength": 1 },
+    "claim_type": {
+      "type": "string",
+      "enum": [
+        "direct-fact",
+        "result",
+        "derived-calculation",
+        "interpretation",
+        "inference",
+        "hypothesis",
+        "external-criticism",
+        "missing-information"
+      ],
+      "description": "Identificadores internos estáveis correspondentes às categorias editoriais do Estado 7."
+    },
+    "source_document": { "$ref": "#/$defs/documentId" },
+    "page": {
+      "type": ["integer", "string", "null"],
+      "minimum": 1,
+      "description": "Página impressa ou lógica; nula quando não se aplica."
+    },
+    "table": { "type": ["string", "null"] },
+    "figure": { "type": ["string", "null"] },
+    "section": { "type": ["string", "null"] },
+    "source_excerpt": {
+      "type": ["string", "null"],
+      "description": "Trecho curto de apoio; nulo somente quando a natureza do registro impedir citação textual."
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "verified",
+        "partially-verified",
+        "unsupported",
+        "ambiguous",
+        "divergent",
+        "extrapolative",
+        "pending"
+      ],
+      "description": "Classificações do auditor factual adversarial, acrescidas do estado inicial não verificado."
+    },
+    "allowed_in_public_draft": {
+      "type": "boolean",
+      "description": "Indica se a claim pode ser usada na candidata, mantendo a rotulagem adequada."
+    },
+    "related_entity_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[A-Z]+-[A-Za-z0-9][A-Za-z0-9._-]*$" }
+    },
+    "calculation_method": { "type": ["string", "null"] },
+    "notes": { "type": ["string", "null"] },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "claim_type": {
+            "enum": ["direct-fact", "result", "derived-calculation", "interpretation", "inference", "hypothesis", "external-criticism"]
+          }
+        },
+        "required": ["claim_type"]
+      },
+      "then": {
+        "properties": {
+          "source_excerpt": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verification_status": { "enum": ["unsupported"] }
+        },
+        "required": ["verification_status"]
+      },
+      "then": {
+        "properties": { "allowed_in_public_draft": { "const": false } }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "claim_type": { "const": "derived-calculation" }
+        },
+        "required": ["claim_type"]
+      },
+      "then": {
+        "required": ["calculation_method"],
+        "properties": {
+          "calculation_method": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verification_status": {
+            "enum": ["partially-verified", "unsupported", "ambiguous", "divergent", "extrapolative", "pending"]
+          }
+        },
+        "required": ["verification_status"]
+      },
+      "then": {
+        "properties": { "allowed_in_public_draft": { "const": false } }
+      }
+    }
+  ],
+  "$defs": {
+    "jobId": { "type": "string", "pattern": "^JOB-[0-9]{4}-[0-9]{3,}$" },
+    "claimId": { "type": "string", "pattern": "^CLM-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "documentId": { "type": "string", "pattern": "^DOC-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["extracted_at", "extracted_by", "method", "source_hash"],
+      "properties": {
+        "extracted_at": { "type": "string", "format": "date-time" },
+        "extracted_by": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "source_hash": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+        "notes": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

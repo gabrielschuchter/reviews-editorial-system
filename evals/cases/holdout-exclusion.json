@@ -1,0 +1,40 @@
+{
+  "case_id": "EV-COR-001",
+  "category": "corpus-selection",
+  "input": {
+    "edition_type": "guideline-summary",
+    "study_design": "clinical-guideline",
+    "limit": 10,
+    "records": [
+      {
+        "record_id": "training-example",
+        "classification_level": "B",
+        "classification_status": "approved",
+        "quality_status": "near-ideal-with-known-limitations",
+        "known_limitations": ["Não é um exemplo perfeito."],
+        "holdout": false,
+        "editorial_metadata": {
+          "edition_type": "guideline-summary",
+          "study_design": "clinical-guideline"
+        }
+      },
+      {
+        "record_id": "reserved-holdout",
+        "classification_level": "B",
+        "classification_status": "approved",
+        "quality_status": "near-ideal-with-known-limitations",
+        "known_limitations": ["Não é um exemplo perfeito."],
+        "holdout": true,
+        "editorial_metadata": {
+          "edition_type": "guideline-summary",
+          "study_design": "clinical-guideline"
+        }
+      }
+    ]
+  },
+  "expected": {
+    "passed": true,
+    "included_record_id": "training-example",
+    "excluded_record_id": "reserved-holdout"
+  }
+}

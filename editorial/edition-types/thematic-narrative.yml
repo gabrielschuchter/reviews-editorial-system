@@ -1,0 +1,57 @@
+schema_version: "1.0.0"
+contract_version: "0.1.0"
+edition_type_id: thematic-narrative
+contract_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    section: "9.6. Revisão temática, narrativa ou editorial"
+
+purpose: "Integrar múltiplas fontes ou discutir uma questão conceitual ou controversa com estratégia documental transparente."
+selection:
+  use_when_any:
+    - no-single-central-article
+    - theme-requires-multiple-source-integration
+    - conceptual-question
+    - controversy-is-the-objective
+    - rigid-structure-would-harm-the-text
+
+required_inputs:
+  - documented-source-strategy
+  - explicit-source-selection
+  - source-inventory
+  - source-role-and-hierarchy
+  - scope-and-limitations
+
+structure_policy:
+  fixed_sequence: false
+  display_titles_status: pending-editorial-definition
+  narrative_freedom: controlled-by-scope-sources-and-claim-ledger
+
+transparency_contract:
+  must:
+    - register-documentary-strategy
+    - make-source-selection-explicit
+    - distinguish-systematic-review-from-narrative-survey
+    - state-scope-limitations
+    - avoid-presenting-non-systematic-selection-as-exhaustive
+
+constraints:
+  must_not:
+    - imply-exhaustive-search-without-a-systematic-method
+    - blend-source-levels-without-provenance
+    - resolve-source-conflicts-silently
+    - use-narrative-flow-to-fill-evidence-gaps
+
+pending_editorial_decisions:
+  - id: thematic-narrative-section-architecture
+    status: pending-editorial-decision
+    note: "O prompt autoriza flexibilidade, mas não define títulos ou sequência canônicos."
+

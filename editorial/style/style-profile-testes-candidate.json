@@ -1,0 +1,91 @@
+{
+  "profile_version": "0.1.0",
+  "generated_at": "2026-07-25",
+  "profile_status": "candidate-from-approved-near-ideal-exemplars-with-known-limitations",
+  "source_catalog": "corpus/testes-learning-catalog.yml",
+  "holdout_excluded": "drive:1Vs8WCdiQkL_T2rHyl1mRGyeoATO1I-B3ZpSViEI9EyY",
+  "documents": [
+    {
+      "record_id": "drive:1xbVmcvM7giBPHUeJIOseimaObxe2F7KO3SczOCQ__QY",
+      "name": "01_hipertensao_ESC_2024",
+      "word_count": 2921,
+      "character_count": 20007,
+      "modified_time": "2026-07-24T19:33:35.461Z"
+    },
+    {
+      "record_id": "drive:1QhReosd1Mec_VkR0IAuPacwxWESuDaJg9-DP1H60Z1s",
+      "name": "02_sangramento_GI_baixo_ACG_2023",
+      "word_count": 2402,
+      "character_count": 17274,
+      "modified_time": "2026-07-24T20:19:48.106Z"
+    },
+    {
+      "record_id": "drive:1CtLfbeeT_fLyVSZy4dnecEgZO_34hE44coZw8fvhsKs",
+      "name": "03_DRGE_ACG_2022",
+      "word_count": 2829,
+      "character_count": 19883,
+      "modified_time": "2026-07-24T19:34:59.954Z"
+    },
+    {
+      "record_id": "drive:1Sl2DrfXHXtdwSzTmLR_fp0T3q2AIO8h1sBc3Q3jyZtM",
+      "name": "04_dor_musculoesqueletica_APA_2024",
+      "word_count": 2387,
+      "character_count": 17396,
+      "modified_time": "2026-07-24T19:35:24.538Z"
+    },
+    {
+      "record_id": "drive:1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA",
+      "name": "05_pratica_psicologica_APA_2021",
+      "word_count": 2526,
+      "character_count": 18840,
+      "modified_time": "2026-07-24T20:33:18.245Z"
+    },
+    {
+      "record_id": "drive:1uD6LjWWAkYmAVMkjixaxk9kAB1Ob2-NP1lWNvUiuph0",
+      "name": "06_nutricao_cancer_cabeca_pescoco_ASPEN_2026",
+      "word_count": 2943,
+      "character_count": 20983,
+      "modified_time": "2026-07-24T19:36:12.131Z"
+    }
+  ],
+  "metrics": {
+    "paragraph_words": {
+      "count": 404,
+      "mean": 39.62,
+      "median": 39,
+      "min": 1,
+      "max": 466
+    },
+    "sentence_words": {
+      "count": 926,
+      "mean": 17.29,
+      "median": 17,
+      "min": 2,
+      "max": 100
+    },
+    "title_words": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "max": null
+    },
+    "numeric_tokens_per_1000_words": 13.81,
+    "connector_counts": {
+      "além disso": 2,
+      "no entanto": 1,
+      "por outro lado": 2,
+      "ainda assim": 2,
+      "portanto": 6,
+      "em contraste": 0,
+      "nesse contexto": 1
+    }
+  },
+  "interpretation_limits": [
+    "As seis versões são próximas do ideal, mas não são exemplos perfeitos nem cânone A.",
+    "O texto extraído pelo conector não preserva integralmente estilos, tabelas ou paginação visual.",
+    "As métricas são descritivas e não devem virar limites automáticos.",
+    "A edição 07 SII foi excluída e reservada como holdout.",
+    "Aprovação editorial humana final continua obrigatória."
+  ]
+}

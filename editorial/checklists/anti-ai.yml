@@ -1,0 +1,114 @@
+schema_version: "1.0.0"
+checklist_version: "0.1.0"
+checklist_id: anti-ai
+checklist_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    section: "13. Revisão anti-IA"
+
+execution:
+  independent_evaluation: true
+  run_at:
+    - anti-ai-review
+    - final-audit
+  allowed_results:
+    - pass
+    - fail
+    - not_applicable
+    - blocked
+    - not_checked
+  required_record_fields:
+    - item_id
+    - result
+    - evidence_locations
+    - context_assessment
+    - corrective_action
+    - notes
+    - auditor
+    - checked_at
+
+authority_policy:
+  automated_detector_is_authority: false
+  signs_catalog_is-infallible: false
+  phrase-list-is-mechanical-ban: false
+  authorship_claim_allowed: false
+  human-contextual-review_required: true
+  compare_with-approved-reviews-corpus: when-available
+
+failure_policy:
+  critical: block-candidate
+  error: return-for-correction
+  review: contextual-review-required
+  not_checked: block-candidate
+
+items:
+  - item_id: anti-ai-generic-openings
+    question: "A abertura evita generalidades sem função ou evidência?"
+    severity: review
+  - item_id: anti-ai-formulaic-conclusions
+    question: "A conclusão deriva da análise em vez de usar fórmula genérica?"
+    severity: error
+  - item_id: anti-ai-heading-density
+    question: "A quantidade de títulos é funcional e não fragmenta o texto artificialmente?"
+    severity: review
+  - item_id: anti-ai-list-density
+    question: "Listas são usadas por função, não como substituto de raciocínio ou sensação de completude?"
+    severity: review
+  - item_id: anti-ai-rule-of-three
+    question: "Tríades e paralelismos não foram impostos artificialmente ao conteúdo?"
+    severity: review
+  - item_id: anti-ai-mechanical-connectors
+    question: "Conectores como 'além disso' e 'nesse contexto' não se repetem mecanicamente?"
+    severity: review
+  - item_id: anti-ai-empty-editorial-signals
+    question: "Expressões como 'é importante destacar' ou 'vale ressaltar' introduzem conteúdo real quando usadas?"
+    severity: review
+  - item_id: anti-ai-unneeded-summative-markers
+    question: "'Em suma' e 'em conclusão' aparecem apenas quando necessários?"
+    severity: review
+  - item_id: anti-ai-vague-adjectives
+    question: "Adjetivos e qualificadores têm referente e suporte verificável?"
+    severity: error
+  - item_id: anti-ai-promotional-tone
+    question: "O texto evita tom promocional, afirmações grandiosas e metáforas desnecessárias?"
+    severity: error
+  - item_id: anti-ai-fake-balance
+    question: "Frases excessivamente equilibradas, negações artificiais e construções 'não apenas X, mas também Y' foram revistas contextualmente?"
+    severity: review
+  - item_id: anti-ai-empty-transitions
+    question: "Transições acrescentam progressão lógica em vez de apenas recapitular ou anunciar?"
+    severity: error
+  - item_id: anti-ai-dash-excess
+    question: "Travessões não substituem pontuação e estrutura de forma repetitiva?"
+    severity: review
+  - item_id: anti-ai-question-repetition
+    question: "A pergunta não é repetida mecanicamente antes de ser respondida?"
+    severity: review
+  - item_id: anti-ai-generic-limitations
+    question: "A análise evita listas de limitações genéricas sem consequência específica?"
+    severity: error
+  - item_id: anti-ai-chatbot-fragments
+    question: "Não há fragmentos metadiscursivos com aparência de resposta de chatbot ou comentários editoriais vazios?"
+    severity: error
+  - item_id: anti-ai-unapproved-vocabulary
+    question: "Vocabulário não natural no Reviews foi tratado como sinal candidato, não removido por uma blacklist inventada?"
+    severity: review
+  - item_id: anti-ai-false-details
+    question: "Não há detalhe, referência ou citação fabricada para produzir fluidez ou autoridade?"
+    severity: critical
+  - item_id: anti-ai-root-cause
+    question: "A correção tratou pensamento genérico, hierarquia, evidência, estrutura, repetição e função das frases, não apenas sinais superficiais?"
+    severity: error
+
+candidate_gate:
+  require_all_critical_pass: true
+  detector_score_threshold: null
+  detector_score_must_not_gate: true
+

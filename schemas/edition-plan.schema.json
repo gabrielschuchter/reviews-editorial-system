@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:edition-plan:1",
+  "title": "Plano editorial",
+  "description": "Seleção auditável do tipo de edição, estrutura, conteúdo, exemplares, conclusão interna e configuração visual.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "plan_id",
+    "edition_id",
+    "job_id",
+    "requested_type",
+    "selected_type",
+    "selection_mode",
+    "selection_rationale",
+    "editorial_goal",
+    "audience",
+    "sections",
+    "content_selection",
+    "selected_exemplars",
+    "exemplar_selection_notes",
+    "bottom_line",
+    "visuals",
+    "source_documents",
+    "source_claim_ids",
+    "approval_status",
+    "versions",
+    "provenance"
+  ],
+  "properties": {
+    "plan_id": { "type": "string", "pattern": "^PLAN-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "edition_id": { "type": "string", "pattern": "^EDITION-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "job_id": { "$ref": "#/$defs/jobId" },
+    "requested_type": {
+      "oneOf": [
+        { "$ref": "#/$defs/editionType" },
+        { "type": "null" }
+      ],
+      "description": "Tipo definido pelo editor; nulo quando o roteador precisou recomendar."
+    },
+    "selected_type": { "$ref": "#/$defs/editionType" },
+    "selection_mode": {
+      "type": "string",
+      "enum": ["editor-defined", "system-recommended", "editor-override", "controlled-combination"]
+    },
+    "selection_rationale": { "type": "string", "minLength": 1 },
+    "compatibility_warning": { "type": ["string", "null"] },
+    "editorial_goal": { "type": "string", "minLength": 1 },
+    "audience": { "type": "string", "minLength": 1 },
+    "desired_length": { "type": ["string", "null"] },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/section" }
+    },
+    "content_selection": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/contentDecision" }
+    },
+    "selected_exemplars": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/exemplar" },
+      "description": "Exemplares selecionados; pode ficar vazio quando nenhum exemplar seguro estiver disponível, com justificativa explícita."
+    },
+    "exemplar_selection_notes": { "type": "string", "minLength": 1 },
+    "bottom_line": { "$ref": "#/$defs/bottomLine" },
+    "visuals": { "$ref": "#/$defs/visualConfig" },
+    "source_documents": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/documentId" }
+    },
+    "source_claim_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/claimId" }
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["draft", "internally-approved", "AGUARDANDO REVISÃO EDITORIAL", "APROVADA PARA PUBLICAÇÃO"]
+    },
+    "versions": { "$ref": "#/$defs/versions" },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "$defs": {
+    "jobId": { "type": "string", "pattern": "^JOB-[0-9]{4}-[0-9]{3,}$" },
+    "documentId": { "type": "string", "pattern": "^DOC-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "claimId": { "type": "string", "pattern": "^CLM-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "editionType": {
+      "type": "string",
+      "enum": [
+        "clinical-answer-classic",
+        "clinical-answer-analytical",
+        "guideline-summary",
+        "systematic-review-critical",
+        "clinical-protocol",
+        "thematic-narrative",
+        "primary-study-deep-dive"
+      ]
+    },
+    "section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["section_id", "order", "display_title", "display_title_status", "candidate_titles", "required", "purpose", "source_claim_ids", "selected_outcome_ids"],
+      "properties": {
+        "section_id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "order": { "type": "integer", "minimum": 1 },
+        "display_title": { "type": ["string", "null"] },
+        "display_title_status": { "type": "string", "enum": ["approved", "pending-editorial-decision", "not-applicable"] },
+        "candidate_titles": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "required": { "type": "boolean" },
+        "purpose": { "type": "string", "minLength": 1 },
+        "source_claim_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/claimId" } },
+        "selected_outcome_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^OUT-[A-Za-z0-9][A-Za-z0-9._-]*$" } }
+      }
+    },
+    "contentDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["content_id", "content_kind", "decision", "priority", "reason"],
+      "properties": {
+        "content_id": { "type": "string", "minLength": 1 },
+        "content_kind": { "type": "string", "enum": ["outcome", "effect-estimate", "safety-result", "methodological-issue", "external-criticism", "other"] },
+        "decision": { "type": "string", "enum": ["include", "exclude", "pending"] },
+        "priority": { "type": "string", "enum": ["primary", "critical-for-decision", "important-safety", "interpretation-changing-secondary", "decisive-sensitivity-analysis", "clearly-relevant-exploratory", "other"] },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
+    "exemplar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exemplar_id", "corpus_level", "location", "similarity_reason", "allowed_use"],
+      "properties": {
+        "exemplar_id": { "type": "string", "minLength": 1 },
+        "corpus_level": { "type": "string", "enum": ["A-canonico-atual", "B-exemplo-editorial-exemplar", "C-publicado-historico", "D-material-de-discussao", "E-legado-desatualizado", "F-excluido"] },
+        "location": { "type": "string", "minLength": 1 },
+        "similarity_reason": { "type": "string", "minLength": 1 },
+        "allowed_use": { "type": "string", "enum": ["normative", "style-reference", "historical-context", "contrast-only", "excluded"] }
+      }
+    },
+    "bottomLine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bottom_line", "certainty", "main_reason", "main_limitation", "practical_meaning"],
+      "properties": {
+        "bottom_line": { "type": "string", "minLength": 1 },
+        "certainty": { "type": "string", "minLength": 1 },
+        "main_reason": { "type": "string", "minLength": 1 },
+        "main_limitation": { "type": "string", "minLength": 1 },
+        "practical_meaning": { "type": "string", "minLength": 1 }
+      }
+    },
+    "visualConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "use_article_figures", "use_reviews_design_system", "allow_generated_scientific_images"],
+      "properties": {
+        "enabled": { "type": "boolean", "default": false },
+        "use_article_figures": { "type": "string", "enum": ["conditional", "never"] },
+        "use_reviews_design_system": { "type": "string", "enum": ["conditional", "never"] },
+        "allow_generated_scientific_images": { "const": false }
+      }
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system_version", "skill_version", "editorial_constitution_version", "edition_contract_version", "methodology_rules_version", "style_profile_version", "anti_ai_rules_version", "corpus_version", "design_system_version", "model", "generation_date", "source_documents_hash"],
+      "properties": {
+        "system_version": { "type": "string", "minLength": 1 },
+        "skill_version": { "type": "string", "minLength": 1 },
+        "editorial_constitution_version": { "type": "string", "minLength": 1 },
+        "edition_contract_version": { "type": "string", "minLength": 1 },
+        "methodology_rules_version": { "type": "string", "minLength": 1 },
+        "style_profile_version": { "type": "string", "minLength": 1 },
+        "anti_ai_rules_version": { "type": "string", "minLength": 1 },
+        "corpus_version": { "type": "string", "minLength": 1 },
+        "design_system_version": { "type": ["string", "null"] },
+        "model": { "type": "string", "minLength": 1 },
+        "generation_date": { "type": "string", "format": "date-time" },
+        "source_documents_hash": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_artifacts", "created_at", "created_by", "method"],
+      "properties": {
+        "source_artifacts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "created_at": { "type": "string", "format": "date-time" },
+        "created_by": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "notes": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

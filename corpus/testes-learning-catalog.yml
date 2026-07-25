@@ -1,0 +1,307 @@
+{
+  "catalog_version": "0.1.0",
+  "catalog_status": "editor-approved-learning-source",
+  "source_folder": {
+    "id": "1-l8YAR19a9pu63rpysZ8BgqsZ6znzQv1",
+    "name": "Testes",
+    "url": "https://drive.google.com/drive/folders/1-l8YAR19a9pu63rpysZ8BgqsZ6znzQv1",
+    "source_archive_root_id": "1eIfDPteYjjijHv-u9JPMkgfvVSY0fv6f",
+    "read_only": true
+  },
+  "editorial_decision": {
+    "recorded_at": "2026-07-25",
+    "authority": "explicit-editor-instruction-in-codex-task",
+    "decision": "A pasta Testes é fonte crucial e prioritária para o aprendizado do sistema.",
+    "quality_boundary": "As versões finais são próximas do ideal, mas ainda não chegam ao ideal e nunca devem ser tratadas como exemplos perfeitos.",
+    "classification": "B-referencias-proximas-do-ideal-com-limitacoes",
+    "canonical_level_a_created": false
+  },
+  "selection_policy": {
+    "training_exemplars": [
+      "01-hipertensao-esc-2024",
+      "02-sangramento-gi-baixo-acg-2023",
+      "03-drge-acg-2022",
+      "04-dor-musculoesqueletica-apa-2024",
+      "05-pratica-psicologica-apa-2021",
+      "06-nutricao-cancer-cabeca-pescoco-aspen-2026"
+    ],
+    "holdout_package": "07-sii-acg-2021",
+    "holdout_reason": "Caso mais distinto: reconstrução de manuscrito externo, útil para testar generalização sem recuperação direta.",
+    "holdout_is_reversible": true,
+    "never_assume_perfection": true,
+    "human_review_always_required": true
+  },
+  "records": [
+    {
+      "record_id": "drive:1xbVmcvM7giBPHUeJIOseimaObxe2F7KO3SczOCQ__QY",
+      "source_system": "google-drive",
+      "source_id": "1xbVmcvM7giBPHUeJIOseimaObxe2F7KO3SczOCQ__QY",
+      "item_name": "PUBLICAÇÃO FINAL — 01_hipertensao_ESC_2024",
+      "item_path": "Reviews/Testes/REVISÃO FINAL — 7 EDIÇÕES/Edições/PUBLICAÇÃO FINAL — 01_hipertensao_ESC_2024",
+      "web_url": "https://docs.google.com/document/d/1xbVmcvM7giBPHUeJIOseimaObxe2F7KO3SczOCQ__QY/edit",
+      "classification_level": "B",
+      "classification_label": "referência próxima do ideal, com limitações conhecidas",
+      "classification_status": "approved",
+      "classification_approved_by": "editor-user",
+      "classification_approved_at": "2026-07-25",
+      "quality_status": "near-ideal-with-known-limitations",
+      "known_limitations": [
+        "Não representa o ideal definitivo nem uma especificação encerrada.",
+        "Aprovação editorial humana final permanece obrigatória."
+      ],
+      "holdout": false,
+      "editorial_metadata": {
+        "package_id": "01-hipertensao-esc-2024",
+        "edition_type": "guideline-summary",
+        "study_design": "clinical-guideline",
+        "sections": []
+      }
+    },
+    {
+      "record_id": "drive:1QhReosd1Mec_VkR0IAuPacwxWESuDaJg9-DP1H60Z1s",
+      "source_system": "google-drive",
+      "source_id": "1QhReosd1Mec_VkR0IAuPacwxWESuDaJg9-DP1H60Z1s",
+      "item_name": "PUBLICAÇÃO FINAL — 02_sangramento_GI_baixo_ACG_2023",
+      "item_path": "Reviews/Testes/REVISÃO FINAL — 7 EDIÇÕES/Edições/PUBLICAÇÃO FINAL — 02_sangramento_GI_baixo_ACG_2023",
+      "web_url": "https://docs.google.com/document/d/1QhReosd1Mec_VkR0IAuPacwxWESuDaJg9-DP1H60Z1s/edit",
+      "classification_level": "B",
+      "classification_label": "referência próxima do ideal, com limitações conhecidas",
+      "classification_status": "approved",
+      "classification_approved_by": "editor-user",
+      "classification_approved_at": "2026-07-25",
+      "quality_status": "near-ideal-with-known-limitations",
+      "known_limitations": [
+        "Não representa o ideal definitivo nem uma especificação encerrada.",
+        "A tabela pode omitir temas desenvolvidos no corpo; a seleção precisa ser auditada.",
+        "Aprovação editorial humana final permanece obrigatória."
+      ],
+      "holdout": false,
+      "editorial_metadata": {
+        "package_id": "02-sangramento-gi-baixo-acg-2023",
+        "edition_type": "guideline-summary",
+        "study_design": "clinical-guideline",
+        "sections": []
+      }
+    },
+    {
+      "record_id": "drive:1CtLfbeeT_fLyVSZy4dnecEgZO_34hE44coZw8fvhsKs",
+      "source_system": "google-drive",
+      "source_id": "1CtLfbeeT_fLyVSZy4dnecEgZO_34hE44coZw8fvhsKs",
+      "item_name": "PUBLICAÇÃO FINAL — 03_DRGE_ACG_2022",
+      "item_path": "Reviews/Testes/REVISÃO FINAL — 7 EDIÇÕES/Edições/PUBLICAÇÃO FINAL — 03_DRGE_ACG_2022",
+      "web_url": "https://docs.google.com/document/d/1CtLfbeeT_fLyVSZy4dnecEgZO_34hE44coZw8fvhsKs/edit",
+      "classification_level": "B",
+      "classification_label": "referência próxima do ideal, com limitações conhecidas",
+      "classification_status": "approved",
+      "classification_approved_by": "editor-user",
+      "classification_approved_at": "2026-07-25",
+      "quality_status": "near-ideal-with-known-limitations",
+      "known_limitations": [
+        "Não representa o ideal definitivo nem uma especificação encerrada.",
+        "Aprovação editorial humana final permanece obrigatória."
+      ],
+      "holdout": false,
+      "editorial_metadata": {
+        "package_id": "03-drge-acg-2022",
+        "edition_type": "guideline-summary",
+        "study_design": "clinical-guideline",
+        "sections": []
+      }
+    },
+    {
+      "record_id": "drive:1Sl2DrfXHXtdwSzTmLR_fp0T3q2AIO8h1sBc3Q3jyZtM",
+      "source_system": "google-drive",
+      "source_id": "1Sl2DrfXHXtdwSzTmLR_fp0T3q2AIO8h1sBc3Q3jyZtM",
+      "item_name": "PUBLICAÇÃO FINAL — 04_dor_musculoesqueletica_APA_2024",
+      "item_path": "Reviews/Testes/REVISÃO FINAL — 7 EDIÇÕES/Edições/PUBLICAÇÃO FINAL — 04_dor_musculoesqueletica_APA_2024",
+      "web_url": "https://docs.google.com/document/d/1Sl2DrfXHXtdwSzTmLR_fp0T3q2AIO8h1sBc3Q3jyZtM/edit",
+      "classification_level": "B",
+      "classification_label": "referência próxima do ideal, com limitações conhecidas",
+      "classification_status": "approved",
+      "classification_approved_by": "editor-user",
+      "classification_approved_at": "2026-07-25",
+      "quality_status": "near-ideal-with-known-limitations",
+      "known_limitations": [
+        "Não representa o ideal definitivo nem uma especificação encerrada.",
+        "Aprovação editorial humana final permanece obrigatória."
+      ],
+      "holdout": false,
+      "editorial_metadata": {
+        "package_id": "04-dor-musculoesqueletica-apa-2024",
+        "edition_type": "guideline-summary",
+        "study_design": "clinical-guideline",
+        "sections": []
+      }
+    },
+    {
+      "record_id": "drive:1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA",
+      "source_system": "google-drive",
+      "source_id": "1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA",
+      "item_name": "PUBLICAÇÃO FINAL — 05_pratica_psicologica_baseada_em_evidencias_APA_2021",
+      "item_path": "Reviews/Testes/REVISÃO FINAL — 7 EDIÇÕES/Edições/PUBLICAÇÃO FINAL — 05_pratica_psicologica_baseada_em_evidencias_APA_2021",
+      "web_url": "https://docs.google.com/document/d/1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA/edit",
+      "classification_level": "B",
+      "classification_label": "referência próxima do ideal, com limitações conhecidas",
+      "classification_status": "approved",
+      "classification_approved_by": "editor-user",
+      "classification_approved_at": "2026-07-25",
+      "quality_status": "near-ideal-with-known-limitations",
+      "known_limitations": [
+        "Não representa o ideal definitivo nem uma especificação encerrada.",
+        "Aprovação editorial humana final permanece obrigatória."
+      ],
+      "holdout": false,
+      "editorial_metadata": {
+        "package_id": "05-pratica-psicologica-apa-2021",
+        "edition_type": "guideline-summary",
+        "study_design": "clinical-guideline",
+        "sections": []
+      }
+    },
+    {
+      "record_id": "drive:1uD6LjWWAkYmAVMkjixaxk9kAB1Ob2-NP1lWNvUiuph0",
+      "source_system": "google-drive",
+      "source_id": "1uD6LjWWAkYmAVMkjixaxk9kAB1Ob2-NP1lWNvUiuph0",
+      "item_name": "PUBLICAÇÃO FINAL — 06_nutricao_cancer_cabeca_pescoco_ASPEN_2026",
+      "item_path": "Reviews/Testes/REVISÃO FINAL — 7 EDIÇÕES/Edições/PUBLICAÇÃO FINAL — 06_nutricao_cancer_cabeca_pescoco_ASPEN_2026",
+      "web_url": "https://docs.google.com/document/d/1uD6LjWWAkYmAVMkjixaxk9kAB1Ob2-NP1lWNvUiuph0/edit",
+      "classification_level": "B",
+      "classification_label": "referência próxima do ideal, com limitações conhecidas",
+      "classification_status": "approved",
+      "classification_approved_by": "editor-user",
+      "classification_approved_at": "2026-07-25",
+      "quality_status": "near-ideal-with-known-limitations",
+      "known_limitations": [
+        "Não representa o ideal definitivo nem uma especificação encerrada.",
+        "Aprovação editorial humana final permanece obrigatória."
+      ],
+      "holdout": false,
+      "editorial_metadata": {
+        "package_id": "06-nutricao-cancer-cabeca-pescoco-aspen-2026",
+        "edition_type": "guideline-summary",
+        "study_design": "clinical-guideline",
+        "sections": []
+      }
+    },
+    {
+      "record_id": "drive:1Vs8WCdiQkL_T2rHyl1mRGyeoATO1I-B3ZpSViEI9EyY",
+      "source_system": "google-drive",
+      "source_id": "1Vs8WCdiQkL_T2rHyl1mRGyeoATO1I-B3ZpSViEI9EyY",
+      "item_name": "PUBLICAÇÃO FINAL — 07_SII_ACG_2021",
+      "item_path": "Reviews/Testes/REVISÃO FINAL — 7 EDIÇÕES/Edições/PUBLICAÇÃO FINAL — 07_SII_ACG_2021",
+      "web_url": "https://docs.google.com/document/d/1Vs8WCdiQkL_T2rHyl1mRGyeoATO1I-B3ZpSViEI9EyY/edit",
+      "classification_level": "B",
+      "classification_label": "referência próxima do ideal, com limitações conhecidas",
+      "classification_status": "approved",
+      "classification_approved_by": "editor-user",
+      "classification_approved_at": "2026-07-25",
+      "quality_status": "near-ideal-with-known-limitations",
+      "known_limitations": [
+        "Não representa o ideal definitivo nem uma especificação encerrada.",
+        "Caso reconstruído a partir de manuscrito externo; diferenças de origem exigem cautela.",
+        "Aprovação editorial humana final permanece obrigatória."
+      ],
+      "holdout": true,
+      "editorial_metadata": {
+        "package_id": "07-sii-acg-2021",
+        "edition_type": "guideline-summary",
+        "study_design": "clinical-guideline",
+        "sections": []
+      }
+    }
+  ],
+  "packages": [
+    {
+      "package_id": "01-hipertensao-esc-2024",
+      "folder_id": "1MWqJ7q7l5Sc3Q26UHScnpKKBIV58vE-S",
+      "source_pdf_id": "1zUZDHxAknxInrtQ1bPcjZLVLA3LlPNH6",
+      "initial_document_id": "1lawsIcvlwOm_wYYaChdh0EyVZx28CeOoGwloVom0Wvs",
+      "revised_document_id": "1KxZ3cLxMURfMH2YOND1wkdE3mRCBkBZwA9vsgY-kEQE",
+      "working_audit_id": "1QmFzSZxCYuw_lADI_v4rXBWxDK6I8c8axDYZwxoSTxY",
+      "final_publication_id": "1xbVmcvM7giBPHUeJIOseimaObxe2F7KO3SczOCQ__QY",
+      "final_audit_id": "1vtP7TMO_8k7ga-IZejmH8OdNO_-Vtl0Fkpg21FMM518"
+    },
+    {
+      "package_id": "02-sangramento-gi-baixo-acg-2023",
+      "folder_id": "1RI7YheS-drOmOr5HLEXGlKn7bg-RxgSd",
+      "source_pdf_id": "1Afkyxh9b4QoxjlKYXru09B0xnkVcV2Vn",
+      "initial_document_id": "1QGIeFKrT1prKdXdsHLI6gwX3XoFt1Wewq28vXDqyHtg",
+      "old_docx_id": "1WZq7Nh1V7zUbgTNlLIFpQGlQ22xRzakS",
+      "revised_document_id": "1H6X2407zeGrc3ggD1phyQOxF7WbJaag5EUFADisperQ",
+      "human_minimal_corrections_id": "1gkO0tWQKmv92rncYw7JlgCDF6GIXR4JGby5Q9sS3sTQ",
+      "working_audit_id": "1pcNnv84a0fNr6F2BhK5HaQViwgeQ_vXKGjv72t_R3VY",
+      "comparison_learning_id": "1r-TewK_9W0s9SSlQ-4pm757uud7LjY5NoRcJNcQJfvU",
+      "integral_change_log_id": "1XX6_w41Snt-1WBIDbDNStQA_OJ8nW2HKSNmW-tTt-UE",
+      "final_publication_id": "1QhReosd1Mec_VkR0IAuPacwxWESuDaJg9-DP1H60Z1s",
+      "final_audit_id": "16Tc4oiL48yrwaXWpyyFQKwqlMYFhqt0UjER0rT27P50"
+    },
+    {
+      "package_id": "03-drge-acg-2022",
+      "folder_id": "1nE3KDeDvdtxvtnw8rtLVT6RkJGVYZ066",
+      "source_pdf_id": "1Vq2EEu5tMUNv-ZQ9480XdsRe3AAdv6fp",
+      "initial_document_id": "1xQzohTXUYKVvdX0Z40E0nsbxhItEc1IxoqprFDjQQ8I",
+      "revised_document_id": "1QRat6FXhexXssN0-RjB_GI7HdP0NnDTgEbj9cZaFvS4",
+      "working_audit_id": "1TDtUV6H2DFFuIaDSY_aeDNcVK9MBf557Kj5WKhempvM",
+      "final_publication_id": "1CtLfbeeT_fLyVSZy4dnecEgZO_34hE44coZw8fvhsKs",
+      "final_audit_id": "1Wbb6jtFLMkuJ-aNa6E6oyBCwvNNGqDFAWz0WcWWNyY8"
+    },
+    {
+      "package_id": "04-dor-musculoesqueletica-apa-2024",
+      "folder_id": "1LyBDcS0hEtKnUqxa2owg93JMVEBqPX-E",
+      "source_pdf_id": "1ihUwUy2ffV00dJVBT8h9NVRS6OE9W5j8",
+      "initial_document_id": "11ihQv5gGxlUv6T6GxzGJC9azviMHyhsi3gUFmLr10wA",
+      "revised_document_id": "11KZK1Bx_tvzdmIY19OEU-0osr02yfDorobner5BI3X0",
+      "working_audit_id": "1dFatQlh8r0hd-9xRDLQBiQ2p75thuigj4APC-sr7XPM",
+      "final_publication_id": "1Sl2DrfXHXtdwSzTmLR_fp0T3q2AIO8h1sBc3Q3jyZtM",
+      "final_audit_id": "1JPcYMOQR25q1LKyFPw1ZN34TdIiWQ8WuIVuZxHklUy8"
+    },
+    {
+      "package_id": "05-pratica-psicologica-apa-2021",
+      "folder_id": "1GofuOnh73mW_t13KlaBa1ooQe2_UzA5P",
+      "source_pdf_id": "1BjyYNnPHJHHFwbhpDyFENxAgTzBYievc",
+      "initial_document_id": "1rttkR_gm6YH88_FMmLJmIsWaZPdH_mhwZpn8D0rW2MA",
+      "revised_document_id": "1EdUmymIWsEuBDd0hr8YRXCsL6dHwK-qJGXDD4n1ApiA",
+      "working_audit_id": "13Ty8Li6PfJChhJSPxdZl18FBpVaZr5WqDFE73cvyHtI",
+      "final_publication_id": "1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA",
+      "final_audit_id": "1ssSL9hzLoIlKts8VEKW8cW9vQt66uwepQg3e_-SCrvw"
+    },
+    {
+      "package_id": "06-nutricao-cancer-cabeca-pescoco-aspen-2026",
+      "folder_id": "1cR_vC9lJGJRt9tYRGrqG8pZeXdjbqBZ1",
+      "source_pdf_id": "1eqncNhvnO0ScEkrws93Zp02pyrT_a_mR",
+      "initial_document_id": "1NNlJ3BmJKX2B_UNMuXyeVIkkQN1CXmUG9sGNZh19Eyk",
+      "revised_document_id": "1XEWf0zi1QC477YpNUMZMYsWg_6f7spw3O8UUzMFz-aI",
+      "working_audit_id": "19wpbGU9lVAVehckqfO5LekJj4P_YgkkSRx7EeHHCSQk",
+      "final_publication_id": "1uD6LjWWAkYmAVMkjixaxk9kAB1Ob2-NP1lWNvUiuph0",
+      "final_audit_id": "1PIgwCWQyeKBDuRjQJkGhHvQUwSQOdldekip0BrUYMwo"
+    },
+    {
+      "package_id": "07-sii-acg-2021",
+      "folder_id": "1PANnWHOhcy5X0TS0KNEN-wvOkaeLXLpF",
+      "source_pdf_id": "1-vOsUInWaeBNoxvYsC40orweLLhsIHeQ",
+      "initial_document_id": "1z8YzC4WgYVPhKSHhs-o30hMdmeBiSpJaIaGJvSw8LDU",
+      "final_publication_id": "1Vs8WCdiQkL_T2rHyl1mRGyeoATO1I-B3ZpSViEI9EyY",
+      "final_audit_id": "10b7-sXUEV3pYTKB4ARGtnLUlv6ohSWRrXsp2O2Qy7pQ"
+    }
+  ],
+  "learning_documents": [
+    {
+      "id": "1Evg4T6TsmmO-YQ3sWc-nqhJ3iR8K8hI5ti7IZ3AHrWw",
+      "name": "RELATÓRIO MESTRE — revisão final de 7 edições",
+      "role": "high-priority-provisional-learning-analysis",
+      "canonical": false
+    },
+    {
+      "id": "1r-TewK_9W0s9SSlQ-4pm757uud7LjY5NoRcJNcQJfvU",
+      "name": "APRENDIZADO EDITORIAL — 02_sangramento_GI_baixo — comparação integral",
+      "role": "high-priority-provisional-learning-analysis",
+      "canonical": false
+    },
+    {
+      "id": "1XX6_w41Snt-1WBIDbDNStQA_OJ8nW2HKSNmW-tTt-UE",
+      "name": "REGISTRO INTEGRAL PARA IA — 02_sangramento_GI_baixo — alterações antigas vs revisadas",
+      "role": "before-after-evidence",
+      "canonical": false
+    }
+  ]
+}

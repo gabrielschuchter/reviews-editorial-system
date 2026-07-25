@@ -1,0 +1,63 @@
+schema_version: "1.0.0"
+contract_version: "0.1.0"
+edition_type_id: primary-study-deep-dive
+contract_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    section: "9.7. Análise extensa de estudo primário"
+
+purpose: "Analisar em profundidade um ensaio ou outro estudo primário que exceda o escopo de uma resposta clínica comum."
+selection:
+  use_when:
+    - central-source-is-a-primary-study
+    - study-requires-deeper-analysis-than-a-common-clinical-answer
+
+required_inputs:
+  - validated-primary-study-document
+  - supplements-when-available
+  - protocol-or-registration-when-available
+  - statistical-analysis-plan-when-available
+  - verified-results
+  - methodological-review
+  - inference-boundaries
+  - external-scrutiny-log
+
+structure_policy:
+  fixed_sequence: false
+  display_titles_status: pending-editorial-definition
+  possible_modules:
+    - rationale
+    - method
+    - results
+    - statistical-analysis
+    - critical-analysis
+    - relation-to-literature
+    - implications
+    - unanswered-questions
+  module_inclusion_rule: include-only-when-relevant-to-the-study-and-editorial-question
+
+constraints:
+  must:
+    - explain-what-the-design-can-and-cannot-support
+    - prioritize-primary-and-decision-critical-outcomes
+    - distinguish-result-evidence-inference-and-hypothesis
+    - connect-critical-points-to-the-bottom-line
+  must_not:
+    - reproduce-the-article
+    - list-every-result-for-completeness
+    - infer-causality-beyond-design
+    - promote-exploratory-findings
+    - invent-mechanisms-or-explanations
+
+pending_editorial_decisions:
+  - id: primary-study-deep-dive-module-order-and-display-titles
+    status: pending-editorial-decision
+    note: "O prompt lista módulos possíveis, não uma arquitetura fixa."

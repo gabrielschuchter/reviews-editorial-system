@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reviews Writer"
+  short_description: "Produz edicoes Reviews com evidencia auditavel"
+  default_prompt: "Use $reviews-writer para criar uma edicao Reviews a partir de fontes cientificas validadas."

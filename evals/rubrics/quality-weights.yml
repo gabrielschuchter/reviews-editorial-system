@@ -1,0 +1,10 @@
+{
+  "factual_accuracy": 30,
+  "methodological_quality": 25,
+  "statistical_accuracy": 15,
+  "editorial_structure": 10,
+  "reviews_style_fidelity": 10,
+  "clinical_relevance": 5,
+  "coherence_and_naturalness": 5,
+  "approval_note": "Pontuação alta não autoriza publicação."
+}

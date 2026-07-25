@@ -1,0 +1,112 @@
+schema_version: "1.0.0"
+checklist_version: "0.1.0"
+checklist_id: statistical
+checklist_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "2.7. Ausência de significância não é ausência de efeito"
+      - "2.8. Mudança intragrupo não demonstra efeito da intervenção"
+      - "2.9. Desfechos exploratórios devem permanecer exploratórios"
+      - "14.6. Verificador estatístico"
+      - "21.2. Estatística"
+
+execution:
+  independent_evaluation: true
+  run_at:
+    - statistical-and-methodological-audit
+    - final-audit
+  allowed_results:
+    - pass
+    - fail
+    - not_applicable
+    - blocked
+    - not_checked
+  required_record_fields:
+    - item_id
+    - result
+    - evidence_locations
+    - notes
+    - auditor
+    - checked_at
+
+failure_policy:
+  critical: block-candidate
+  error: return-for-correction
+  review: require-documented-disposition
+  not_checked: block-candidate
+
+items:
+  - item_id: statistical-between-versus-within
+    question: "A afirmação de efeito usa comparação entre grupos, interação ou contraste compatível com o desenho, e não mudança intragrupo isolada?"
+    severity: critical
+    evidence_required: model-or-comparison-source
+  - item_id: statistical-adjustment
+    question: "Estimativas ajustadas e não ajustadas foram distinguidas e a escolha usada no texto foi justificada?"
+    severity: error
+    evidence_required: analysis-source-and-selection-rationale
+  - item_id: statistical-scale
+    question: "Escala, direção favorável e interpretação de pontos estão corretas?"
+    severity: critical
+    evidence_required: scale-definition-and-result-source
+  - item_id: statistical-unit
+    question: "Unidades e conversões estão corretas e consistentes?"
+    severity: critical
+    evidence_required: source-unit-and-any-conversion-record
+  - item_id: statistical-denominator
+    question: "Denominadores, populações de análise e dados ausentes foram considerados na interpretação?"
+    severity: critical
+    evidence_required: analysis-population-and-denominator-map
+  - item_id: statistical-confidence-interval
+    question: "Estimativa e intervalo foram conferidos, incluindo seus limites, direção e compatibilidade com benefício ou dano?"
+    severity: critical
+    evidence_required: numerical-verification-record
+  - item_id: statistical-nonsignificance
+    question: "Resultados não significativos foram interpretados por estimativa, intervalo, precisão e relevância, sem equivaler p > 0,05 a ausência de efeito?"
+    severity: critical
+    evidence_required: estimate-interval-and-interpretation
+  - item_id: statistical-multiplicity
+    question: "Número de desfechos, grupos, tempos e comparações, bem como ajustes de multiplicidade, foram considerados?"
+    severity: error
+    evidence_required: analysis-plan-or-article-and-review-note
+  - item_id: statistical-subgroups
+    question: "Subgrupos foram pré-especificados quando possível, sustentados por teste de interação e descritos com precisão compatível?"
+    severity: critical
+    evidence_required: subgroup-analysis-source
+  - item_id: statistical-interaction
+    question: "Diferenças entre grupos, subgrupos ou tempos não foram inferidas pela comparação de significâncias separadas?"
+    severity: critical
+    evidence_required: interaction-or-contrast-source
+  - item_id: statistical-exploratory-status
+    question: "Resultados exploratórios permanecem identificados como exploratórios e fora da conclusão principal salvo justificativa explícita?"
+    severity: critical
+    evidence_required: prespecification-and-content-selection-record
+  - item_id: statistical-model-design-fit
+    question: "O modelo ou contraste interpretado corresponde ao desenho, incluindo crossover, cluster, fatorial, equivalência ou não inferioridade quando aplicável?"
+    severity: critical
+    evidence_required: design-classification-and-analysis-source
+  - item_id: statistical-derived-calculations
+    question: "Cálculos derivados estão marcados como cálculos do sistema, com entradas, fórmula, unidade e conferência documentadas?"
+    severity: critical
+    evidence_required: calculation-record
+  - item_id: statistical-magnitude-language
+    question: "Caracterizações de magnitude têm valores de suporte e critério clínico ou estatístico explicitamente justificável?"
+    severity: error
+    evidence_required: values-and-criterion
+  - item_id: statistical-absolute-effects
+    question: "Medidas absolutas disponíveis e úteis foram consideradas sem fabricar riscos de base?"
+    severity: review
+    evidence_required: source-or-not-applicable-rationale
+
+candidate_gate:
+  require_all_critical_pass: true
+  permitted_wrong-effect-direction_count: 0
+  permitted_unlabeled-derived-calculation_count: 0
+

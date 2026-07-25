@@ -1,0 +1,36 @@
+{
+  "case_id": "EV-FAC-002",
+  "category": "factual",
+  "input": {
+    "draft": "A amostra incluiu 12 participantes.",
+    "claims": [
+      {
+        "job_id": "JOB-2026-001",
+        "claim_id": "CLM-0120",
+        "claim_text": "A amostra incluiu 120 participantes.",
+        "claim_type": "result",
+        "source_document": "DOC-article",
+        "page": 4,
+        "table": null,
+        "figure": null,
+        "section": "Results",
+        "source_excerpt": "The sample included 120 participants.",
+        "verification_status": "verified",
+        "allowed_in_public_draft": true,
+        "calculation_method": null,
+        "notes": null,
+        "provenance": {
+          "extracted_at": "2026-07-25T12:00:00Z",
+          "extracted_by": "eval",
+          "method": "manual-double-check",
+          "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "notes": null
+        }
+      }
+    ]
+  },
+  "expected": {
+    "passed": false,
+    "critical_rule": "unmapped-number"
+  }
+}

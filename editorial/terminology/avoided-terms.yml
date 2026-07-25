@@ -1,0 +1,112 @@
+schema_version: "1.0.0"
+config_version: "0.1.0"
+config_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "2. Princípios inegociáveis"
+      - "12. Escrita no estilo do Reviews"
+      - "13. Revisão anti-IA"
+
+interpretation_policy:
+  context_required: true
+  literal_word_blacklist: false
+  automatic_replacement: forbidden
+  automatic_authorship_inference: forbidden
+
+prohibited_claim_patterns:
+  - id: absent-method-from-absent-report
+    pattern_description: "Afirmar que um método não foi realizado apenas porque não foi relatado."
+    example_to_avoid: "O estudo não realizou ocultação da alocação."
+    allowed_only_if: documentary-evidence-confirms-nonperformance
+    severity: error
+    approval_status: specified-by-master-prompt
+  - id: no-effect-from-nonsignificance
+    pattern_description: "Concluir ausência de efeito usando apenas p > 0,05."
+    example_to_avoid: "Não houve efeito."
+    allowed_only_if: effect-estimate-interval-precision-and-clinical-compatibility-support-that-conclusion
+    severity: critical
+    approval_status: specified-by-master-prompt
+  - id: magnitude-without-values
+    pattern_description: "Chamar efeito de pequeno, moderado ou grande sem os valores e sem critério justificável."
+    terms:
+      - pequeno
+      - moderado
+      - grande
+    severity: error
+    approval_status: specified-by-master-prompt
+  - id: within-group-as-treatment-effect
+    pattern_description: "Usar mudança intragrupo, ou significância em um grupo e não no outro, como efeito entre grupos."
+    severity: critical
+    approval_status: specified-by-master-prompt
+  - id: surrogate-as-clinical-benefit
+    pattern_description: "Converter automaticamente biomarcador, imagem, escore intermediário ou mecanismo em benefício clínico."
+    severity: critical
+    approval_status: specified-by-master-prompt
+  - id: vague-generalizability-criticism
+    pattern_description: "Criticar aplicabilidade sem característica, modificador de efeito e população afetada."
+    example_to_avoid: "A amostra reduz a generalização dos resultados."
+    severity: error
+    approval_status: specified-by-master-prompt
+  - id: generic-future-research-ending
+    pattern_description: "Encerrar apenas com fórmula genérica sobre necessidade de novos estudos."
+    example_to_avoid: "Mais estudos são necessários."
+    allowed_only_if:
+      - unresolved-uncertainty-is-specified
+      - limiting-problem-is-specified
+      - useful-future-study-design-is-specified
+    severity: error
+    approval_status: specified-by-master-prompt
+  - id: external-criticism-as-established-fact
+    pattern_description: "Apresentar crítica externa, comentário de fórum ou PubPeer como fato estabelecido sem verificação e classificação."
+    severity: critical
+    approval_status: specified-by-master-prompt
+
+style_signals_for_review:
+  enforcement: heuristic-not-ban
+  approval_status: provisional-candidate-signals
+  source_note: "O prompt exige avaliação contextual e proíbe usar a lista como detector ou lista mecânica de palavras proibidas."
+  signals:
+    - id: repeated-evidence-suggests
+      surface_forms:
+        - "a evidência sugere"
+      trigger: repeated-or-unspecified-use
+    - id: additionally-repetition
+      surface_forms:
+        - "além disso"
+      trigger: repeated-mechanical-transition
+    - id: in-this-context-repetition
+      surface_forms:
+        - "nesse contexto"
+      trigger: repeated-mechanical-transition
+    - id: important-to-highlight
+      surface_forms:
+        - "é importante destacar"
+        - "vale ressaltar"
+      trigger: empty-editorial-comment
+    - id: generally
+      surface_forms:
+        - "de maneira geral"
+      trigger: vague-or-repeated-qualifier
+    - id: formulaic-closing
+      surface_forms:
+        - "em suma"
+        - "em conclusão"
+      trigger: unnecessary-formulaic-ending
+    - id: artificial-binary-expansion
+      surface_forms:
+        - "não apenas X, mas também Y"
+      trigger: artificial-or-repeated-parallelism
+
+candidate_corpus_avoidances:
+  status: empty-pending-corpus-curation-and-editor-approval
+  entries: []
+

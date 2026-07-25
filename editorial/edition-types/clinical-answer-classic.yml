@@ -1,0 +1,222 @@
+schema_version: "1.0.0"
+contract_version: "0.1.0"
+edition_type_id: clinical-answer-classic
+contract_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  corpus_preferences_applied: false
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    section: "9.1. Resposta clínica clássica"
+
+purpose: "Responder uma pergunta clínica de modo direto e conduzir o leitor pela síntese, interpretação e implicações."
+conceptual_inspiration:
+  source: "Cochrane Clinical Answer"
+  role: inspiration-only
+  constraint: "A edição deve seguir o padrão próprio do Reviews."
+
+selection:
+  use_when:
+    - a-direct-clinical-question-is-central
+    - a-short-answer-can-precede-a-more-detailed-evidence-synthesis-without-unacceptable-redundancy
+  reconsider_when:
+    - initial-answer-and-detailed-results-would-be-substantially-redundant
+  alternative_on_redundancy: clinical-answer-analytical
+
+required_inputs:
+  - validated-evidence-package
+  - verified-numerical-results
+  - methodological-review
+  - inference-boundaries
+  - approved-or-provisional-editorial-plan
+
+title_contract:
+  requirements:
+    - objective
+    - descriptive
+    - direct
+  prohibitions:
+    - artificial-originality
+    - clickbait
+
+subtitle_contract:
+  must_explain:
+    - investigated-question
+    - evidence-type
+    - central-population-or-context
+
+structure:
+  sequence_fixed_by_prompt: true
+  sections:
+    - section_id: introduction
+      display_title: null
+      display_title_status: not-applicable
+      requirement: required
+      must:
+        - contextualize-problem
+        - explain-relevance
+        - present-study-or-synthesis-rationale
+        - indicate-what-was-investigated
+        - prepare-edition-analysis
+      must_not:
+        - anticipate-all-results-in-detail
+
+    - section_id: clinical-question-and-answer
+      display_title: "Pergunta e resposta clínica"
+      display_title_status: approved
+      requirement: required
+      subsections:
+        - subsection_id: clinical-question
+          display_title: "Pergunta clínica"
+          display_title_status: approved
+          framing_policy:
+            use_when_adequate:
+              - PICO
+              - PECO
+              - PICOT
+              - population-test-outcome
+              - recommendation-and-clinical-context
+            force_pico: false
+        - subsection_id: clinical-answer
+          display_title: "Resposta clínica"
+          display_title_status: approved
+          must:
+            - answer-directly
+            - present-main-results
+            - prioritize-primary-outcomes
+            - include-decisive-safety-outcomes
+            - include-point-estimate-when-available
+            - include-confidence-interval-when-available
+            - include-certainty-when-assessed
+            - include-absolute-measures-when-available-and-useful
+          must_not:
+            - indiscriminately-include-all-results
+            - characterize-magnitude-without-supporting-values-and-criterion
+        - subsection_id: clinical-interpretation
+          display_title: "Interpretação clínica"
+          display_title_status: approved
+          preferred_paragraph_count:
+            min: 1
+            max: 2
+            enforcement: preference-not-hard-limit
+          must:
+            - interpret-already-presented-numbers
+            - explain-what-results-mean
+            - state-clinical-relevance
+            - communicate-uncertainty
+            - produce-comprehensible-conclusion
+          may:
+            - omit-repeated-numbers-when-no-new-quantitative-claim-is-made
+          must_not:
+            - mechanically-repeat-all-values
+
+    - section_id: evidence-synthesis
+      display_title: "Síntese da evidência"
+      display_title_status: approved
+      requirement: required
+      subsections:
+        - subsection_id: population
+          display_title: "População"
+          display_title_status: approved
+          trial_fields:
+            - sample
+            - context
+            - relevant-criteria
+            - central-characteristics
+            - randomized-count
+            - analyzed-count
+            - duration
+          systematic_review_fields:
+            - included-designs
+            - study-count
+            - participant-count
+            - main-population-characteristics
+            - clinically-relevant-heterogeneity
+        - subsection_id: outcomes
+          display_title: "Desfechos"
+          display_title_status: approved
+          allowed_organization:
+            - efficacy-and-safety
+            - evaluated-outcomes
+          requirements:
+            - objective
+            - simple
+          must_not:
+            - become-discussion
+        - subsection_id: narrative-description
+          display_title: null
+          display_title_status: not-applicable
+          must_briefly_present:
+            - what-was-investigated
+            - evidence-organization
+            - central-comparisons
+            - result-presentation-plan
+        - subsection_id: results-by-outcome
+          display_title: null
+          display_title_status: not-applicable
+          selection_order:
+            - primary-outcomes
+            - decision-critical-outcomes
+            - safety
+            - important-secondary-outcomes
+            - interpretation-changing-results
+          constraints:
+            - do-not-include-exploratory-results-for-completeness
+            - internally-record-why-each-result-was-included-or-omitted
+        - subsection_id: caveats
+          display_title: "Ressalvas"
+          display_title_status: approved
+          requirements:
+            - specific-critical-analysis
+            - distinguish-source-criticism-from-system-assessment
+            - assess-relevance-before-inclusion
+          must_not:
+            - merely-copy-author-limitations
+          external_scrutiny_classifications:
+            - documented-criticism
+            - plausible-concern
+            - unconfirmed-allegation
+            - author-acknowledged-problem
+            - verified-discrepancy
+
+    - section_id: implications
+      display_title: "Implicações"
+      display_title_status: approved
+      requirement: required
+      subdivisions:
+        fixed: false
+        include_only_if_relevant:
+          - clinical-practice
+          - shared-decision-making
+          - values-and-preferences
+          - patient-selection
+          - monitoring
+          - safety
+          - applicability
+          - policy
+          - research
+      patient_content_policy:
+        default_subheading: null
+        automatic_use_of_what-to-tell-the-patient: false
+      values_and_preferences_when_relevant:
+        must_discuss:
+          - decisions-that-depend-on-them
+          - benefits-and-risks-to-weigh
+          - why-people-may-decide-differently
+
+quantitative_claim_policy:
+  rule: "Nenhuma afirmação quantitativa ou de magnitude pode aparecer sem os valores que a sustentam."
+  missing_adequate_estimate:
+    allow_small_moderate_large_label: false
+    exception: explicit-criterion-and-justification
+
+completion_requirements:
+  - direct-answer-present
+  - result-selection-rationale-recorded-internally
+  - uncertainty-proportional-to-evidence
+  - clear-bottom-line

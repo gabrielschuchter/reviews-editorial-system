@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:effect-estimate:1",
+  "title": "Estimativa de efeito",
+  "description": "Registro verificável de estimativa, intervalo, unidade, direção e origem do cálculo.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "estimate_id",
+    "job_id",
+    "study_id",
+    "outcome_id",
+    "comparison",
+    "timepoint",
+    "estimate_type",
+    "value",
+    "reported_value",
+    "unit",
+    "confidence_interval",
+    "p_value",
+    "comparison_scope",
+    "adjustment",
+    "direction",
+    "value_origin",
+    "verification",
+    "sources",
+    "provenance"
+  ],
+  "properties": {
+    "estimate_id": { "$ref": "#/$defs/estimateId" },
+    "job_id": { "$ref": "#/$defs/jobId" },
+    "study_id": { "$ref": "#/$defs/studyId" },
+    "outcome_id": { "$ref": "#/$defs/outcomeId" },
+    "comparison": { "type": "string", "minLength": 1 },
+    "timepoint": { "type": "string", "minLength": 1 },
+    "estimate_type": {
+      "type": "string",
+      "enum": [
+        "risk-ratio",
+        "odds-ratio",
+        "hazard-ratio",
+        "rate-ratio",
+        "risk-difference",
+        "incidence-rate-difference",
+        "mean-difference",
+        "standardized-mean-difference",
+        "median-difference",
+        "regression-coefficient",
+        "correlation",
+        "number-needed-to-treat",
+        "prevalence",
+        "proportion",
+        "other"
+      ]
+    },
+    "value": {
+      "type": ["number", "null"],
+      "description": "Valor numérico normalizado; nulo quando a fonte não permite estimativa numérica."
+    },
+    "reported_value": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Representação literal do valor na fonte."
+    },
+    "unit": { "type": ["string", "null"] },
+    "confidence_interval": {
+      "oneOf": [
+        { "$ref": "#/$defs/confidenceInterval" },
+        { "type": "null" }
+      ]
+    },
+    "p_value": { "type": ["number", "string", "null"] },
+    "comparison_scope": {
+      "type": "string",
+      "enum": ["entre-grupos", "intragrupo", "interacao-grupo-tempo", "diferenca-de-mudancas", "outro"],
+      "description": "Distingue comparações entre grupos de mudanças intragrupo."
+    },
+    "adjustment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adjusted", "model", "covariates"],
+      "properties": {
+        "adjusted": { "type": "boolean" },
+        "model": { "type": ["string", "null"] },
+        "covariates": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "denominators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group", "n"],
+        "properties": {
+          "group": { "type": "string", "minLength": 1 },
+          "n": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "direction": {
+      "type": "string",
+      "enum": ["favorece-intervencao", "favorece-comparador", "sem-direcao-clara", "nao-determinada"]
+    },
+    "value_origin": {
+      "type": "string",
+      "enum": ["relatado-pela-fonte", "calculo-derivado-do-sistema"]
+    },
+    "derivation": {
+      "description": "Método e entradas do cálculo; obrigatório para cálculos do sistema.",
+      "oneOf": [
+        { "$ref": "#/$defs/derivation" },
+        { "type": "null" }
+      ]
+    },
+    "verification": { "$ref": "#/$defs/verification" },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/sourceLocator" }
+    },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "value_origin": { "const": "calculo-derivado-do-sistema" } },
+        "required": ["value_origin"]
+      },
+      "then": {
+        "required": ["derivation"],
+        "properties": { "derivation": { "$ref": "#/$defs/derivation" } }
+      },
+      "else": {
+        "properties": { "derivation": { "type": "null" } }
+      }
+    }
+  ],
+  "$defs": {
+    "jobId": { "type": "string", "pattern": "^JOB-[0-9]{4}-[0-9]{3,}$" },
+    "studyId": { "type": "string", "pattern": "^STUDY-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "outcomeId": { "type": "string", "pattern": "^OUT-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "estimateId": { "type": "string", "pattern": "^EST-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "documentId": { "type": "string", "pattern": "^DOC-[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "confidenceInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "lower", "upper", "reported_as"],
+      "properties": {
+        "level": { "type": "number", "exclusiveMinimum": 0, "maximum": 100 },
+        "lower": { "type": "number" },
+        "upper": { "type": "number" },
+        "reported_as": { "type": "string", "minLength": 1 }
+      }
+    },
+    "derivation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["formula", "inputs", "calculated_at", "calculated_by", "double_checked"],
+      "properties": {
+        "formula": { "type": "string", "minLength": 1 },
+        "inputs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "value", "source"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "value": { "type": ["number", "string"] },
+              "source": { "$ref": "#/$defs/sourceLocator" }
+            }
+          }
+        },
+        "calculated_at": { "type": "string", "format": "date-time" },
+        "calculated_by": { "type": "string", "minLength": 1 },
+        "double_checked": { "type": "boolean" }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "direction_checked", "unit_checked", "denominators_checked", "checked_at", "checked_by", "discrepancies"],
+      "properties": {
+        "status": { "type": "string", "enum": ["verificada", "parcialmente-verificada", "nao-verificada", "ambigua", "divergente"] },
+        "direction_checked": { "type": "boolean" },
+        "unit_checked": { "type": "boolean" },
+        "denominators_checked": { "type": "boolean" },
+        "checked_at": { "type": "string", "format": "date-time" },
+        "checked_by": { "type": "string", "minLength": 1 },
+        "discrepancies": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "sourceLocator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["document_id", "page", "table", "figure", "section", "excerpt"],
+      "properties": {
+        "document_id": { "$ref": "#/$defs/documentId" },
+        "page": { "type": ["integer", "string", "null"], "minimum": 1 },
+        "table": { "type": ["string", "null"] },
+        "figure": { "type": ["string", "null"] },
+        "section": { "type": ["string", "null"] },
+        "excerpt": { "type": ["string", "null"] }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["created_at", "created_by", "method"],
+      "properties": {
+        "created_at": { "type": "string", "format": "date-time" },
+        "created_by": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "notes": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

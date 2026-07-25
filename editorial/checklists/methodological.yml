@@ -1,0 +1,127 @@
+schema_version: "1.0.0"
+checklist_version: "0.1.0"
+checklist_id: methodological
+checklist_status: provisional
+language: pt-BR
+governance:
+  canonical: false
+  operational_use: allowed-for-mvp
+  approval_status: pending-editorial-approval
+  approval_authority: human-editor
+  created_on: "2026-07-22"
+  source_basis:
+    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
+    sections:
+      - "2.4. Toda conclusão deve ter força proporcional à evidência"
+      - "2.5. A análise crítica deve ser específica"
+      - "2.6. Não tratar representatividade como requisito automático"
+      - "14.7. Revisor metodológico"
+      - "14.14. Auditor metodológico adversarial"
+      - "21.3. Metodológica"
+
+execution:
+  independent_evaluation: true
+  run_at:
+    - methodological-review
+    - statistical-and-methodological-audit
+    - final-audit
+  allowed_results:
+    - pass
+    - fail
+    - not_applicable
+    - blocked
+    - not_checked
+  required_record_fields:
+    - item_id
+    - result
+    - evidence_locations
+    - consequence_classification
+    - bottom_line_impact
+    - notes
+    - auditor
+    - checked_at
+
+failure_policy:
+  critical: block-candidate
+  error: return-for-correction
+  review: require-documented-disposition
+  not_checked: block-candidate
+
+critical_point_contract:
+  each_included_criticism_must_identify:
+    - exact-problem
+    - source-location
+    - methodological-importance
+    - possible-bias-imprecision-or-limitation
+    - likely-direction-if-inferable
+    - consequence-as-potential-probable-or-demonstrated
+    - whether-it-changes-conclusion-or-only-certainty
+  checklist-presence-alone_is_sufficient: false
+
+items:
+  - item_id: methodological-design-inference
+    question: "A inferência respeita o desenho e seus limites?"
+    severity: critical
+    evidence_required: study-classification-and-inference-boundaries
+  - item_id: methodological-risk-of-bias
+    question: "Domínios de risco de viés relevantes foram avaliados com base no que está documentado?"
+    severity: critical
+    evidence_required: domain-specific-source-map
+  - item_id: methodological-allocation-and-blinding
+    question: "Alocação, ocultação, cegamento e mensuração foram descritos sem transformar ausência de relato em ausência do método?"
+    severity: critical
+    evidence_required: methods-source-or-explicit-missing-information
+  - item_id: methodological-confounding
+    question: "Confusão, ajuste e modelagem foram avaliados quando pertinentes ao desenho?"
+    severity: critical
+    evidence_required: analysis-source-and-review
+  - item_id: methodological-missing-data
+    question: "Perdas, dados ausentes e população de análise foram avaliados quanto ao possível efeito na interpretação?"
+    severity: error
+    evidence_required: flow-and-analysis-source
+  - item_id: methodological-selectivity
+    question: "Seletividade de desfechos, análises ou relato foi comparada com protocolo, registro ou plano quando disponíveis?"
+    severity: critical
+    evidence_required: cross-document-comparison-or-missing-material-note
+  - item_id: methodological-surrogate
+    question: "Desfecho substituto foi distinguido de benefício percebido pelo paciente ou evento clínico?"
+    severity: critical
+    evidence_required: outcome-classification-and-interpretation
+  - item_id: methodological-applicability
+    question: "Aplicabilidade e transportabilidade foram discutidas com modificadores de efeito plausíveis, sem exigir representatividade automática?"
+    severity: error
+    evidence_required: population-comparison-and-rationale
+  - item_id: methodological-certainty
+    question: "A certeza foi relatada apenas quando avaliada ou inferida com método e justificativa claramente identificados?"
+    severity: critical
+    evidence_required: certainty-source-or-system-assessment-record
+  - item_id: methodological-clinical-relevance
+    question: "Relevância clínica foi avaliada separadamente da significância estatística?"
+    severity: error
+    evidence_required: interpretation-rationale
+  - item_id: methodological-generic-criticism
+    question: "Cada crítica incluída é específica ao estudo e tem consequência explicada?"
+    severity: error
+    evidence_required: critical-point-contract-fields
+  - item_id: methodological-strengths
+    question: "Pontos metodológicos positivos relevantes foram identificados sem compensação artificial?"
+    severity: review
+    evidence_required: source-and-importance
+  - item_id: methodological-external-scrutiny
+    question: "Escrutínio externo foi classificado como crítica documentada, preocupação plausível, alegação não confirmada, problema reconhecido ou discrepância verificada?"
+    severity: critical
+    evidence_required: search-log-and-source
+  - item_id: methodological-author-conclusion
+    question: "A conclusão dos autores foi comparada com os resultados e não adotada automaticamente?"
+    severity: critical
+    evidence_required: author-conclusion-and-system-assessment
+  - item_id: methodological-bottom-line-proportionality
+    question: "O bottom line reflete risco de viés, imprecisão, consistência e demais limitações sem falsa certeza nem vagueza automática?"
+    severity: critical
+    evidence_required: methodological-review-and-bottom-line
+
+candidate_gate:
+  require_all_critical_pass: true
+  permitted_design-incompatible-causal-claims: 0
+  permitted_unclassified-external-criticisms: 0
+
