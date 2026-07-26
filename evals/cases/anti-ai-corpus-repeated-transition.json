@@ -1,0 +1,13 @@
+{
+  "case_id": "EV-AAI-003",
+  "category": "anti-ai",
+  "source_excerpt_id": "DRV-FINAL-07-STYLE-02",
+  "source_role": "regressão de cadência artificial derivada de contraste com publicação final, anonimizada",
+  "input": "Além disso, a primeira decisão depende do risco. Além disso, a segunda decisão depende da população. Além disso, a terceira decisão depende da aplicabilidade.",
+  "expected": {
+    "passed": true,
+    "required_category": "formulaic-transition",
+    "minimum_occurrences": 3,
+    "false_positive_risk": "high"
+  }
+}

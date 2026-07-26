@@ -1,0 +1,46 @@
+{
+  "skill": "reviews-humanizer-ptbr",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "case_id": "SKILL-HUM-POS-001",
+      "kind": "positive",
+      "source_excerpt_id": "DRV-HDB-HUMAN-01",
+      "prompt": "Aplique somente a correção confirmada, gere diff e preserve o conteúdo do subtítulo.",
+      "input": "Uma síntese crítica das principais recomendações atualizadas.",
+      "decision": {"status": "confirmed", "reviewed_by": "editorial-human-reviewer"},
+      "expected_artifact": "humanization-diff com before/after e uma operação aplicada",
+      "acceptance_criteria": ["texto final: As principais recomendações atualizadas.", "protected_content.preserved=true", "status=completed"]
+    },
+    {
+      "case_id": "SKILL-HUM-NEG-001",
+      "kind": "negative",
+      "source_excerpt_id": "DRV-HDB-HUMAN-APPROVED-03",
+      "prompt": "Recuse qualquer alteração enquanto a ocorrência não tiver confirmação humana identificada.",
+      "input": "Uma síntese crítica das principais recomendações atualizadas.",
+      "decision": {"status": "candidate"},
+      "expected_artifact": "diff sem alteração",
+      "acceptance_criteria": ["status=no-confirmed-findings", "texto idêntico ao original"]
+    },
+    {
+      "case_id": "SKILL-HUM-LIMIT-001",
+      "kind": "boundary",
+      "source_excerpt_id": "DRV-HDB-HUMAN-CLAIM-07",
+      "prompt": "Remova apenas a moldura confirmada, use o ledger e reaudite número, unidade e modalidade.",
+      "input": "Vale destacar que a estratégia restritiva usa limiar de 7 g/dL. A recomendação é condicional, com evidência de baixa qualidade.",
+      "decision": {"status": "confirmed", "reviewed_by": "editorial-human-reviewer"},
+      "expected_artifact": "diff com reauditoria de claim ledger",
+      "acceptance_criteria": ["preserva 7 g/dL", "preserva condicional", "ledger passa"]
+    },
+    {
+      "case_id": "SKILL-HUM-REG-001",
+      "kind": "regression",
+      "source_excerpt_id": "DRV-HDB-HUMAN-EXCEPTION-02",
+      "prompt": "Registre a rejeição humana e preserve integralmente o texto fonte.",
+      "input": "Uma síntese crítica das principais recomendações atualizadas.",
+      "decision": {"status": "confirmed", "disposition": "rejected", "reviewed_by": "editorial-human-reviewer"},
+      "expected_artifact": "registro de rejeição humana sem mutação",
+      "acceptance_criteria": ["status=rejected", "texto idêntico", "motivo preservado no diff"]
+    }
+  ]
+}

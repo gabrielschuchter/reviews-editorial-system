@@ -1,0 +1,12 @@
+{
+  "case_id": "EV-AAI-004",
+  "category": "anti-ai",
+  "source_excerpt_id": "DRV-HDB-HUMAN-APPROVED-03",
+  "source_role": "escrita humana aprovada, anonimizada",
+  "input": "A escolha depende da população, da condição e da certeza disponível. Por fim, a aplicação precisa respeitar as exceções descritas na fonte.",
+  "expected": {
+    "passed": true,
+    "forbidden_category": "formulaic-transition",
+    "artifact": "relatório sem acusação por uma única transição humana"
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Framing jornalístico Reviews"
+  short_description: "Definir contexto, tensão e guardrails proporcionais"
+  default_prompt: "Use $reviews-journalistic-framing para enquadrar uma pauta do Reviews sem exceder os claims e limites já validados."

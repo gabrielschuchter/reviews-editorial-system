@@ -1,0 +1,17 @@
+{
+  "case_id": "EV-HUM-002",
+  "category": "anti-ai",
+  "source_excerpt_id": "DRV-HDB-HUMAN-APPROVED-03",
+  "source_role": "limite de edição humana aprovada, anonimizado",
+  "input": "Uma síntese crítica das principais recomendações atualizadas.",
+  "expected": {
+    "passed": true,
+    "humanizer_status": "no-confirmed-findings",
+    "expected_after": "Uma síntese crítica das principais recomendações atualizadas.",
+    "artifact": "diff sem mutação quando não existe confirmação humana"
+  },
+  "humanizer": {
+    "decision": "candidate",
+    "required_category": "self-importance-announcement"
+  }
+}

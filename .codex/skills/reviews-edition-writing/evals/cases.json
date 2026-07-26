@@ -1,0 +1,72 @@
+{
+  "skill": "reviews-edition-writing",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "case_id": "WRITE-POS-001",
+      "kind": "positive",
+      "prompt": "Redija uma candidata de diretriz usando ledger, appraisal, brief e framing aprovados.",
+      "input": {
+        "required_artifacts": [
+          "extraction/claim-ledger.json",
+          "analysis/methodological-review.json",
+          "planning/editorial-brief.json",
+          "planning/framing-memo.json"
+        ],
+        "recommendation_has_population_condition_action": true
+      },
+      "expected_artifact": "drafts/v1-content.md e drafts/claim-coverage.json",
+      "acceptance_criteria": [
+        "Cada claim sensível possui claim_id e localizador.",
+        "O título não excede o limite de inferência.",
+        "A candidata segue para auditoria, não para publicação."
+      ]
+    },
+    {
+      "case_id": "WRITE-NEG-001",
+      "kind": "negative",
+      "prompt": "Escreva o lead com uma redução de 12 pontos sem fonte, unidade ou denominador.",
+      "input": {
+        "claim_ledger_status": "missing",
+        "number": "12"
+      },
+      "expected_artifact": "registro de bloqueio em extraction/missing-information.json",
+      "acceptance_criteria": [
+        "Nenhuma frase factual nova é redigida.",
+        "O retorno pede fonte, unidade, grupo e denominador.",
+        "O número não é normalizado por suposição."
+      ]
+    },
+    {
+      "case_id": "WRITE-BND-001",
+      "kind": "boundary",
+      "prompt": "Inclua uma recomendação cujo texto tem ação, mas não registra certeza nem exceção.",
+      "input": {
+        "recommendation": "Realizar procedimento X.",
+        "certainty": null,
+        "exception": null
+      },
+      "expected_artifact": "tabela marcada como incompleta e handoff para provenance",
+      "acceptance_criteria": [
+        "A linha não é completada por inferência.",
+        "O texto distingue ausência de informação de recomendação fraca.",
+        "A validação de tabela é solicitada."
+      ]
+    },
+    {
+      "case_id": "WRITE-REG-001",
+      "kind": "regression",
+      "prompt": "Transforme redução de biomarcador em benefício clínico global.",
+      "input": {
+        "outcome_type": "surrogate",
+        "claim": "A redução do marcador demonstrou benefício clínico global."
+      },
+      "expected_artifact": "drafts/sensitive-claims.json com bloqueio de inferência",
+      "acceptance_criteria": [
+        "A candidata não apresenta o substituto como benefício ao paciente.",
+        "O claim é devolvido para appraisal.",
+        "A formulação preserva a modalidade epistêmica."
+      ]
+    }
+  ]
+}

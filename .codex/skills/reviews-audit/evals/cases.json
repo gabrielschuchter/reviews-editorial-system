@@ -1,0 +1,73 @@
+{
+  "skill": "reviews-audit",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "case_id": "AUDIT-POS-001",
+      "kind": "positive",
+      "prompt": "Audite uma recomendação que preserva população, condição, força, certeza e localizador.",
+      "input": {
+        "candidate_version": "v4",
+        "ledger_claim_id": "CLM-021",
+        "source_locator": "Tabela 3",
+        "recommendation_complete": true
+      },
+      "expected_artifact": "audits/factual-audit.json com cobertura e nenhum blocker inventado",
+      "acceptance_criteria": [
+        "O report registra a fonte e o escopo auditado.",
+        "A ausência de finding não é apresentada como aprovação humana.",
+        "A candidata não é modificada pela auditoria."
+      ]
+    },
+    {
+      "case_id": "AUDIT-NEG-001",
+      "kind": "negative",
+      "prompt": "Aprove um título que promete redução de mortalidade sem claim ou fonte.",
+      "input": {
+        "headline": "Intervenção reduz mortalidade",
+        "claim_ledger_match": null
+      },
+      "expected_artifact": "finding blocker de source_fidelity ou inference",
+      "acceptance_criteria": [
+        "O finding cita o título e a ausência de suporte.",
+        "A liberação é bloqueada.",
+        "O report devolve a redação ou provenance."
+      ]
+    },
+    {
+      "case_id": "AUDIT-BND-001",
+      "kind": "boundary",
+      "prompt": "Audite uma candidata cujo suplemento necessário não está acessível.",
+      "input": {
+        "supplement_available": false,
+        "affected_claims": [
+          "CLM-044"
+        ]
+      },
+      "expected_artifact": "coverage incompleta e finding unresolved",
+      "acceptance_criteria": [
+        "O auditor não declara risco baixo nem passagem completa.",
+        "O report identifica claim afetado e material necessário.",
+        "A saída não inventa defeito de condução."
+      ]
+    },
+    {
+      "case_id": "AUDIT-REG-001",
+      "kind": "regression",
+      "prompt": "Remova um fecho repetitivo que também contém exceção de segurança.",
+      "input": {
+        "closing_contains": [
+          "recapitulação",
+          "exceção de segurança"
+        ],
+        "corpus_observation": "REV-STYLE-004"
+      },
+      "expected_artifact": "finding que preserva a exceção e pede edição localizada",
+      "acceptance_criteria": [
+        "A auditoria não recomenda apagar a exceção.",
+        "O finding distingue repetição de conteúdo clinicamente necessário.",
+        "A mudança proposta exige reauditoria do claim afetado."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:framing-memo:1",
+  "title": "Memorando de enquadramento jornalístico proporcional",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["central_tension", "reader_decision", "headline_options", "selected_angle", "counterpoint", "evidence_boundary", "must_not_imply"],
+  "properties": {
+    "central_tension": {"type": "string", "minLength": 1},
+    "reader_decision": {"type": "string", "minLength": 1},
+    "headline_options": {"type": "array", "minItems": 1},
+    "selected_angle": {"type": "string", "minLength": 1},
+    "counterpoint": {"type": "string", "minLength": 1},
+    "evidence_boundary": {"type": "string", "minLength": 1},
+    "must_not_imply": {"type": "array", "minItems": 1}
+  }
+}

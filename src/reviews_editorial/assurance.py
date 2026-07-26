@@ -137,18 +137,66 @@ def validate_audit_report(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def scan_skill_tree(skills_root: str | Path) -> dict[str, Any]:
-    """Scanner local conservador de instruções e comandos de alto risco."""
+    """Inspect instructions and bundled code for high-risk behavior.
+
+    This local scanner is a deterministic, defence-in-depth equivalent to a
+    third-party skill scanner. It rejects hazardous content; a clean result is
+    not a certification of safety and does not replace human review.
+    """
 
     patterns = {
-        "prompt-injection": r"ignore (?:all )?(?:previous|prior) instructions",
-        "secret-exfiltration": r"(?:print|echo|upload|send).{0,80}(?:api[_ -]?key|token|secret|password)",
-        "unsafe-pipe": r"(?:curl|wget).{0,120}\|\s*(?:sh|bash|powershell)",
+        "prompt-injection": (
+            r"\b(?:ignore|disregard|override|bypass)\b.{0,100}\b(?:previous|prior|system|developer)\b.{0,100}\b(?:instruction|prompt|rule)\b",
+            "critical",
+        ),
+        "secret-exfiltration": (
+            r"\b(?:print|echo|upload|send|post|exfiltrat\w*)\b.{0,100}\b(?:api[_ -]?key|access[_ -]?token|secret|password|credential)\b",
+            "critical",
+        ),
+        "unsafe-pipe": (
+            r"\b(?:curl|wget|invoke-webrequest|irm)\b.{0,160}\|\s*(?:sh|bash|zsh|powershell|iex)\b",
+            "critical",
+        ),
+        "remote-code-execution": (
+            r"\b(?:invoke-expression|iex)\s*\(?\s*(?:\$\(|&\s*\(?\s*invoke-webrequest|irm)\b",
+            "critical",
+        ),
+        "credential-file-read": (
+            r"\b(?:cat|type|get-content|readfile)\b.{0,100}(?:\.env(?:\.|\b)|id_rsa|credentials\.json|\.aws[/\\]credentials)",
+            "major",
+        ),
+        "destructive-unscoped-command": (
+            r"\b(?:rm\s+-rf|remove-item)\b.{0,120}(?:\$home|~|\*|/)(?:\s|$)",
+            "critical",
+        ),
     }
-    findings = []
     root = Path(skills_root)
-    for path in sorted(root.rglob("SKILL.md")):
-        content = path.read_text(encoding="utf-8", errors="replace")
-        for rule, pattern in patterns.items():
-            if re.search(pattern, content, flags=re.IGNORECASE):
-                findings.append({"rule": rule, "severity": "critical", "path": str(path), "status": "suspected"})
-    return {"passed": not findings, "findings": findings, "files_checked": len(list(root.rglob("SKILL.md")))}
+    paths = [
+        path for path in sorted(root.rglob("*"))
+        if path.is_file() and path.suffix.casefold() in {".md", ".py", ".sh", ".ps1", ".yaml", ".yml", ".json"}
+    ]
+    findings: list[dict[str, Any]] = []
+    for path in paths:
+        content = path.read_text(encoding="utf-8-sig", errors="replace")
+        for rule, (pattern, severity) in patterns.items():
+            match = re.search(pattern, content, flags=re.IGNORECASE | re.DOTALL)
+            if match:
+                findings.append(
+                    {
+                        "rule": rule,
+                        "severity": severity,
+                        "path": str(path),
+                        "line": content.count("\n", 0, match.start()) + 1,
+                        "status": "suspected",
+                        "evidence": match.group(0)[:240],
+                    }
+                )
+    critical = [item for item in findings if item["severity"] == "critical"]
+    return {
+        "passed": not critical,
+        "scanner_version": "1.0.0-local-equivalent",
+        "scope": "SKILL.md, references, eval manifests and bundled executable scripts",
+        "limitations": "Ausência de achados não certifica segurança; dependências externas continuam sujeitas a revisão humana.",
+        "findings": findings,
+        "files_checked": len(paths),
+    }

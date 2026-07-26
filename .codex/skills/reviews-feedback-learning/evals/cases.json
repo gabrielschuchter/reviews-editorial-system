@@ -1,0 +1,73 @@
+{
+  "skill": "reviews-feedback-learning",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "case_id": "LEARN-POS-001",
+      "kind": "positive",
+      "prompt": "Compare candidata e revisão humana que explicita exceção clínica sem alterar o referente.",
+      "input": {
+        "candidate_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revised_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "feedback_type": "native-portuguese-correction",
+        "protected_exception_preserved": true,
+        "editor_approval": "pending"
+      },
+      "expected_artifact": "feedback/version-comparison.json e feedback/feedback-records.json",
+      "acceptance_criteria": [
+        "A alteração é rastreada com before, after e razão.",
+        "O record não promove regra automaticamente.",
+        "A proposta inclui reauditoria de claim quando a exceção for factual."
+      ]
+    },
+    {
+      "case_id": "LEARN-NEG-001",
+      "kind": "negative",
+      "prompt": "Promova uma troca isolada de conector para toda a escrita do Reviews.",
+      "input": {
+        "feedback_type": "style-correction",
+        "occurrences": 1,
+        "editor_approval": null,
+        "regression_test": null
+      },
+      "expected_artifact": "learning-proposals.json com status local-only ou candidate bloqueado",
+      "acceptance_criteria": [
+        "A proposta não alcança approved.",
+        "O resultado explica ausência de escopo, regressão ou aprovação.",
+        "Nenhum arquivo de regra é alterado."
+      ]
+    },
+    {
+      "case_id": "LEARN-BND-001",
+      "kind": "boundary",
+      "prompt": "Classifique um comentário humano que diz apenas que a frase soa melhor.",
+      "input": {
+        "comment": "Soa melhor.",
+        "source_support": null,
+        "repeat_pattern": false
+      },
+      "expected_artifact": "feedback record com baixa confiança e escopo local",
+      "acceptance_criteria": [
+        "A decisão é preservada como preferência local.",
+        "Não há alegação de padrão geral.",
+        "A saída pede critério observável para promoção futura."
+      ]
+    },
+    {
+      "case_id": "LEARN-REG-001",
+      "kind": "regression",
+      "prompt": "Simplifique antiagregantes não aspirina removendo a exceção clínica.",
+      "input": {
+        "before": "antiagregantes não aspirina",
+        "proposed_after": "antiagregantes",
+        "corpus_observation": "REV-STYLE-005"
+      },
+      "expected_artifact": "regressão que bloqueia remoção da exceção",
+      "acceptance_criteria": [
+        "A exceção permanece explícita.",
+        "A mudança não é tratada como sinonímia livre.",
+        "O caso aponta para fonte ou claim para reauditoria."
+      ]
+    }
+  ]
+}

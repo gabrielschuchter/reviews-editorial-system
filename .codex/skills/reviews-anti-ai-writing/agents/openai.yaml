@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reviews Anti-AI Audit"
+  short_description: "Classify artificial writing patterns safely"
+  default_prompt: "Use $reviews-anti-ai-writing to audit this Reviews draft without rewriting it."

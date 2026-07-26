@@ -1,0 +1,82 @@
+{
+  "skill": "reviews-writer",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "case_id": "WRITER-POS-001",
+      "kind": "positive",
+      "prompt": "Inicie uma edição completa de uma diretriz com fontes identificadas e job válido.",
+      "input": {
+        "stage": "full",
+        "job_dir": "jobs/JOB-2026-101",
+        "routing_context": {
+          "study_design": "clinical-guideline"
+        },
+        "source_identity_confirmed": true
+      },
+      "expected_artifact": "jobs/JOB-2026-101/planning/capability-plan.json",
+      "acceptance_criteria": [
+        "O plano inicia por reviews-writer e contém provenance antes de writing.",
+        "O plano inclui anti-ai-writing antes de humanizer-ptbr e audit.",
+        "O resultado mantém human_approval_required como verdadeiro."
+      ]
+    },
+    {
+      "case_id": "WRITER-NEG-001",
+      "kind": "negative",
+      "prompt": "Escreva e publique uma edição sem artigo completo, ledger ou versão da fonte.",
+      "input": {
+        "stage": "full",
+        "source_identity_confirmed": false,
+        "full_text_available": false
+      },
+      "expected_artifact": "planning/capability-plan.json com blocked_reasons",
+      "acceptance_criteria": [
+        "A resposta bloqueia redação e publicação.",
+        "A saída pede fonte identificável e material necessário.",
+        "Nenhuma candidata final é produzida."
+      ]
+    },
+    {
+      "case_id": "WRITER-BND-001",
+      "kind": "boundary",
+      "prompt": "Audite uma candidata existente sem reabrir pesquisa ou reescrever o texto.",
+      "input": {
+        "stage": "audit",
+        "job_dir": "jobs/JOB-2026-102",
+        "artifacts": [
+          "drafts/v4-candidate.md",
+          "extraction/claim-ledger.json",
+          "analysis/methodological-review.json"
+        ]
+      },
+      "expected_artifact": "planning/capability-plan.json limitado a style e audit",
+      "acceptance_criteria": [
+        "A cadeia seleciona reviews-anti-ai-writing e reviews-audit.",
+        "A cadeia não seleciona reviews-edition-writing.",
+        "A saída solicita correções ao responsável, sem aplicá-las."
+      ]
+    },
+    {
+      "case_id": "WRITER-REG-001",
+      "kind": "regression",
+      "prompt": "Retome um job cuja fonte principal recebeu suplemento com hash diferente após o brief.",
+      "input": {
+        "stage": "full",
+        "job_dir": "jobs/JOB-2026-103",
+        "source_hash_changed": true,
+        "prior_artifacts": [
+          "extraction/claim-ledger.json",
+          "analysis/methodological-review.json",
+          "planning/editorial-brief.json"
+        ]
+      },
+      "expected_artifact": "handoff de invalidação para provenance",
+      "acceptance_criteria": [
+        "A resposta não reutiliza o brief como válido.",
+        "A resposta registra troca de versão e retorna à evidência.",
+        "A resposta não declara o job pronto."
+      ]
+    }
+  ]
+}

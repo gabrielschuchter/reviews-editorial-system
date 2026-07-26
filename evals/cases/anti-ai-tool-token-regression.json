@@ -1,0 +1,12 @@
+{
+  "case_id": "EV-AAI-005",
+  "category": "anti-ai",
+  "source_excerpt_id": "DRV-SII-RAW-CONTAMINATION-01",
+  "source_role": "regressão de texto interno contaminado, anonimizada",
+  "input": "Segundo turn0search0, o resultado foi favorável.",
+  "expected": {
+    "passed": false,
+    "critical_rule": "tool-token-leak",
+    "artifact": "anti-ai-report bloqueante com ocorrência localizada"
+  }
+}

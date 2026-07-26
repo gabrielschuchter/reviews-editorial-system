@@ -1,0 +1,75 @@
+{
+  "skill": "reviews-editorial-brief",
+  "version": "1.0.0",
+  "execution": {
+    "mode": "manual-contract-with-existing-tools",
+    "required_commands": [
+      "python scripts/edition_router.py <context.json> --output <job_dir>/planning/edition-routing.json",
+      "python scripts/validate_schema.py <job_dir>/planning/editorial-brief.json --schema editorial-brief"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "BRIEF-POS-001",
+      "kind": "positive",
+      "prompt": "Planeje edição com resultado primário liberado e segurança imprecisa.",
+      "input": {
+        "claims": ["resultado primário liberado", "segurança imprecisa"],
+        "tension": "benefício possível versus dano incerto"
+      },
+      "expected_artifact": "planning/editorial-brief.json",
+      "acceptance_criteria": [
+        "must_include contém eficácia e segurança.",
+        "most_important_uncertainty descreve a imprecisão de segurança.",
+        "headline_constraints proíbe benefício líquido e segurança universal."
+      ]
+    },
+    {
+      "case_id": "BRIEF-NEG-001",
+      "kind": "negative",
+      "prompt": "Avalie título que promete reduzir mortalidade quando o ledger só contém mudança de biomarcador.",
+      "input": {
+        "ledger_claim": "mudança de biomarcador",
+        "proposed_headline": "Intervenção reduz mortalidade"
+      },
+      "expected_artifact": "planning/title-options.md",
+      "acceptance_criteria": [
+        "O título proposto é rejeitado ou não entra entre as opções aprovadas.",
+        "must_not_claim bloqueia benefício clínico não medido.",
+        "O título remanescente nomeia marcador ou incerteza de forma proporcional."
+      ]
+    },
+    {
+      "case_id": "BRIEF-BND-001",
+      "kind": "boundary",
+      "prompt": "Faça brief para diretriz com recomendação condicional, população restrita e certeza baixa.",
+      "input": {
+        "source_type": "diretriz clínica",
+        "recommendation": "condicional",
+        "population_scope": "restrita",
+        "certainty": "baixa"
+      },
+      "expected_artifact": "planning/edition-routing.json",
+      "acceptance_criteria": [
+        "edition_type é guideline-summary ou override humano documentado.",
+        "População, condição e força/certidão relatadas aparecem no brief.",
+        "Nenhuma frase de saída transforma a recomendação em regra universal."
+      ]
+    },
+    {
+      "case_id": "BRIEF-REG-001",
+      "kind": "regression",
+      "prompt": "Replaneje outline que cria uma seção para cada resultado secundário.",
+      "input": {
+        "claims": ["muitos secundários", "um primário", "evento de segurança material"],
+        "outline_initial": "uma seção por resultado secundário"
+      },
+      "expected_artifact": "planning/selection-rationale.md",
+      "acceptance_criteria": [
+        "Resultado primário e segurança aparecem por função editorial.",
+        "Secundários sem impacto têm motivo de omissão registrado.",
+        "Nenhuma seção existe apenas para exibir completude."
+      ]
+    }
+  ]
+}

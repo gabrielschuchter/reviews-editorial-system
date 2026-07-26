@@ -1,6 +1,6 @@
 # Arquitetura do sistema editorial
 
-> Status desta documentação: núcleo local verificável `0.2.0`, ainda sem piloto editorial científico completo. Ela descreve o que o repositório implementa hoje e separa isso do que ainda depende do Codex, do conector do Google Drive ou de decisão editorial humana.
+> Status desta documentação: núcleo local verificável `0.3.0`, com 11 skills operacionais, contratos e evals; ainda sem piloto editorial científico completo. Ela descreve o que o repositório implementa hoje e separa isso do que ainda depende do Codex, do conector do Google Drive ou de decisão editorial humana.
 
 ## Objetivo e limites
 
@@ -47,9 +47,9 @@ fontes locais imutáveis ─┬─> inventário e classificação proposta
 
 | Camada | Responsabilidade | Natureza atual |
 |---|---|---|
-| `.codex/skills/reviews-writer/` | Instruir o Codex, ordenar etapas, gates e delegações | Orquestração por instruções; não é um serviço autônomo |
+| `.codex/skills/reviews-*/` | Orquestrar e executar capacidades editoriais especializadas, com contratos e evals | 11 bundles Codex-native; cada um contém gates, referências, manifestos de eval e caminhos de artefatos |
 | `editorial/` | Regras, contratos de edição, terminologia e checklists | Configuração versionada; itens provisórios não são canônicos |
-| `schemas/` | Contratos de dados de jobs, estudos, claims, issues e ativos | Treze JSON Schemas Draft 2020-12 |
+| `schemas/` | Contratos de dados de jobs, estudos, claims, issues e ativos | 22 JSON Schemas Draft 2020-12 |
 | `src/reviews_editorial/` | Núcleo determinístico compartilhado | Python 3.11+, sem dependências obrigatórias |
 | `scripts/` | Entradas de linha de comando | Adaptadores finos sobre o núcleo Python |
 | `corpus/` | Manifesto, curadoria, exemplares e holdout | Deve ser populado por inventário e aprovação; não contém autoridade automática |
@@ -65,7 +65,8 @@ fontes locais imutáveis ─┬─> inventário e classificação proposta
 - valida a presença dos artefatos exigidos por estado e permite avanço de apenas um estado por vez;
 - recomenda um tipo de edição por regras explícitas e registra incompatibilidades;
 - valida registros numéricos, claims, feedback e um subconjunto de JSON Schema;
-- aplica heurísticas simples de auditoria factual e anti-IA;
+- valida proveniência por claim, appraisal por desfecho, framing proporcional e auditorias anti-IA por ocorrência;
+- aplica humanização mínima somente após confirmação humana, com diff e reauditoria de claims;
 - seleciona somente exemplares A/B que já tenham sido aprovados e anotados;
 - exporta Markdown para um DOCX simples, compatível com importação no Google Docs;
 - prepara um manifesto seguro de transferência para o Drive.

@@ -1,0 +1,42 @@
+{
+  "skill": "reviews-anti-ai-writing",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "case_id": "SKILL-AAI-POS-001",
+      "kind": "positive",
+      "source_excerpt_id": "DRV-HDB-HUMAN-01",
+      "prompt": "Audite o trecho sem reescrever e produza uma ocorrência localizada quando houver autoqualificação.",
+      "input": "Uma síntese crítica das principais recomendações atualizadas.",
+      "expected_artifact": "anti-ai-report com self-importance-announcement localizado",
+      "acceptance_criteria": ["uma ocorrência", "confidence=high", "false_positive_risk=low", "nenhuma reescrita"]
+    },
+    {
+      "case_id": "SKILL-AAI-NEG-001",
+      "kind": "negative",
+      "source_excerpt_id": "DRV-HDB-HUMAN-APPROVED-03",
+      "prompt": "Audite o trecho, distinguindo uma transição isolada de um padrão formulaico repetido.",
+      "input": "A decisão depende da população. Por fim, respeite as exceções da fonte.",
+      "expected_artifact": "anti-ai-report sem formulaic-transition",
+      "acceptance_criteria": ["passed=true", "uma transição isolada não gera alerta"]
+    },
+    {
+      "case_id": "SKILL-AAI-LIMIT-001",
+      "kind": "boundary",
+      "source_excerpt_id": "DRV-FINAL-07-STYLE-02",
+      "prompt": "Audite as transições e devolva um candidato por ocorrência, sem corrigir a redação.",
+      "input": "Além disso, a primeira decisão depende do risco. Além disso, a segunda depende da população.",
+      "expected_artifact": "anti-ai-report com duas ocorrências formulaic-transition",
+      "acceptance_criteria": ["uma ocorrência por trecho", "false_positive_risk=high", "sem mutação"]
+    },
+    {
+      "case_id": "SKILL-AAI-REG-001",
+      "kind": "regression",
+      "source_excerpt_id": "DRV-SII-RAW-CONTAMINATION-01",
+      "prompt": "Audite a passagem e bloqueie qualquer vazamento de token interno de ferramenta.",
+      "input": "Segundo turn0search0, o resultado foi favorável.",
+      "expected_artifact": "anti-ai-report bloqueante",
+      "acceptance_criteria": ["category=tool-token-leak", "severity=critical", "passed=false"]
+    }
+  ]
+}

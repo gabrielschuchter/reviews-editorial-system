@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+from _bootstrap import REPO_ROOT
 from reviews_editorial.assurance import validate_audit_report, validate_editorial_brief, validate_source_roles
 from reviews_editorial.io import load_data
 

@@ -1,0 +1,80 @@
+{
+  "skill": "reviews-source-provenance",
+  "version": "1.0.0",
+  "execution": {
+    "mode": "manual-contract-with-existing-tools",
+    "required_commands": [
+      "python scripts/normalize_documents.py <job_dir>",
+      "python scripts/validate_job.py <job_dir> --confirm-documents <reviewer>",
+      "python scripts/extract_evidence.py <job_dir> --input <structured-extraction.json>",
+      "python scripts/verify_numbers.py <job_dir>",
+      "python scripts/build_claim_ledger.py <job_dir>",
+      "python scripts/validate_provenance.py <job_dir>/extraction/claim-ledger.json <job_dir>/normalized/source-roles.json --output <job_dir>/extraction/claim-provenance-report.json"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "PROV-POS-001",
+      "kind": "positive",
+      "prompt": "Mapeie artigo completo, suplemento e registro quando o resultado primário está no artigo e a sensibilidade no suplemento.",
+      "input": {
+        "sources": ["artigo completo", "suplemento", "registro"],
+        "result_location": "artigo",
+        "sensitivity_location": "suplemento"
+      },
+      "expected_artifact": "extraction/claim-provenance-report.json",
+      "acceptance_criteria": [
+        "Cada fonte possui source_id e papel distinto.",
+        "O claim primário aponta para artigo e o claim de sensibilidade aponta para suplemento.",
+        "O relatório de proveniência retorna valid=true para os claims públicos."
+      ]
+    },
+    {
+      "case_id": "PROV-NEG-001",
+      "kind": "negative",
+      "prompt": "Receba apenas press release e título de notícia, sem artigo completo ou tabela de resultados.",
+      "input": {
+        "sources": ["press release", "título de notícia"],
+        "full_text_available": false
+      },
+      "expected_artifact": "normalized/missing-materials.md",
+      "acceptance_criteria": [
+        "A ausência do artigo e o escopo da busca estão registrados.",
+        "O press release não recebe papel primary-evidence.",
+        "Nenhum claim de efeito, número ou conduta é autorizado para rascunho público."
+      ]
+    },
+    {
+      "case_id": "PROV-BND-001",
+      "kind": "boundary",
+      "prompt": "Rastreie uma diretriz em DOCX cuja seção e tabela são identificáveis, mas a paginação não é confiável.",
+      "input": {
+        "source_type": "diretriz DOCX",
+        "stable_pages": false,
+        "stable_sections": true
+      },
+      "expected_artifact": "extraction/source-map.md",
+      "acceptance_criteria": [
+        "O localizador usa seção, título de tabela e excerto verificável.",
+        "Nenhuma página é inventada.",
+        "Versão e entidade publicadora foram conferidas."
+      ]
+    },
+    {
+      "case_id": "PROV-REG-001",
+      "kind": "regression",
+      "prompt": "Confronte texto com 12 eventos e tabela com 14 para o mesmo resultado aparente.",
+      "input": {
+        "text_events": 12,
+        "table_events": 14,
+        "same_result_apparent": true
+      },
+      "expected_artifact": "analysis/critical-issues.md",
+      "acceptance_criteria": [
+        "A discrepância registra valores e localizadores das duas fontes.",
+        "Claims numéricos conflitantes não são liberados para rascunho público.",
+        "A ação de reconciliação está explicitada."
+      ]
+    }
+  ]
+}

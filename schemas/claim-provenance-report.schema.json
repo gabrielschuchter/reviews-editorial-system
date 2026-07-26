@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:claim-provenance-report:1",
+  "title": "Relatório de proveniência por claim",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["valid", "claims_checked", "public_claims_checked", "issues", "boundary"],
+  "properties": {
+    "valid": {"type": "boolean"},
+    "claims_checked": {"type": "integer", "minimum": 0},
+    "public_claims_checked": {"type": "integer", "minimum": 0},
+    "issues": {"type": "array"},
+    "boundary": {"type": "string", "minLength": 1}
+  }
+}

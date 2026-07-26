@@ -1,0 +1,18 @@
+{
+  "case_id": "EV-HUM-004",
+  "category": "anti-ai",
+  "source_excerpt_id": "DRV-HDB-HUMAN-EXCEPTION-02",
+  "source_role": "regressão de exceção editorial humana, anonimizada",
+  "input": "Uma síntese crítica das principais recomendações atualizadas.",
+  "expected": {
+    "passed": true,
+    "humanizer_status": "no-confirmed-findings",
+    "expected_after": "Uma síntese crítica das principais recomendações atualizadas.",
+    "artifact": "registro de rejeição humana sem alteração de texto"
+  },
+  "humanizer": {
+    "decision": "rejected",
+    "reviewed_by": "editorial-human-reviewer",
+    "reason": "Citação histórica preservada por decisão editorial."
+  }
+}

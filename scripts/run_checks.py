@@ -8,6 +8,7 @@ from reviews_editorial.corpus import load_manifest_with_catalogs
 from reviews_editorial.exemplars import select_exemplars
 from reviews_editorial.io import load_data
 from reviews_editorial.jobs import validate_job_shape
+from reviews_editorial.skill_validation import validate_skill_tree
 from run_evals import evaluate_cases
 
 REQUIRED_ROOT_FILES = (
@@ -120,6 +121,14 @@ def main() -> int:
             for case in eval_report["failed_cases"]
         )
 
+    skill_report = validate_skill_tree(REPO_ROOT / ".codex" / "skills")
+    if not skill_report["valid"]:
+        for skill in skill_report["results"]:
+            for issue in skill.get("issues", []):
+                issues.append(f"skill {skill.get('skill')}: {issue}")
+        if skill_report["missing_skills"]:
+            issues.append(f"skills obrigatórias ausentes: {skill_report['missing_skills']}")
+
     report = {
         "passed": not issues,
         "issues": issues,
@@ -129,6 +138,11 @@ def main() -> int:
             "total": eval_report["total"],
             "passed": eval_report["passed_count"],
             "failed": eval_report["failed_count"],
+        },
+        "skills": {
+            "required": len(skill_report["required_skills"]),
+            "validated": sum(1 for item in skill_report["results"] if item["valid"]),
+            "missing": skill_report["missing_skills"],
         },
     }
     print(json.dumps(report, ensure_ascii=False, indent=2))

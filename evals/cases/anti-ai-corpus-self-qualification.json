@@ -1,0 +1,13 @@
+{
+  "case_id": "EV-AAI-002",
+  "category": "anti-ai",
+  "source_excerpt_id": "DRV-HDB-HUMAN-01",
+  "source_role": "par candidato-revisão humana, anonimizado",
+  "input": "Uma síntese crítica das principais recomendações atualizadas da sociedade clínica.",
+  "expected": {
+    "passed": true,
+    "required_category": "self-importance-announcement",
+    "minimum_findings": 1,
+    "artifact": "anti-ai-report com ocorrência localizada e recomendação de retirar a autoqualificação"
+  }
+}

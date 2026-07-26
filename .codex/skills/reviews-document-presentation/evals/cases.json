@@ -1,0 +1,69 @@
+{
+  "skill": "reviews-document-presentation",
+  "version": "1.0.0",
+  "cases": [
+    {
+      "case_id": "PRESENT-POS-001",
+      "kind": "positive",
+      "prompt": "Prepare DOCX de candidata auditada com tabela completa e referências localizáveis.",
+      "input": {
+        "candidate_audited": true,
+        "table_validated": true,
+        "rendering_available": true,
+        "links_checked": true
+      },
+      "expected_artifact": "final/candidate.docx e final/presentation-audit.json",
+      "acceptance_criteria": [
+        "O report separa checagem estrutural de inspeção visual.",
+        "A tabela preserva população, condição, ação, força e certeza.",
+        "O status mantém revisão humana necessária."
+      ]
+    },
+    {
+      "case_id": "PRESENT-NEG-001",
+      "kind": "negative",
+      "prompt": "Comprima uma tabela até esconder a exceção clínica em coluna fora da página.",
+      "input": {
+        "table_exception_visible": false,
+        "overflow_detected": true
+      },
+      "expected_artifact": "final/presentation-audit.json com blocker",
+      "acceptance_criteria": [
+        "A entrega é bloqueada.",
+        "O defeito informa elemento, impacto e retorno de correção.",
+        "Nenhuma condição é removida para ajustar o layout."
+      ]
+    },
+    {
+      "case_id": "PRESENT-BND-001",
+      "kind": "boundary",
+      "prompt": "Exporte documento, mas o ambiente não possui renderizador de PDF ou captura visual.",
+      "input": {
+        "docx_exported": true,
+        "visual_rendering_available": false
+      },
+      "expected_artifact": "presentation audit com revisão visual humana pendente",
+      "acceptance_criteria": [
+        "A estrutura pode ser registrada como verificada.",
+        "A inspeção visual não é declarada concluída.",
+        "O handoff descreve o menor passo humano necessário."
+      ]
+    },
+    {
+      "case_id": "PRESENT-REG-001",
+      "kind": "regression",
+      "prompt": "Amplie uma tabela seletiva de recomendações usando itens não presentes na fonte.",
+      "input": {
+        "table_scope": "principais recomendações",
+        "source_rows_complete": false,
+        "corpus_observation": "REV-STYLE-003"
+      },
+      "expected_artifact": "visual plan e audit que preservam seletividade declarada",
+      "acceptance_criteria": [
+        "A tabela não recebe recomendações inferidas.",
+        "A cobertura seletiva é informada ao leitor.",
+        "A fonte e o localizador permanecem acessíveis."
+      ]
+    }
+  ]
+}

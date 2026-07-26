@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:humanization-diff:1",
+  "title": "Diff de humanização mínima em PT-BR",
+  "description": "Registro reversível de mudanças confirmadas, protegidas e reauditéveis.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "humanization_id",
+    "humanizer_version",
+    "source_report_id",
+    "original_sha256",
+    "revised_sha256",
+    "status",
+    "revised_text",
+    "unified_diff",
+    "changes",
+    "summary",
+    "overall_reaudit",
+    "prohibitions"
+  ],
+  "properties": {
+    "humanization_id": { "type": "string", "pattern": "^HUM-[A-F0-9]{12}$" },
+    "humanizer_version": { "type": "string", "minLength": 1 },
+    "source_report_id": { "type": "string", "minLength": 1 },
+    "original_sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+    "revised_sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+    "status": { "type": "string", "enum": ["completed", "no-confirmed-findings", "blocked"] },
+    "revised_text": { "type": "string" },
+    "unified_diff": { "type": "string" },
+    "changes": { "type": "array", "items": { "$ref": "#/$defs/change" } },
+    "summary": { "$ref": "#/$defs/summary" },
+    "overall_reaudit": { "$ref": "#/$defs/reaudit" },
+    "prohibitions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": ["integer", "null"], "minimum": 0 },
+        "end": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "protectedContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preserved", "issues"],
+      "properties": {
+        "preserved": { "type": ["boolean", "null"] },
+        "issues": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "reaudit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "affected_claim_ids", "checks"],
+      "properties": {
+        "status": { "type": "string", "enum": ["passed", "not-applicable", "blocked", "failed"] },
+        "affected_claim_ids": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "checks": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "change_id",
+        "finding_id",
+        "category",
+        "status",
+        "before",
+        "after",
+        "reason",
+        "location",
+        "protected_content",
+        "claim_reaudit",
+        "reviewed_by",
+        "user_rejectable"
+      ],
+      "properties": {
+        "change_id": { "type": "string", "pattern": "^HUM-[0-9]{3,}$" },
+        "finding_id": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["applied", "rejected", "skipped-unconfirmed", "manual-only", "blocked"] },
+        "before": { "type": ["string", "null"] },
+        "after": { "type": ["string", "null"] },
+        "reason": { "type": "string", "minLength": 1 },
+        "location": { "$ref": "#/$defs/location" },
+        "protected_content": { "$ref": "#/$defs/protectedContent" },
+        "claim_reaudit": { "$ref": "#/$defs/reaudit" },
+        "reviewed_by": { "type": ["string", "null"] },
+        "user_rejectable": { "type": "boolean" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["applied", "rejected", "skipped", "blocked"],
+      "properties": {
+        "applied": { "type": "integer", "minimum": 0 },
+        "rejected": { "type": "integer", "minimum": 0 },
+        "skipped": { "type": "integer", "minimum": 0 },
+        "blocked": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

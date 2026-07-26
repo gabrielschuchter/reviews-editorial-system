@@ -1,0 +1,79 @@
+{
+  "skill": "reviews-scientific-appraisal",
+  "version": "1.0.0",
+  "execution": {
+    "mode": "manual-contract-with-existing-tools",
+    "required_commands": [
+      "python scripts/verify_numbers.py <job_dir>",
+      "python scripts/validate_schema.py <issue_file> --schema methodological-issue",
+      "python scripts/validate_scientific_appraisal.py <job_dir>/analysis/scientific-appraisal.json --output <job_dir>/analysis/scientific-appraisal-validation.json"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "APP-POS-001",
+      "kind": "positive",
+      "prompt": "Avalie ensaio randomizado com menos hospitalizações na intervenção e perdas de 18% versus 5%.",
+      "input": {
+        "design": "ensaio randomizado",
+        "outcome": "hospitalização",
+        "losses_intervention": "18%",
+        "losses_comparator": "5%"
+      },
+      "expected_artifact": "analysis/scientific-appraisal.json",
+      "acceptance_criteria": [
+        "O julgamento vincula perdas ao claim de hospitalização e a localizadores.",
+        "A consequência não é mais forte que a evidência disponível.",
+        "O bottom line reduz segurança sem transformar a estimativa em ausência de efeito."
+      ]
+    },
+    {
+      "case_id": "APP-NEG-001",
+      "kind": "negative",
+      "prompt": "Interprete coorte com associação ajustada, sem medida de gravidade basal.",
+      "input": {
+        "design": "coorte observacional",
+        "adjusted_association": true,
+        "baseline_severity_measured": false
+      },
+      "expected_artifact": "analysis/inference-boundaries.md",
+      "acceptance_criteria": [
+        "O claim permanece associativo, não causal.",
+        "A fronteira descreve confundimento residual específico ou informação insuficiente.",
+        "Nenhuma recomendação causal é liberada pela associação isolada."
+      ]
+    },
+    {
+      "case_id": "APP-BND-001",
+      "kind": "boundary",
+      "prompt": "Avalie ensaio com p maior que 0,05 e intervalo compatível com benefício e dano clinicamente relevantes.",
+      "input": {
+        "design": "ensaio paralelo",
+        "p_value": ">0.05",
+        "interval_contains_benefit_and_harm": true
+      },
+      "expected_artifact": "analysis/methodological-review.json",
+      "acceptance_criteria": [
+        "A avaliação registra imprecisão e o intervalo, não apenas o p.",
+        "A modalidade não afirma ausência de efeito nem equivalência.",
+        "Efeito absoluto só aparece se fonte ou cálculo reproduzível o sustenta."
+      ]
+    },
+    {
+      "case_id": "APP-REG-001",
+      "kind": "regression",
+      "prompt": "Avalie ensaio que melhora biomarcador e relata subgrupo significativo sem teste de interação.",
+      "input": {
+        "outcome_type": "surrogate",
+        "subgroup_interaction_test": false,
+        "subgroup_p_significant": true
+      },
+      "expected_artifact": "analysis/inference-boundaries.md",
+      "acceptance_criteria": [
+        "O biomarcador não é convertido em benefício clínico.",
+        "A ausência de interação impede alegação de diferença entre subgrupos.",
+        "O bottom line não é comandado por resultado exploratório."
+      ]
+    }
+  ]
+}

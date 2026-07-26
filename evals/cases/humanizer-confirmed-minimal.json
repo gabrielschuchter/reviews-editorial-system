@@ -1,0 +1,18 @@
+{
+  "case_id": "EV-HUM-001",
+  "category": "anti-ai",
+  "source_excerpt_id": "DRV-HDB-HUMAN-01",
+  "source_role": "par candidato-revisão humana, anonimizado",
+  "input": "Uma síntese crítica das principais recomendações atualizadas.",
+  "expected": {
+    "passed": true,
+    "humanizer_status": "completed",
+    "expected_after": "As principais recomendações atualizadas.",
+    "artifact": "humanization-diff com uma mudança confirmada e reversível"
+  },
+  "humanizer": {
+    "decision": "confirmed",
+    "reviewed_by": "editorial-human-reviewer",
+    "required_category": "self-importance-announcement"
+  }
+}

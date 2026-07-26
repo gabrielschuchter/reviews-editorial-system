@@ -1,0 +1,19 @@
+{
+  "case_id": "EV-HUM-003",
+  "category": "anti-ai",
+  "source_excerpt_id": "DRV-HDB-HUMAN-CLAIM-07",
+  "source_role": "regressão factual com número, unidade e modalidade, anonimizada",
+  "input": "Vale destacar que a estratégia restritiva usa limiar de 7 g/dL. A recomendação é condicional, com evidência de baixa qualidade.",
+  "expected": {
+    "passed": true,
+    "humanizer_status": "completed-with-ledger",
+    "must_preserve": ["7 g/dL", "condicional", "baixa qualidade"],
+    "artifact": "diff e reauditoria de claim ledger aprovados"
+  },
+  "humanizer": {
+    "decision": "confirmed",
+    "reviewed_by": "editorial-human-reviewer",
+    "required_category": "metadiscourse",
+    "requires_claim_ledger": true
+  }
+}

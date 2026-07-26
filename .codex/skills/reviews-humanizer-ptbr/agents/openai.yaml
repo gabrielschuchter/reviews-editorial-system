@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reviews Humanizer PT-BR"
+  short_description: "Apply minimal confirmed editorial edits"
+  default_prompt: "Use $reviews-humanizer-ptbr to apply only confirmed minimal edits to this Reviews draft."

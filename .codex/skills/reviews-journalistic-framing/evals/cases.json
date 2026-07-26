@@ -1,0 +1,78 @@
+{
+  "skill": "reviews-journalistic-framing",
+  "version": "1.0.0",
+  "execution": {
+    "mode": "manual-contract-with-existing-tools",
+    "required_commands": [
+      "python scripts/verify_numbers.py <job_dir>",
+      "python scripts/build_claim_ledger.py <job_dir>",
+      "python scripts/validate_framing.py <job_dir>/planning/framing-memo.json --ledger <job_dir>/extraction/claim-ledger.json --output <job_dir>/planning/framing-validation.json"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "FRAME-POS-001",
+      "kind": "positive",
+      "prompt": "Enquadre diretriz oficial nova cuja condição de recomendação mudou para subgrupo específico.",
+      "input": {
+        "source": "diretriz oficial nova",
+        "change": "condição alterada para subgrupo",
+        "claim_verified": true
+      },
+      "expected_artifact": "planning/framing-memo.json",
+      "acceptance_criteria": [
+        "O memo identifica versão, data, condição anterior/atual e localizadores.",
+        "O top line limita a mudança ao subgrupo e à recomendação documentada.",
+        "must_not_imply proíbe promessa de mudança universal."
+      ]
+    },
+    {
+      "case_id": "FRAME-NEG-001",
+      "kind": "negative",
+      "prompt": "Use comentário externo isolado com acusação sem documento oficial ou resposta verificável.",
+      "input": {
+        "source": "comentário externo isolado",
+        "official_documentation": false,
+        "author_response": false
+      },
+      "expected_artifact": "planning/context-source-log.json",
+      "acceptance_criteria": [
+        "A alegação é classificada e atribuída, não apresentada como fato.",
+        "Ela não é top line nem única razão de atualidade.",
+        "O memo registra devolução à proveniência se a alegação alterar claim."
+      ]
+    },
+    {
+      "case_id": "FRAME-BND-001",
+      "kind": "boundary",
+      "prompt": "Enquadre dúvida clínica persistente com fontes válidas, mas sem atualização recente ou delta verificável.",
+      "input": {
+        "sources_valid": true,
+        "recent_update": false,
+        "decision_question_persistent": true
+      },
+      "expected_artifact": "planning/journalistic-framing.md",
+      "acceptance_criteria": [
+        "O status é decisão persistente ou sem novidade material.",
+        "A abertura proposta começa por decisão, problema ou limite aplicável.",
+        "Nenhum título ou lead usa urgência, revolução ou novidade fabricada."
+      ]
+    },
+    {
+      "case_id": "FRAME-REG-001",
+      "kind": "regression",
+      "prompt": "Revise framing de biomarcador cujo título inicial promete prevenir eventos clínicos não medidos.",
+      "input": {
+        "outcome": "biomarcador",
+        "clinical_events_measured": false,
+        "initial_headline": "Previne eventos clínicos"
+      },
+      "expected_artifact": "planning/framing-handoff.md",
+      "acceptance_criteria": [
+        "O título inicial é rejeitado ou listado em must_not_imply.",
+        "O top line nomeia marcador e lacuna de desfecho clínico.",
+        "A condição de fecho preserva incerteza concreta."
+      ]
+    }
+  ]
+}

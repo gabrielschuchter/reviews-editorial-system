@@ -1,0 +1,84 @@
+{
+  "analysis_version": "1.0.0",
+  "analyzed_at": "2026-07-25",
+  "source_folder": {
+    "id": "1-l8YAR19a9pu63rpysZ8BgqsZ6znzQv1",
+    "url": "https://drive.google.com/drive/folders/1-l8YAR19a9pu63rpysZ8BgqsZ6znzQv1",
+    "access_method": "Google Drive paragraph-text read",
+    "read_only": true
+  },
+  "read_evidence": {
+    "final_publications": 7,
+    "final_audits": 7,
+    "final_publication_paragraphs": 861,
+    "final_publication_characters_approx": 128900,
+    "comparison_documents": [
+      "1r-TewK_9W0s9SSlQ-4pm757uud7LjY5NoRcJNcQJfvU",
+      "1XX6_w41Snt-1WBIDbDNStQA_OJ8nW2HKSNmW-tTt-UE"
+    ],
+    "negative_control": "1z8YzC4WgYVPhKSHhs-o30hMdmeBiSpJaIaGJvSw8LDU",
+    "primary_source_spot_check": "1Afkyxh9b4QoxjlKYXru09B0xnkVcV2Vn"
+  },
+  "items": [
+    {"package": "01-hipertensao-esc-2024", "final": "1xbVmcvM7giBPHUeJIOseimaObxe2F7KO3SczOCQ__QY", "audit": "1vtP7TMO_8k7ga-IZejmH8OdNO_-Vtl0Fkpg21FMM518"},
+    {"package": "02-sangramento-gi-baixo-acg-2023", "final": "1QhReosd1Mec_VkR0IAuPacwxWESuDaJg9-DP1H60Z1s", "audit": "16Tc4oiL48yrwaXWpyyFQKwqlMYFhqt0UjER0rT27P50"},
+    {"package": "03-drge-acg-2022", "final": "1CtLfbeeT_fLyVSZy4dnecEgZO_34hE44coZw8fvhsKs", "audit": "1Wbb6jtFLMkuJ-aNa6E6oyBCwvNNGqDFAWz0WcWWNyY8"},
+    {"package": "04-dor-musculoesqueletica-apa-2024", "final": "1Sl2DrfXHXtdwSzTmLR_fp0T3q2AIO8h1sBc3Q3jyZtM", "audit": "1JPcYMOQR25q1LKyFPw1ZN34TdIiWQ8WuIVuZxHklUy8"},
+    {"package": "05-pratica-psicologica-apa-2021", "final": "1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA", "audit": "1ssSL9hzLoIlKts8VEKW8cW9vQt66uwepQg3e_-SCrvw"},
+    {"package": "06-nutricao-cancer-cabeca-pescoco-aspen-2026", "final": "1uD6LjWWAkYmAVMkjixaxk9kAB1Ob2-NP1lWNvUiuph0", "audit": "1PIgwCWQyeKBDuRjQJkGhHvQUwSQOdldekip0BrUYMwo"},
+    {"package": "07-sii-acg-2021", "final": "1Vs8WCdiQkL_T2rHyl1mRGyeoATO1I-B3ZpSViEI9EyY", "audit": "10b7-sXUEV3pYTKB4ARGtnLUlv6ohSWRrXsp2O2Qy7pQ"}
+  ],
+  "observations": [
+    {
+      "id": "REV-STYLE-001",
+      "finding": "A abertura publicada começa pela decisão clínica, pelo problema ou pelo limite de aplicação; não pela importância abstrata do tema.",
+      "evidence_source": "Finais 01-07",
+      "use": "reviews-journalistic-framing e reviews-edition-writing",
+      "boundary": "Não obrigar uma mesma fórmula de abertura; a observação orienta a pergunta editorial, não uma frase-modelo."
+    },
+    {
+      "id": "REV-STYLE-002",
+      "finding": "Títulos são curtos, clínicos e proporcionais; o subtítulo descreve a fonte sem se autoqualificar como síntese crítica ou definitiva.",
+      "evidence_source": "Comparação 02, correção humana de subtítulo",
+      "before_anonymized": "Uma síntese crítica das principais recomendações atualizadas...",
+      "after_anonymized": "As principais recomendações atualizadas...",
+      "use": "Regressão de edição mínima no humanizer",
+      "boundary": "Não remover qualificadores que pertençam ao título oficial de uma fonte."
+    },
+    {
+      "id": "REV-STYLE-003",
+      "finding": "Tabelas de recomendações usam uma linha por decisão e graduação distinta; população, condição e ação ficam na recomendação, enquanto força/classe e certeza/nível são visualmente separados.",
+      "evidence_source": "Auditorias 01-07 e tabela ACG 2023",
+      "use": "reviews-audit e reviews-document-presentation",
+      "boundary": "Uma tabela intitulada 'principais recomendações' pode ser deliberadamente seletiva; sinalizar a cobertura em vez de completá-la automaticamente."
+    },
+    {
+      "id": "REV-STYLE-004",
+      "finding": "O encerramento útil adiciona aplicabilidade, incerteza ou limite de escopo. Uma seção que apenas repete o corpo pode ser candidata à remoção, após comparação de claims.",
+      "evidence_source": "Comparação 02 e relatório mestre",
+      "use": "reviews-anti-ai-writing, reviews-humanizer-ptbr e reviews-audit",
+      "boundary": "Nunca remover um encerramento que carregue condição, exceção, dano ou decisão nova."
+    },
+    {
+      "id": "REV-STYLE-005",
+      "finding": "Português clínico natural é preferido a calque literal, desde que o termo corrigido preserve integralmente o referente e a exceção.",
+      "evidence_source": "Comparação 02",
+      "before_anonymized": "antiagregantes não aspirina",
+      "after_anonymized": "antiagregantes (exceto aspirina)",
+      "use": "Regressão de revisão localizada",
+      "boundary": "Não substituir palavras apenas para variar vocabulário."
+    },
+    {
+      "id": "REV-STYLE-006",
+      "finding": "Correções humanas são evidência graduada de preferência editorial: são hipóteses testáveis, nunca regras automáticas de produção.",
+      "evidence_source": "Relatório mestre 1Evg4T6TsmmO-YQ3sWc-nqhJ3iR8K8hI5ti7IZ3AHrWw e comparação 02",
+      "use": "reviews-feedback-learning",
+      "boundary": "Promoção de qualquer regra exige aprovação editorial e regressão aprovada."
+    }
+  ],
+  "limits": [
+    "Os documentos publicados foram tratados como referências B: próximos do ideal, não como especificação encerrada.",
+    "A análise foi textual; renderização visual de DOCX exige validação local independente.",
+    "Não foram copiados documentos do Drive para este repositório; foram preservados IDs, observações derivadas e trechos mínimos anonimizados."
+  ]
+}
