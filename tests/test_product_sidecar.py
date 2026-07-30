@@ -75,6 +75,24 @@ class ProductSidecarTests(unittest.TestCase):
         demo_db = Path(result["paths"]["database_path"])
         self.assertTrue(demo_db.is_file())
         self.assertNotEqual(demo_db, self.paths.database_path)
+        demo_paths = ProductPaths.from_values(
+            self.paths.data_root / "demo",
+            self.paths.documents_root / "demo",
+            self.paths.documents_root / "demo" / "private-archive",
+            profile_id="demo",
+        )
+        bootstrap = ProductReviewsUiBridge(demo_paths).bootstrap()
+        self.assertTrue(bootstrap["editions"]["items"])
+        self.assertTrue(bootstrap["agent_runs"]["items"])
+        self.assertTrue(
+            any(
+                item["document_type_id"] == "type.audit"
+                for item in ProductReviewsUiBridge(demo_paths)
+                .dispatch("list-documents", {"edition_id": result["fixture"]["edition_id"]})[
+                    "data"
+                ]["items"]
+            )
+        )
 
     def test_cli_has_version_without_product_paths(self) -> None:
         completed = subprocess.run(

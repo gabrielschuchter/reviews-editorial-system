@@ -678,6 +678,22 @@ def create_demo(paths: ProductPaths) -> dict[str, Any]:
     fixture = None
     if count == 0:
         fixture = bridge.registry.seed_minimum_example(actor_id="demo-editor")
+        bridge.registry.register_generated_output(
+            edition_id=fixture["edition_id"],
+            actor_id="demo-editor",
+            agent_name="Codex demonstrativo",
+            model="simulação sem rede",
+            purpose="Auditoria metodológica sintética",
+            prompt="Fixture local: revisar proporcionalidade da conclusão.",
+            context={"synthetic": True, "private_data": False},
+            configuration={"network": False, "publication": "simulated"},
+            result=(
+                "Auditoria sintética: a conclusão revisada preserva a incerteza "
+                "e explicita a redução energética como explicação concorrente."
+            ),
+            output_type="audit",
+            document_title="Auditoria metodológica — demonstração",
+        )
     return {
         "demo": True,
         "synthetic": True,
