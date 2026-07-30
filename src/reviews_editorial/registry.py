@@ -7,6 +7,7 @@ import os
 import re
 import shutil
 import sqlite3
+import sys
 import uuid
 import zipfile
 from contextlib import contextmanager
@@ -62,6 +63,18 @@ MILESTONE_REASONS_REQUIRED = {
     "published",
     "post_publication_correction",
 }
+
+
+def _runtime_resource_root() -> Path:
+    """Localiza recursos tanto no checkout quanto no executável PyInstaller."""
+
+    override = os.environ.get("REVIEWS_RESOURCE_ROOT")
+    if override:
+        return Path(override).resolve()
+    frozen_root = getattr(sys, "_MEIPASS", None)
+    if frozen_root:
+        return Path(frozen_root).resolve()
+    return Path(__file__).resolve().parents[2]
 
 
 class RegistryPermissionError(PermissionError):
@@ -131,7 +144,7 @@ class EditorialRegistry:
         self.migrations_root = (
             Path(migrations_root).resolve()
             if migrations_root is not None
-            else Path(__file__).resolve().parents[2] / "migrations"
+            else _runtime_resource_root() / "migrations"
         )
         self.database_path.parent.mkdir(parents=True, exist_ok=True)
         self.storage_root.mkdir(parents=True, exist_ok=True)

@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import os
 import re
 import shutil
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -32,6 +34,16 @@ JOB_SUBDIRECTORIES = (
     "feedback",
     "final",
 )
+
+
+def _runtime_resource_root() -> Path:
+    override = os.environ.get("REVIEWS_RESOURCE_ROOT")
+    if override:
+        return Path(override).resolve()
+    frozen_root = getattr(sys, "_MEIPASS", None)
+    if frozen_root:
+        return Path(frozen_root).resolve()
+    return Path(__file__).resolve().parents[2]
 
 
 def utc_now() -> str:
@@ -223,7 +235,7 @@ def confirm_document_validation(job_dir: str | Path, reviewer: str) -> Path:
 
 
 def validate_job_shape(job: dict[str, Any]) -> list[str]:
-    schema_path = Path(__file__).resolve().parents[2] / "schemas" / "job.schema.json"
+    schema_path = _runtime_resource_root() / "schemas" / "job.schema.json"
     schema = load_data(schema_path)
     errors = [
         f"{issue.path}: {issue.message}"
