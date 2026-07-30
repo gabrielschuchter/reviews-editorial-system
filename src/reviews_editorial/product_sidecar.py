@@ -790,9 +790,10 @@ def import_existing(paths: ProductPaths, arguments: dict[str, Any]) -> dict[str,
 
 
 def smoke_test(paths: ProductPaths) -> dict[str, Any]:
+    _ensure_directories(paths)
     with tempfile.TemporaryDirectory(
         prefix="reviews-sidecar-smoke-",
-        dir=paths.data_root / "cache" if paths.data_root.exists() else None,
+        dir=paths.data_root / "cache",
     ) as temporary:
         root = Path(temporary)
         probe = ProductPaths.from_values(

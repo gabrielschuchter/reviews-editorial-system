@@ -19,6 +19,7 @@ from reviews_editorial.product_sidecar import (  # noqa: E402
     ProductReviewsUiBridge,
     create_demo,
     initialize,
+    smoke_test,
 )
 
 
@@ -107,6 +108,11 @@ class ProductSidecarTests(unittest.TestCase):
         payload = json.loads(completed.stdout)
         self.assertTrue(payload["ok"])
         self.assertEqual(payload["data"]["contract"], PRODUCT_CONTRACT)
+
+    def test_smoke_test_bootstraps_an_empty_profile(self) -> None:
+        result = smoke_test(self.paths)
+        self.assertTrue(result["passed"])
+        self.assertTrue(result["checks"]["temporary_storage"])
 
 
 if __name__ == "__main__":
