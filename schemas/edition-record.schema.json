@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reviews.local/schemas/edition-record.schema.json",
+  "title": "Reviews Editorial Edition Record",
+  "type": "object",
+  "required": ["contract_version", "edition", "documents", "timeline", "lineage"],
+  "properties": {
+    "contract_version": {"const": "1.0.0"},
+    "edition": {
+      "type": "object",
+      "required": ["edition_id", "canonical_title", "status", "editorial_meaning"],
+      "properties": {
+        "edition_id": {"type": "string", "minLength": 1},
+        "canonical_title": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "minLength": 1},
+        "editorial_meaning": {"type": "string", "minLength": 1},
+        "job_id": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "documents": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "timeline": {
+      "type": "array",
+      "items": {"$ref": "editorial-event.schema.json"}
+    },
+    "lineage": {
+      "type": "array",
+      "items": {"type": "object"}
+    }
+  },
+  "additionalProperties": false
+}

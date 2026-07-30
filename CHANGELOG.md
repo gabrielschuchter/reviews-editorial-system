@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 - 2026-07-30
+
+- Adiciona registro editorial local integrado aos jobs, com identidades de edição e documento, versões imutáveis, eventos append-only, aprovações e publicação vinculada à versão exata.
+- Adiciona taxonomia editorial, classificação corrigível, grafo de linhagem, comparação literal e semântica, memória histórica e memória validada com gates humanos.
+- Preserva integralmente execuções de agentes e saídas descartadas sem promovê-las automaticamente.
+- Adiciona importação recursiva, idempotente e retomável do Drive, com arquivo privado fora do Git, SHA-256, manifestos e exclusões estritas.
+- Adiciona migração em lote de jobs, contratos JSON versionados e validação estrutural integrada aos checks.
+
 ## 0.3.0 - 2026-07-25
 
 - Decompõe `reviews-writer` em sete capacidades com a fachada histórica preservada.

@@ -90,12 +90,18 @@ nunca entra na recuperação para redigir ou formular regra.
    artefatos que ela pode consumir.
 7. Valide o job com python scripts/validate_job.py <job> após cada estágio
    que produzir artefatos de pipeline.
+   O job é sincronizado automaticamente no registro. Para uma saída produzida
+   fora dos diretórios do job, use python scripts/editorial_registry.py
+   register-output e preserve prompt, contexto, configuração e resultado.
 8. Bloqueie o avanço quando houver lacuna factual, versão divergente ou
    finding crítico; devolva ao estágio que pode resolver a causa.
 9. Audite novamente claims afetados após redação, humanização, reflow de
    tabela ou alteração de título e lead.
 10. Gere no encerramento um handoff com estado, artefatos válidos,
     bloqueios, próxima capability e aprovação humana ainda necessária.
+11. Execute python scripts/editorial_registry.py validate-registry antes de
+    declarar a trilha concluída; não promova rascunho ou resultado descartado
+    à memória validada.
 
 Use a ordem do plano; paralelo só é seguro para leituras independentes de fontes
 ou auditorias que não editam a mesma candidata. Consolidação de evidência,

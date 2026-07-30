@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reviews.local/schemas/drive-import-manifest.schema.json",
+  "title": "Reviews Durable Drive Import Manifest",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "import_job_id",
+    "source_root",
+    "snapshot_path",
+    "snapshot_sha256",
+    "started_at",
+    "completed_at",
+    "status",
+    "totals",
+    "exclusions",
+    "errors",
+    "private_storage_root",
+    "report_path"
+  ],
+  "properties": {
+    "manifest_version": {"const": "1.0.0"},
+    "import_job_id": {"type": "string", "minLength": 1},
+    "source_root": {
+      "type": "object",
+      "required": ["id", "name", "url"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "snapshot_path": {"type": "string", "minLength": 1},
+    "snapshot_sha256": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"},
+    "started_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": ["string", "null"], "format": "date-time"},
+    "status": {"enum": ["completed", "partial", "failed"]},
+    "totals": {
+      "type": "object",
+      "required": [
+        "folders_found",
+        "files_found",
+        "folders_included",
+        "files_included",
+        "folders_excluded",
+        "files_excluded",
+        "items_seen",
+        "files_imported"
+      ],
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["folder_id", "path", "reason", "descendant_file_count"],
+        "properties": {
+          "folder_id": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1},
+          "descendant_folder_count": {"type": "integer", "minimum": 0},
+          "descendant_file_count": {"type": "integer", "minimum": 0}
+        },
+        "additionalProperties": true
+      }
+    },
+    "errors": {"type": "array"},
+    "private_storage_root": {"type": "string", "minLength": 1},
+    "report_path": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

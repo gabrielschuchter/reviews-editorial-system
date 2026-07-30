@@ -56,6 +56,8 @@ fontes locais imutáveis ─┬─> inventário e classificação proposta
 | `jobs/` | Estado e artefatos de cada edição | Um diretório isolado por edição |
 | `evals/` e `tests/` | Avaliação editorial, regressão e testes de código | Evidência de qualidade somente quando os comandos forem executados e os resultados registrados |
 | `docs/` | Decisões e operação técnica | Documentação, não substitui gates executáveis |
+| `.reviews/` | SQLite local, cache operacional e índice transacional | Privado e ignorado pelo Git; deriva e integra o estado dos jobs |
+| `migrations/` | Evolução versionada do registro editorial | Aplicada automaticamente pela CLI e pelas integrações do núcleo |
 
 ## O que o núcleo determinístico faz
 
@@ -83,6 +85,12 @@ fontes locais imutáveis ─┬─> inventário e classificação proposta
 - não transforma frequência no corpus, feedback ou pontuação em regra canônica.
 
 Essa separação é intencional. Scripts cuidam de invariantes verificáveis; julgamento editorial e metodológico permanece explícito e auditável.
+
+## Registro editorial integrado
+
+`job.yml` permanece a fonte operacional do estado do job. O registro SQLite não o substitui: ele normaliza identidades entre jobs, documentos, versões, execuções de agentes e fontes externas, além de fornecer histórico append-only, busca contextual e linhagem.
+
+Os pontos de integração são `create_job`, `advance_job`, confirmação documental, registro de revisão e os comandos `sync-job`/`sync-all-jobs`. O arquivo privado do Drive fica fora do repositório; somente snapshot, contratos, metadados, classificações e relações são versionados. Papéis do registro são gates editoriais auditáveis, não autenticação ou segurança real.
 
 ## Estado do job e máquina de estados
 

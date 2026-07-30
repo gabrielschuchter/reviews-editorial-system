@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reviews.local/schemas/drive-history-manifest.schema.json",
+  "title": "Reviews Private Drive History Manifest",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "source",
+    "source_root_id",
+    "captured_on",
+    "privacy",
+    "totals",
+    "fragments",
+    "limitations"
+  ],
+  "properties": {
+    "manifest_version": {"const": "1.0.0"},
+    "source": {"const": "google-drive-connector"},
+    "source_root_id": {"type": "string", "minLength": 1},
+    "captured_on": {"type": "string", "format": "date"},
+    "privacy": {
+      "type": "object",
+      "required": [
+        "history_snapshots_outside_git",
+        "comment_content_outside_git",
+        "author_email_addresses_omitted"
+      ],
+      "properties": {
+        "history_snapshots_outside_git": {"const": true},
+        "comment_content_outside_git": {"const": true},
+        "author_email_addresses_omitted": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "totals": {
+      "type": "object",
+      "required": [
+        "files_consulted",
+        "files_with_revision_metadata",
+        "revisions_registered",
+        "comments_registered",
+        "connector_errors"
+      ],
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "fragments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "sha256"],
+        "properties": {
+          "name": {"type": "string", "pattern": "^fragment-[0-9]{3}\\.json$"},
+          "sha256": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "additionalProperties": false
+}

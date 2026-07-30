@@ -150,6 +150,13 @@ def create_job(
         "history": [{"state": "received", "at": now, "actor": "system"}],
     }
     dump_data(job_dir / "job.yml", job)
+    from .registry import sync_job_to_registry
+
+    sync_job_to_registry(
+        job_dir,
+        actor_id="reviews-system",
+        role="agent",
+    )
     return job_dir
 
 
@@ -205,6 +212,13 @@ def confirm_document_validation(job_dir: str | Path, reviewer: str) -> Path:
     job["gates"]["document_validation_confirmed_by"] = reviewer.strip()
     job["updated_at"] = utc_now()
     dump_data(root / "job.yml", job)
+    from .registry import sync_job_to_registry
+
+    sync_job_to_registry(
+        root,
+        actor_id=reviewer.strip(),
+        role="methodological_reviewer",
+    )
     return validation_path
 
 
@@ -244,5 +258,12 @@ def set_review_status(job_dir: str | Path, reviewer: str) -> Path:
     dump_data(
         status_path,
         {"status": HUMAN_REVIEW_STATUS, "reviewer": reviewer.strip(), "recorded_at": utc_now()},
+    )
+    from .registry import sync_job_to_registry
+
+    sync_job_to_registry(
+        root,
+        actor_id=reviewer.strip(),
+        role="editorial_reviewer",
     )
     return status_path

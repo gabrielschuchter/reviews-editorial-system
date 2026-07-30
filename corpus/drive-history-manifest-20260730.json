@@ -1,0 +1,34 @@
+{
+  "manifest_version": "1.0.0",
+  "source": "google-drive-connector",
+  "source_root_id": "1eIfDPteYjjijHv-u9JPMkgfvVSY0fv6f",
+  "captured_on": "2026-07-30",
+  "privacy": {
+    "history_snapshots_outside_git": true,
+    "comment_content_outside_git": true,
+    "author_email_addresses_omitted": true
+  },
+  "totals": {
+    "files_consulted": 172,
+    "files_with_revision_metadata": 172,
+    "revisions_registered": 334,
+    "comments_registered": 13,
+    "connector_errors": 0
+  },
+  "fragments": [
+    {"name": "fragment-001.json", "sha256": "795c9653d67e4f14d957c452abdf4bbec76f0b48f1ec5deb9ebd2db74e034632"},
+    {"name": "fragment-002.json", "sha256": "6dcc48dbf7e797fd8af7e5a6b46f7588ae8f4b38e152365ee702b8c96993323f"},
+    {"name": "fragment-003.json", "sha256": "019ba3bded050f2c7e0ca2c58e7923d3f6e4a4c70d6178c012dc9913998fb1a8"},
+    {"name": "fragment-004.json", "sha256": "15829e8511f14a476efb470dfc82c524bd9366000d8a7b589e55f8a663fa7877"},
+    {"name": "fragment-005.json", "sha256": "d98994121c7eb9717921344abae4cbd745b232c576e8c0d9c2c612c60f2fe29d"},
+    {"name": "fragment-006.json", "sha256": "fa229b749255de62eccd30bc08ae5b34e8cdc74b93ada2c8704823f51f5d06c6"},
+    {"name": "fragment-007.json", "sha256": "e36687619d0c254d3c56ab5d2eaddfa65a142644e458616a2ef0130e8bcd2aac"},
+    {"name": "fragment-008.json", "sha256": "1db1732015024593fd54041f14eeb72cef3c3d7ebf65334cdcab7a2acff9396d"},
+    {"name": "fragment-009.json", "sha256": "9625d66c5e430dbb546e81ebdf927c0ddfe3800f696153d5a885045cde12f614"}
+  ],
+  "limitations": [
+    "O conteúdo textual de revisões históricas não foi baixado; foram preservados IDs, datas, autoria sem email e demais metadados retornados pelo conector.",
+    "A cópia durável da versão corrente de cada arquivo permitido foi preservada separadamente e validada por SHA-256.",
+    "Comentários completos permanecem no arquivo privado local e não são versionados no Git."
+  ]
+}

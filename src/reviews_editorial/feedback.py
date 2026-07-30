@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import difflib
+import re
 from pathlib import Path
 from typing import Any
 
@@ -18,6 +19,77 @@ FEEDBACK_TYPES = {
     "local-editorial-choice",
     "candidate-general-rule",
 }
+
+
+NUMERIC_TOKEN = re.compile(
+    r"(?<![\w])(?:p\s*[<=>]\s*)?-?\d+(?:[.,]\d+)?(?:\s*(?:%|mg|g|kg|mmol/L|"
+    r"mmHg|mL|L|anos?|meses?|dias?|participantes?))?(?![\w])",
+    re.IGNORECASE,
+)
+REFERENCE_TOKEN = re.compile(
+    r"\[[0-9,\s–—-]+\]|\((?:[A-ZÁ-Ú][^()]{1,70}),\s*(?:19|20)\d{2}\)"
+)
+INTERPRETATION_MARKERS = {
+    "causalidade": ("causou", "provocou", "determinou", "levou a"),
+    "associação": ("associado", "associação", "correlacionado"),
+    "certeza_forte": ("demonstra", "comprova", "confirma", "sem dúvida"),
+    "incerteza": ("pode", "sugere", "compatível", "incerto", "não permite concluir"),
+    "relevância_clínica": ("clinicamente relevante", "benefício clínico", "efeito trivial"),
+    "limitação": ("limitação", "viés", "ressalva", "intervalo de confiança"),
+}
+
+
+def _token_context(text: str, start: int, end: int, radius: int = 60) -> str:
+    left = max(0, start - radius)
+    right = min(len(text), end + radius)
+    return re.sub(r"\s+", " ", text[left:right]).strip()
+
+
+def _numeric_changes(original: str, revised: str) -> list[dict[str, Any]]:
+    before = [
+        {"value": match.group(0), "context": _token_context(original, *match.span())}
+        for match in NUMERIC_TOKEN.finditer(original)
+    ]
+    after = [
+        {"value": match.group(0), "context": _token_context(revised, *match.span())}
+        for match in NUMERIC_TOKEN.finditer(revised)
+    ]
+    matcher = difflib.SequenceMatcher(
+        a=[item["value"].casefold() for item in before],
+        b=[item["value"].casefold() for item in after],
+    )
+    changes: list[dict[str, Any]] = []
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+        if tag == "equal":
+            continue
+        changes.append(
+            {
+                "operation": tag,
+                "before": before[i1:i2],
+                "after": after[j1:j2],
+                "requires_manual_verification": True,
+            }
+        )
+    return changes
+
+
+def _interpretation_changes(original: str, revised: str) -> list[dict[str, Any]]:
+    original_key = original.casefold()
+    revised_key = revised.casefold()
+    changes: list[dict[str, Any]] = []
+    for category, markers in INTERPRETATION_MARKERS.items():
+        before = sorted(marker for marker in markers if marker in original_key)
+        after = sorted(marker for marker in markers if marker in revised_key)
+        if before != after:
+            changes.append(
+                {
+                    "category": category,
+                    "before_markers": before,
+                    "after_markers": after,
+                    "interpretation": "sinal heurístico; requer revisão humana",
+                }
+            )
+    return changes
 
 
 def compare_versions(original: str, revised: str) -> dict[str, Any]:
@@ -44,7 +116,30 @@ def compare_versions(original: str, revised: str) -> dict[str, Any]:
                 "approval_status": "pending-editorial-classification",
             }
         )
-    return {"similarity_ratio": matcher.ratio(), "unified_diff": diff, "changes": changes}
+    original_references = REFERENCE_TOKEN.findall(original)
+    revised_references = REFERENCE_TOKEN.findall(revised)
+    original_headings = [
+        line.strip() for line in original.splitlines() if line.lstrip().startswith("#")
+    ]
+    revised_headings = [
+        line.strip() for line in revised.splitlines() if line.lstrip().startswith("#")
+    ]
+    return {
+        "similarity_ratio": matcher.ratio(),
+        "unified_diff": diff,
+        "changes": changes,
+        "numeric_changes": _numeric_changes(original, revised),
+        "reference_changes": {
+            "removed": sorted(set(original_references) - set(revised_references)),
+            "added": sorted(set(revised_references) - set(original_references)),
+        },
+        "structural_changes": {
+            "headings_before": original_headings,
+            "headings_after": revised_headings,
+            "changed": original_headings != revised_headings,
+        },
+        "interpretation_changes": _interpretation_changes(original, revised),
+    }
 
 
 def _repository_file(

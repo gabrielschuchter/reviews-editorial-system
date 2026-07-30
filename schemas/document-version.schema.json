@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reviews.local/schemas/document-version.schema.json",
+  "title": "Reviews Immutable Document Version",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "version_id",
+    "document_id",
+    "version_number",
+    "created_at",
+    "reason",
+    "change_summary",
+    "editorial_meaning",
+    "content_hash",
+    "source_kind"
+  ],
+  "properties": {
+    "contract_version": {"const": "1.0.0"},
+    "version_id": {"type": "string", "minLength": 1},
+    "document_id": {"type": "string", "minLength": 1},
+    "version_number": {"type": "integer", "minimum": 1},
+    "previous_version_id": {"type": ["string", "null"]},
+    "restored_from_version_id": {"type": ["string", "null"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "reason": {"type": "string", "minLength": 1},
+    "change_summary": {"type": "string", "minLength": 1},
+    "status_id": {"type": ["string", "null"]},
+    "editorial_meaning": {"type": "string", "minLength": 1},
+    "content_hash": {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"},
+    "source_kind": {"type": "string", "minLength": 1},
+    "approval_status": {"type": "string"}
+  },
+  "additionalProperties": false
+}

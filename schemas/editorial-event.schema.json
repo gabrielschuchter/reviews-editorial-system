@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reviews.local/schemas/editorial-event.schema.json",
+  "title": "Reviews Append-only Editorial Event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "entity_type",
+    "entity_id",
+    "event_type",
+    "occurred_at",
+    "justification",
+    "origin"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1},
+    "entity_type": {"type": "string", "minLength": 1},
+    "entity_id": {"type": "string", "minLength": 1},
+    "edition_id": {"type": ["string", "null"]},
+    "document_id": {"type": ["string", "null"]},
+    "version_id": {"type": ["string", "null"]},
+    "event_type": {"type": "string", "minLength": 1},
+    "actor_id": {"type": ["string", "null"]},
+    "agent_id": {"type": ["string", "null"]},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "justification": {"type": "string", "minLength": 1},
+    "origin": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

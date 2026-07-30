@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import tempfile
 from pathlib import Path
 
 from _bootstrap import REPO_ROOT
@@ -8,6 +9,8 @@ from reviews_editorial.corpus import load_manifest_with_catalogs
 from reviews_editorial.exemplars import select_exemplars
 from reviews_editorial.io import load_data
 from reviews_editorial.jobs import validate_job_shape
+from reviews_editorial.registry import EditorialRegistry
+from reviews_editorial.registry_validation import validate_registry
 from reviews_editorial.skill_validation import validate_skill_tree
 from run_evals import evaluate_cases
 
@@ -129,6 +132,23 @@ def main() -> int:
         if skill_report["missing_skills"]:
             issues.append(f"skills obrigatórias ausentes: {skill_report['missing_skills']}")
 
+    registry_report = {"passed": False, "issues": ["validação não executada"]}
+    try:
+        with tempfile.TemporaryDirectory() as temporary:
+            registry = EditorialRegistry(
+                Path(temporary) / "registry.sqlite3",
+                storage_root=Path(temporary) / "private-storage",
+            )
+            registry.seed_minimum_example()
+            registry_report = validate_registry(registry, verify_files=True)
+        if not registry_report["passed"]:
+            issues.extend(
+                f"registro editorial: {issue}"
+                for issue in registry_report["issues"]
+            )
+    except (OSError, ValueError, RuntimeError) as exc:
+        issues.append(f"registro editorial não pôde ser validado: {exc}")
+
     report = {
         "passed": not issues,
         "issues": issues,
@@ -143,6 +163,10 @@ def main() -> int:
             "required": len(skill_report["required_skills"]),
             "validated": sum(1 for item in skill_report["results"] if item["valid"]),
             "missing": skill_report["missing_skills"],
+        },
+        "editorial_registry": {
+            "passed": registry_report["passed"],
+            "issues": registry_report["issues"],
         },
     }
     print(json.dumps(report, ensure_ascii=False, indent=2))

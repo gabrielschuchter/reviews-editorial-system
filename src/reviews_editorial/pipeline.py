@@ -219,4 +219,7 @@ def advance_job(
     job["updated_at"] = now
     job["history"].append({"state": target_state, "at": now, "actor": actor.strip()})
     dump_data(root / "job.yml", job)
+    from .registry import sync_job_to_registry
+
+    sync_job_to_registry(root, actor_id=actor.strip(), role="editor")
     return report

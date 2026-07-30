@@ -11,6 +11,7 @@
 - Execute as auditorias factual, numérica, metodológica, estrutural, de estilo e final na ordem definida.
 - Não edite o corpus canônico nem promova feedback local a regra geral sem aprovação editorial.
 - Não publique nem marque uma edição como aprovada sem autorização humana explícita.
+- Registre cada artefato produzido no job; para saídas fora dele, use `scripts/editorial_registry.py register-output` com prompt, contexto, configuração e resultado integrais.
 - Não construa frontend, API, autenticação, banco remoto ou serviço em nuvem neste repositório.
 - Mantenha regras detalhadas em `editorial/`, `docs/` e na Skill; mantenha este arquivo curto.
 
@@ -31,6 +32,7 @@
 - Execute `python scripts/run_checks.py` para validar contratos, configurações e invariantes editoriais.
 - Execute `python scripts/run_evals.py` e `python scripts/scan_skills.py` antes de declarar a arquitetura pronta.
 - Execute `python scripts/validate_job.py <job-dir>` antes de avançar um job.
+- Execute `python scripts/editorial_registry.py validate-registry` antes de declarar a trilha editorial concluída.
 - Use o Python 3.11 ou superior. Dependências de PDF e DOCX são opcionais e devem falhar com instrução explícita quando ausentes.
 
 ## Documentação

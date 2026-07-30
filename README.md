@@ -240,9 +240,23 @@ Os schemas em <code>schemas/</code> são contratos de máquina; as regras em <co
 
 Os manifests de skill validam contratos e produtores reais. Eles não são apresentados como uma avaliação semântica automática de texto gerado por LLM.
 
+## Registro central e memória editorial
+
+O sistema mantém um registro local integrado ao fluxo de jobs: edições, documentos, versões imutáveis, eventos append-only, aprovações, publicações exatas, linhagem, diffs, memória histórica/validada, lições e saídas integrais dos agentes. Ele usa SQLite e arquivos privados locais; não adiciona frontend, API, autenticação, banco remoto ou serviço em nuvem.
+
+```powershell
+python scripts/editorial_registry.py sync-all-jobs jobs
+python scripts/editorial_registry.py dashboard
+python scripts/editorial_registry.py search-memory "exemplo anterior"
+python scripts/editorial_registry.py validate-registry
+```
+
+Detalhes operacionais e do arquivo privado do Drive: <code>docs/EDITORIAL_REGISTRY.md</code>.
+
 ## Onde encontrar cada orientação
 
 - Fluxo cotidiano e ordem de operações: <code>README-OPERACIONAL.md</code>
+- Registro, memória, linhagem e importação local: <code>docs/EDITORIAL_REGISTRY.md</code>
 - Limites entre componentes: <code>docs/ARCHITECTURE.md</code>
 - Auditoria antes/depois das skills: <code>docs/SKILL_IMPLEMENTATION_AUDIT.md</code>
 - Fontes estudadas, adaptações e rejeições: <code>docs/SOURCE_ADOPTION_MAP.md</code>

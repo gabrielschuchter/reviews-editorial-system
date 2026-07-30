@@ -65,6 +65,18 @@ Compare candidata e versão revisada com `scripts/compare_versions.py`. Classifi
 
 O teste de regressão deve apontar para um arquivo existente dentro do repositório e declarar `passed_existing_cases: true`; isso registra evidência, mas não modifica regras automaticamente.
 
+## Registro central
+
+O registro local acompanha automaticamente a criação e o avanço dos jobs. Para migrar jobs anteriores e auditar a trilha completa:
+
+```powershell
+python scripts/editorial_registry.py sync-all-jobs jobs
+python scripts/editorial_registry.py dashboard
+python scripts/editorial_registry.py validate-registry
+```
+
+Consulte `docs/EDITORIAL_REGISTRY.md` para versões, eventos, linhagem, memória, classificação, saídas de agentes e arquivo privado do Drive.
+
 ## Comandos de verificação
 
 ```powershell
