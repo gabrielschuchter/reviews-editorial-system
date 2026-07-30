@@ -52,6 +52,22 @@ class ProductSidecarTests(unittest.TestCase):
         self.assertEqual(info["jobs_root"], str(self.paths.editions_root))
         self.assertEqual(info["database"], str(self.paths.database_path))
         self.assertTrue(bridge.dispatch("doctor")["data"]["passed"])
+        bootstrap = bridge.dispatch("bootstrap")
+        self.assertTrue(bootstrap["ok"])
+        self.assertEqual(
+            set(bootstrap["data"]),
+            {
+                "dashboard",
+                "editions",
+                "doctor",
+                "validated_memory",
+                "historical_memory",
+                "lessons",
+                "classifications",
+                "drive_imports",
+                "agent_runs",
+            },
+        )
 
     def test_demo_is_synthetic_and_separate(self) -> None:
         result = create_demo(self.paths)

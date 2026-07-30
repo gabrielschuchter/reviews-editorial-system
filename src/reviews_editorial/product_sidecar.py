@@ -467,6 +467,39 @@ class ProductReviewsUiBridge(ReviewsUiBridge):
             "roles_are_authentication": False,
         }
 
+    def bootstrap(self) -> dict[str, Any]:
+        """Entrega a visão inicial em uma única inicialização do sidecar."""
+
+        return {
+            "dashboard": self.dashboard(),
+            "editions": self.list_editions(),
+            "doctor": self.doctor(),
+            "validated_memory": self.search_memory("", tier="validated", limit=50),
+            "historical_memory": self.search_memory("", tier="historical", limit=50),
+            "lessons": self.list_lessons(),
+            "classifications": self.list_classification_queue(),
+            "drive_imports": self.list_drive_imports(),
+            "agent_runs": self.list_agent_runs(),
+        }
+
+    def dispatch(
+        self, command: str, arguments: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
+        if command == "bootstrap":
+            try:
+                return envelope(command, data=self.bootstrap())
+            except UiBridgeError:
+                raise
+            except (OSError, ValueError, RuntimeError) as exc:
+                raise UiBridgeError(
+                    "CORE_OPERATION_FAILED",
+                    str(exc),
+                    action="Revise o diagnóstico do perfil local.",
+                    category="environment_failure",
+                    retryable=True,
+                ) from exc
+        return super().dispatch(command, arguments)
+
     def doctor(self) -> dict[str, Any]:
         info = self.workspace_info()
         with self.registry.connection() as connection:
