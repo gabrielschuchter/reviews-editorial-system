@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "job_id": "JOB-2026-005",
+  "edition_id": "EDITION-05-PPBE-APA-2021",
+  "recorded_at": "2026-08-05T12:17:00-03:00",
+  "status": "APPROVED_PUBLISHABLE",
+  "decision_source": "Declaração explícita do editor na solicitação de 2026-08-05.",
+  "original_preserved": true,
+  "minimal_correction_copy_created": true,
+  "minimal_correction_copy_url": "https://docs.google.com/document/d/1b-Kgk8UJVy_9h70bTecuL_EmfkaBfMaXW1rHtPFTtBg",
+  "corrections_applied": 5,
+  "content_scope_changed": false,
+  "facts_numbers_references_structure_changed": false,
+  "source_revalidation_performed": false,
+  "memory_ingestion": {
+    "revision_history_recorded": true,
+    "exact_minimal_diff_recorded": true,
+    "human_change_map_recorded": true,
+    "automatic_rule_mutation_performed": false
+  }
+}

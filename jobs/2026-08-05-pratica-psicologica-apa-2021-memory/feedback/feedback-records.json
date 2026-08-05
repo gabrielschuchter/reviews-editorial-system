@@ -1,0 +1,124 @@
+{
+  "changes": [
+    {
+      "feedback_id": "FDB-PPBE-ORTHO-001",
+      "section": "Seção II. Manter contato crítico com a literatura",
+      "feedback_type": "native-portuguese-correction",
+      "original": "Para atualizar-se é necessário",
+      "edited": "Para atualizar-se, é necessário",
+      "difference": "Inserção de vírgula após oração infinitiva deslocada.",
+      "reason": "Correção pontual de pontuação, sem alteração de sentido.",
+      "job_id": "JOB-2026-005",
+      "edition_id": "EDITION-05-PPBE-APA-2021",
+      "candidate_version": "Google Docs original, revisão 2560",
+      "revised_version": "Cópia de revisão ortográfica mínima, 2026-08-05",
+      "generalizable": false,
+      "generalization_status": "local-only",
+      "candidate_rule": null,
+      "target_destination": null,
+      "regression_test": null,
+      "editor_approval": {"decision": "approved", "editor": "Gabriel Schuchter", "decided_at": "2026-08-05T12:17:00-03:00"},
+      "sources": [
+        {"version_role": "candidate", "location": "https://docs.google.com/document/d/1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA", "hash": "3aac01dc6c4a269de110a5ee4928fd00763628f55a3ed97df6b1a6773d5a065e"},
+        {"version_role": "revised", "location": "https://docs.google.com/document/d/1b-Kgk8UJVy_9h70bTecuL_EmfkaBfMaXW1rHtPFTtBg", "hash": "2dacccdd2dda2d849065d8426150a201dd4e2722d1c2444b84ed4aed2bbecd3e"}
+      ],
+      "provenance": {"compared_at": "2026-08-05T12:17:00-03:00", "compared_by": "GPT-5.6 Thinking com Google Drive connector", "method": "Exportação textual das duas versões, SHA-256 e diff unificado reproduzível.", "notes": "A solicitação exigiu correção mínima; nenhuma mudança estilística, estrutural, factual ou metodológica foi aplicada."}
+    },
+    {
+      "feedback_id": "FDB-PPBE-ORTHO-002",
+      "section": "Seção II. Manter contato crítico com a literatura",
+      "feedback_type": "native-portuguese-correction",
+      "original": "acrítica  uma",
+      "edited": "acrítica uma",
+      "difference": "Remoção de espaço duplicado.",
+      "reason": "Correção tipográfica objetiva.",
+      "job_id": "JOB-2026-005",
+      "edition_id": "EDITION-05-PPBE-APA-2021",
+      "candidate_version": "Google Docs original, revisão 2560",
+      "revised_version": "Cópia de revisão ortográfica mínima, 2026-08-05",
+      "generalizable": false,
+      "generalization_status": "local-only",
+      "candidate_rule": null,
+      "target_destination": null,
+      "regression_test": null,
+      "editor_approval": {"decision": "approved", "editor": "Gabriel Schuchter", "decided_at": "2026-08-05T12:17:00-03:00"},
+      "sources": [
+        {"version_role": "candidate", "location": "https://docs.google.com/document/d/1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA", "hash": "3aac01dc6c4a269de110a5ee4928fd00763628f55a3ed97df6b1a6773d5a065e"},
+        {"version_role": "revised", "location": "https://docs.google.com/document/d/1b-Kgk8UJVy_9h70bTecuL_EmfkaBfMaXW1rHtPFTtBg", "hash": "2dacccdd2dda2d849065d8426150a201dd4e2722d1c2444b84ed4aed2bbecd3e"}
+      ],
+      "provenance": {"compared_at": "2026-08-05T12:17:00-03:00", "compared_by": "GPT-5.6 Thinking com Google Drive connector", "method": "Exportação textual das duas versões, SHA-256 e diff unificado reproduzível.", "notes": "A solicitação exigiu correção mínima; nenhuma mudança estilística, estrutural, factual ou metodológica foi aplicada."}
+    },
+    {
+      "feedback_id": "FDB-PPBE-ORTHO-003",
+      "section": "Seção II. Manter contato crítico com a literatura",
+      "feedback_type": "native-portuguese-correction",
+      "original": "a evidências realmente sugerem",
+      "edited": "as evidências realmente sugerem",
+      "difference": "Correção de concordância nominal no artigo.",
+      "reason": "Erro gramatical inequívoco; significado preservado.",
+      "job_id": "JOB-2026-005",
+      "edition_id": "EDITION-05-PPBE-APA-2021",
+      "candidate_version": "Google Docs original, revisão 2560",
+      "revised_version": "Cópia de revisão ortográfica mínima, 2026-08-05",
+      "generalizable": false,
+      "generalization_status": "local-only",
+      "candidate_rule": null,
+      "target_destination": null,
+      "regression_test": null,
+      "editor_approval": {"decision": "approved", "editor": "Gabriel Schuchter", "decided_at": "2026-08-05T12:17:00-03:00"},
+      "sources": [
+        {"version_role": "candidate", "location": "https://docs.google.com/document/d/1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA", "hash": "3aac01dc6c4a269de110a5ee4928fd00763628f55a3ed97df6b1a6773d5a065e"},
+        {"version_role": "revised", "location": "https://docs.google.com/document/d/1b-Kgk8UJVy_9h70bTecuL_EmfkaBfMaXW1rHtPFTtBg", "hash": "2dacccdd2dda2d849065d8426150a201dd4e2722d1c2444b84ed4aed2bbecd3e"}
+      ],
+      "provenance": {"compared_at": "2026-08-05T12:17:00-03:00", "compared_by": "GPT-5.6 Thinking com Google Drive connector", "method": "Exportação textual das duas versões, SHA-256 e diff unificado reproduzível.", "notes": "A solicitação exigiu correção mínima; nenhuma mudança estilística, estrutural, factual ou metodológica foi aplicada."}
+    },
+    {
+      "feedback_id": "FDB-PPBE-ORTHO-004",
+      "section": "Seção VII. Monitorar processo e resultados",
+      "feedback_type": "native-portuguese-correction",
+      "original": "etc)",
+      "edited": "etc.)",
+      "difference": "Inclusão de ponto na abreviação “etc.” antes do fechamento do parêntese.",
+      "reason": "Correção ortográfica/pontuação normativa, sem reformulação.",
+      "job_id": "JOB-2026-005",
+      "edition_id": "EDITION-05-PPBE-APA-2021",
+      "candidate_version": "Google Docs original, revisão 2560",
+      "revised_version": "Cópia de revisão ortográfica mínima, 2026-08-05",
+      "generalizable": false,
+      "generalization_status": "local-only",
+      "candidate_rule": null,
+      "target_destination": null,
+      "regression_test": null,
+      "editor_approval": {"decision": "approved", "editor": "Gabriel Schuchter", "decided_at": "2026-08-05T12:17:00-03:00"},
+      "sources": [
+        {"version_role": "candidate", "location": "https://docs.google.com/document/d/1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA", "hash": "3aac01dc6c4a269de110a5ee4928fd00763628f55a3ed97df6b1a6773d5a065e"},
+        {"version_role": "revised", "location": "https://docs.google.com/document/d/1b-Kgk8UJVy_9h70bTecuL_EmfkaBfMaXW1rHtPFTtBg", "hash": "2dacccdd2dda2d849065d8426150a201dd4e2722d1c2444b84ed4aed2bbecd3e"}
+      ],
+      "provenance": {"compared_at": "2026-08-05T12:17:00-03:00", "compared_by": "GPT-5.6 Thinking com Google Drive connector", "method": "Exportação textual das duas versões, SHA-256 e diff unificado reproduzível.", "notes": "A solicitação exigiu correção mínima; nenhuma mudança estilística, estrutural, factual ou metodológica foi aplicada."}
+    },
+    {
+      "feedback_id": "FDB-PPBE-ORTHO-005",
+      "section": "Seção X. Saúde integral, prevenção e bem-estar",
+      "feedback_type": "native-portuguese-correction",
+      "original": "comportamento benéficos",
+      "edited": "comportamentos benéficos",
+      "difference": "Correção de concordância de número.",
+      "reason": "Erro gramatical inequívoco; conteúdo preservado.",
+      "job_id": "JOB-2026-005",
+      "edition_id": "EDITION-05-PPBE-APA-2021",
+      "candidate_version": "Google Docs original, revisão 2560",
+      "revised_version": "Cópia de revisão ortográfica mínima, 2026-08-05",
+      "generalizable": false,
+      "generalization_status": "local-only",
+      "candidate_rule": null,
+      "target_destination": null,
+      "regression_test": null,
+      "editor_approval": {"decision": "approved", "editor": "Gabriel Schuchter", "decided_at": "2026-08-05T12:17:00-03:00"},
+      "sources": [
+        {"version_role": "candidate", "location": "https://docs.google.com/document/d/1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA", "hash": "3aac01dc6c4a269de110a5ee4928fd00763628f55a3ed97df6b1a6773d5a065e"},
+        {"version_role": "revised", "location": "https://docs.google.com/document/d/1b-Kgk8UJVy_9h70bTecuL_EmfkaBfMaXW1rHtPFTtBg", "hash": "2dacccdd2dda2d849065d8426150a201dd4e2722d1c2444b84ed4aed2bbecd3e"}
+      ],
+      "provenance": {"compared_at": "2026-08-05T12:17:00-03:00", "compared_by": "GPT-5.6 Thinking com Google Drive connector", "method": "Exportação textual das duas versões, SHA-256 e diff unificado reproduzível.", "notes": "A solicitação exigiu correção mínima; nenhuma mudança estilística, estrutural, factual ou metodológica foi aplicada."}
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "job_id": "JOB-2026-005",
+  "edition_id": "EDITION-05-PPBE-APA-2021",
+  "compared_at": "2026-08-05T12:17:00-03:00",
+  "candidate": {
+    "role": "source-current",
+    "drive_id": "1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA",
+    "revision_id": "2560",
+    "url": "https://docs.google.com/document/d/1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA",
+    "sha256": "3aac01dc6c4a269de110a5ee4928fd00763628f55a3ed97df6b1a6773d5a065e",
+    "bytes": 18565
+  },
+  "revised": {
+    "role": "minimal-orthography-copy",
+    "drive_id": "1b-Kgk8UJVy_9h70bTecuL_EmfkaBfMaXW1rHtPFTtBg",
+    "url": "https://docs.google.com/document/d/1b-Kgk8UJVy_9h70bTecuL_EmfkaBfMaXW1rHtPFTtBg",
+    "sha256": "2dacccdd2dda2d849065d8426150a201dd4e2722d1c2444b84ed4aed2bbecd3e",
+    "bytes": 18568
+  },
+  "similarity_ratio": 0.9998590874503284,
+  "occurrences_changed": 5,
+  "changes": [
+    {
+      "feedback_id": "FDB-PPBE-ORTHO-001",
+      "section": "Seção II. Manter contato crítico com a literatura",
+      "feedback_type": "native-portuguese-correction",
+      "original": "Para atualizar-se é necessário",
+      "edited": "Para atualizar-se, é necessário",
+      "difference": "Inserção de vírgula após oração infinitiva deslocada.",
+      "reason": "Correção pontual de pontuação, sem alteração de sentido."
+    },
+    {
+      "feedback_id": "FDB-PPBE-ORTHO-002",
+      "section": "Seção II. Manter contato crítico com a literatura",
+      "feedback_type": "native-portuguese-correction",
+      "original": "acrítica  uma",
+      "edited": "acrítica uma",
+      "difference": "Remoção de espaço duplicado.",
+      "reason": "Correção tipográfica objetiva."
+    },
+    {
+      "feedback_id": "FDB-PPBE-ORTHO-003",
+      "section": "Seção II. Manter contato crítico com a literatura",
+      "feedback_type": "native-portuguese-correction",
+      "original": "a evidências realmente sugerem",
+      "edited": "as evidências realmente sugerem",
+      "difference": "Correção de concordância nominal no artigo.",
+      "reason": "Erro gramatical inequívoco; significado preservado."
+    },
+    {
+      "feedback_id": "FDB-PPBE-ORTHO-004",
+      "section": "Seção VII. Monitorar processo e resultados",
+      "feedback_type": "native-portuguese-correction",
+      "original": "etc)",
+      "edited": "etc.)",
+      "difference": "Inclusão de ponto na abreviação “etc.” antes do fechamento do parêntese.",
+      "reason": "Correção ortográfica/pontuação normativa, sem reformulação."
+    },
+    {
+      "feedback_id": "FDB-PPBE-ORTHO-005",
+      "section": "Seção X. Saúde integral, prevenção e bem-estar",
+      "feedback_type": "native-portuguese-correction",
+      "original": "comportamento benéficos",
+      "edited": "comportamentos benéficos",
+      "difference": "Correção de concordância de número.",
+      "reason": "Erro gramatical inequívoco; conteúdo preservado."
+    }
+  ],
+  "unified_diff": [
+    "--- drive-original-current",
+    "+++ drive-copy-minimal-orthography",
+    "@@ Seção II @@",
+    "-Para atualizar-se é necessário",
+    "+Para atualizar-se, é necessário",
+    "-acrítica  uma",
+    "+acrítica uma",
+    "-a evidências realmente sugerem",
+    "+as evidências realmente sugerem",
+    "@@ Seção VII @@",
+    "-etc)",
+    "+etc.)",
+    "@@ Seção X @@",
+    "-comportamento benéficos",
+    "+comportamentos benéficos"
+  ],
+  "numeric_changes": [],
+  "reference_changes": {
+    "removed": [],
+    "added": []
+  },
+  "structural_changes": {
+    "changed": false
+  },
+  "semantic_scope": "mechanical-only",
+  "verification": {
+    "other_textual_differences_found": false,
+    "facts_numbers_references_headings_changed": false
+  }
+}
