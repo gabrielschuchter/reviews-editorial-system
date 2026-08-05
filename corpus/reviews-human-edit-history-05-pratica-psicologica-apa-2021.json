@@ -1,0 +1,183 @@
+{
+  "analysis_version": "1.0.0",
+  "memory_id": "MEM-PPBE-APA-2021-20260805",
+  "captured_at": "2026-08-05T12:17:00-03:00",
+  "reference_class": "B-approved-human-final",
+  "package": "05-pratica-psicologica-apa-2021",
+  "editorial_status": "approved-publishable",
+  "documents": {
+    "original_final": {
+      "id": "1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA",
+      "url": "https://docs.google.com/document/d/1PauEJvSgrYT-pqK9NxXCRxaYd9PYmmOruMhl54XiQjA",
+      "title": "PUBLICAÇÃO FINAL — 05_pratica_psicologica_baseada_em_evidencias_APA_2021",
+      "sha256_text_export": "3aac01dc6c4a269de110a5ee4928fd00763628f55a3ed97df6b1a6773d5a065e",
+      "preserved_unchanged": true
+    },
+    "minimal_correction_copy": {
+      "id": "1b-Kgk8UJVy_9h70bTecuL_EmfkaBfMaXW1rHtPFTtBg",
+      "url": "https://docs.google.com/document/d/1b-Kgk8UJVy_9h70bTecuL_EmfkaBfMaXW1rHtPFTtBg",
+      "title": "PUBLICAÇÃO FINAL — 05_pratica_psicologica_baseada_em_evidencias_APA_2021 — revisão ortográfica mínima",
+      "sha256_text_export": "2dacccdd2dda2d849065d8426150a201dd4e2722d1c2444b84ed4aed2bbecd3e",
+      "corrections_count": 5
+    },
+    "primary_source": {
+      "id": "1BjyYNnPHJHHFwbhpDyFENxAgTzBYievc",
+      "url": "https://drive.google.com/file/d/1BjyYNnPHJHHFwbhpDyFENxAgTzBYievc",
+      "name": "psychological-practice-health-care.pdf",
+      "role": "primary-guideline-source",
+      "content_revalidated_in_this_operation": false
+    },
+    "existing_audit": {
+      "id": "1ssSL9hzLoIlKts8VEKW8cW9vQt66uwepQg3e_-SCrvw"
+    }
+  },
+  "revision_checkpoints": [
+    {
+      "revision_id": "1",
+      "modified_at": "2026-07-24T19:35:48.325Z",
+      "role": "initial-complete-draft"
+    },
+    {
+      "revision_id": "48",
+      "modified_at": "2026-07-24T20:33:18.172Z",
+      "role": "first-human-editorial-pass"
+    },
+    {
+      "revision_id": "236",
+      "modified_at": "2026-08-01T19:40:24.155Z",
+      "role": "structural-simplification-pass"
+    },
+    {
+      "revision_id": "498",
+      "modified_at": "2026-08-03T11:14:34.935Z",
+      "role": "reader-framing-pass"
+    },
+    {
+      "revision_id": "1031",
+      "modified_at": "2026-08-04T15:56:18.459Z",
+      "role": "applied-clinical-expansion-pass"
+    },
+    {
+      "revision_id": "2560",
+      "modified_at": "2026-08-05T15:00:52.310Z",
+      "role": "human-final-publishable"
+    }
+  ],
+  "human_change_map": [
+    {
+      "from_revision": "1",
+      "to_revision": "48",
+      "classification": [
+        "structural-correction",
+        "style-correction",
+        "local-editorial-choice"
+      ],
+      "changes": [
+        "Título encurtado e reposicionado para enfatizar os princípios da prática psicológica baseada em evidências.",
+        "A sigla PPBE foi introduzida e a definição da APA ganhou centralidade logo na abertura.",
+        "O enquadramento sobre natureza aspiracional, ausência de obrigatoriedade e limites documentais foi condensado.",
+        "A introdução passou de uma apresentação predominantemente documental para uma explicação editorial do problema."
+      ],
+      "promotion_status": "local-only"
+    },
+    {
+      "from_revision": "48",
+      "to_revision": "236",
+      "classification": [
+        "structural-correction",
+        "style-correction",
+        "local-editorial-choice"
+      ],
+      "changes": [
+        "Blocos metadocumentais separados sobre natureza e base documental foram removidos.",
+        "A tabela foi simplificada de orientação + princípio + tradução para princípio + tradução prática, eliminando numeração sem função decisória.",
+        "A seção conceitual passou a nomear explicitamente PPBE e a contrastá-la com tratamento empiricamente sustentado.",
+        "A redação ficou mais curta, direta e orientada ao processo clínico."
+      ],
+      "promotion_status": "local-only"
+    },
+    {
+      "from_revision": "236",
+      "to_revision": "498",
+      "classification": [
+        "journalistic-framing",
+        "style-correction",
+        "local-editorial-choice"
+      ],
+      "changes": [
+        "A abertura passou a reconhecer interpretações conflitantes e percepções imprecisas sobre PBE em Psicologia.",
+        "Foi inserida uma ponte explícita entre a controvérsia conceitual e o documento da APA.",
+        "A distinção entre PPBE e TES foi ampliada com consequências práticas para avaliação, adaptação, relação terapêutica e encerramento.",
+        "A voz editorial tornou-se mais conversacional, sem abandonar precisão técnica."
+      ],
+      "promotion_status": "local-only"
+    },
+    {
+      "from_revision": "498",
+      "to_revision": "1031",
+      "classification": [
+        "structural-correction",
+        "style-correction",
+        "native-portuguese-correction"
+      ],
+      "changes": [
+        "A introdução foi depurada para evitar formulações redundantes e melhorar a continuidade lógica.",
+        "A seção sobre literatura passou a explicar por que desenhos diferentes respondem perguntas diferentes e como avaliar diretrizes.",
+        "As seções de avaliação, decisão compartilhada, relação terapêutica, adaptação, monitoramento, modificação/encerramento e colaboração ganharam exemplos operacionais.",
+        "Termos excessivamente literais foram substituídos por português clínico mais natural, preservando referentes e limites."
+      ],
+      "promotion_status": "candidate",
+      "confidence": "medium; deriva de uma edição e precisa de regressão antes de qualquer regra geral"
+    },
+    {
+      "from_revision": "1031",
+      "to_revision": "2560",
+      "classification": [
+        "structural-correction",
+        "style-correction",
+        "local-editorial-choice"
+      ],
+      "changes": [
+        "A avaliação foi reformulada como processo contínuo, com finalidade, risco, comorbidades, instrumentos e incerteza.",
+        "Decisão compartilhada e consentimento foram reescritos para explicitar opções, benefícios, riscos, cargas, valores e limites.",
+        "Relação terapêutica e características do profissional foram tornadas mais concretas por sinais de ruptura, vieses e necessidade de supervisão.",
+        "A adaptação foi enquadrada como preservação de componentes necessários, com aceitabilidade, adesão e risco de retirar o componente ativo.",
+        "O monitoramento passou a incluir definição prévia de medidas, frequência, critérios, dano, custo e uso dos resultados na decisão.",
+        "Modificar e encerrar passaram a ser descritos como decisões clínicas condicionadas por resposta, metas, risco e aplicabilidade.",
+        "A conclusão sobre saúde integral foi alinhada a uma perspectiva biopsicossocial e interprofissional."
+      ],
+      "promotion_status": "candidate",
+      "confidence": "medium; mudanças aprovadas para esta edição, não universais"
+    },
+    {
+      "from_revision": "2560",
+      "to_revision": "minimal-correction-copy",
+      "classification": [
+        "native-portuguese-correction"
+      ],
+      "changes": [
+        "Inserção de vírgula após oração infinitiva deslocada.",
+        "Remoção de espaço duplicado.",
+        "Correção de concordância nominal no artigo.",
+        "Inclusão de ponto na abreviação “etc.” antes do fechamento do parêntese.",
+        "Correção de concordância de número."
+      ],
+      "exact_diff_path": "jobs/2026-08-05-pratica-psicologica-apa-2021-memory/feedback/version-comparison.json",
+      "promotion_status": "local-only"
+    }
+  ],
+  "artifacts": {
+    "version_comparison": "jobs/2026-08-05-pratica-psicologica-apa-2021-memory/feedback/version-comparison.json",
+    "feedback_records": "jobs/2026-08-05-pratica-psicologica-apa-2021-memory/feedback/feedback-records.json",
+    "learning_proposals": "jobs/2026-08-05-pratica-psicologica-apa-2021-memory/feedback/learning-proposals.json",
+    "review_status": "jobs/2026-08-05-pratica-psicologica-apa-2021-memory/final/review-status.json"
+  },
+  "learning_boundaries": [
+    "A fonte primária continua governando verdade factual; este registro não substitui appraisal ou auditoria.",
+    "O histórico humano é evidência editorial graduada, não regra automática.",
+    "Nenhum documento integral do Drive foi copiado para o repositório público; foram preservados IDs, hashes, metadados, resumos e trechos mínimos.",
+    "As cinco correções mecânicas não autorizam reescrita estilística retroativa.",
+    "Qualquer promoção geral exige teste de regressão e nova aprovação editorial."
+  ],
+  "ingestion_note": "O texto integral permanece no Google Drive. A memória pública registra IDs, hashes, revisões, diffs localizados e observações derivadas."
+}
