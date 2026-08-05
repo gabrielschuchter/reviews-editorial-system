@@ -1,0 +1,66 @@
+{
+  "analysis_version": "1.0.0",
+  "job_id": "JOB-2026-005",
+  "edition_id": "EDITION-05-PPBE-APA-2021",
+  "generated_at": "2026-08-05T12:17:00-03:00",
+  "automatic_rule_mutation_performed": false,
+  "proposals": [
+    {
+      "id": "LEARN-PPBE-001",
+      "description": "Quando o editor declarar explicitamente uma edição final e publicável, aplicar modo de preservação: somente correções objetivas e localizadas, sem polimento estilístico não solicitado.",
+      "category": "workflow-boundary",
+      "confidence": "medium-high",
+      "scope": "Documentos explicitamente aprovados como finais/publicáveis pelo editor.",
+      "before": "Revisão ampla ou reescrita por preferência do agente.",
+      "after": "Correções mecânicas, ortográficas ou gramaticais inequívocas; demais mudanças exigem reabertura explícita.",
+      "regression_test": "Pendente: caso deve falhar se houver mudança semântica, estrutural ou de voz além das correções autorizadas.",
+      "promotion_status": "candidate",
+      "boundary": "Não bloqueia correção factual/metodológica necessária quando houver conflito com a fonte; nesse caso, reabrir auditoria."
+    },
+    {
+      "id": "LEARN-PPBE-002",
+      "description": "Em tabelas de síntese, numeração pode ser dispensada quando não há referência cruzada e princípio + tradução prática preservam integralmente a decisão.",
+      "category": "document-structure",
+      "confidence": "low-medium",
+      "scope": "Tabelas de síntese semelhantes à edição 05.",
+      "before": "Coluna numérica sem função editorial.",
+      "after": "Estrutura reduzida às colunas que carregam significado.",
+      "regression_test": "Pendente: preservar ordem, rastreabilidade e numeração oficial quando ela for usada no texto ou na fonte.",
+      "promotion_status": "candidate"
+    },
+    {
+      "id": "LEARN-PPBE-003",
+      "description": "Substituir metadiscurso sobre o documento por explicação orientada à decisão pode melhorar a utilidade, desde que qualificadores, limites e incertezas relevantes permaneçam.",
+      "category": "editorial-framing",
+      "confidence": "medium",
+      "scope": "Introduções de diretrizes e orientações profissionais.",
+      "before": "Blocos sobre natureza do documento sem ligação direta com a decisão do leitor.",
+      "after": "Definição, problema prático e implicações apresentados de forma integrada.",
+      "regression_test": "Pendente: detectar remoção indevida de ressalva que mude força, escopo ou aplicabilidade.",
+      "promotion_status": "candidate"
+    },
+    {
+      "id": "LEARN-PPBE-004",
+      "description": "Distinções conceituais abstratas devem ser traduzidas em consequências operacionais do cuidado quando a fonte sustentar essa passagem.",
+      "category": "explanatory-writing",
+      "confidence": "medium",
+      "scope": "Edições conceituais ou de prática profissional.",
+      "before": "Definição isolada sem consequência para a prática.",
+      "after": "Definição conectada a avaliação, formulação, adaptação, monitoramento e decisão.",
+      "regression_test": "Pendente: impedir inclusão de consequência não sustentada pela fonte.",
+      "promotion_status": "candidate"
+    }
+  ],
+  "local_only_decisions": [
+    "A formulação exata da abertura desta edição.",
+    "A remoção dos blocos 'Natureza' e 'Base documental'.",
+    "A ordem e o tamanho de cada seção.",
+    "Os exemplos clínicos escolhidos e a cadência textual específica."
+  ],
+  "handoff": {
+    "editor_decision_required_for_promotion": true,
+    "rule_files_changed": false,
+    "corpus_canonical_changed": false,
+    "publication_changed": false
+  }
+}
