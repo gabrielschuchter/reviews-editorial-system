@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:strict-style-report:1",
+  "title": "Relatório de proibições rígidas de estilo",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "report_id",
+    "audit_version",
+    "artifact_id",
+    "artifact_sha256",
+    "policy",
+    "passed",
+    "blocking",
+    "findings",
+    "rules"
+  ],
+  "properties": {
+    "report_id": { "type": "string", "pattern": "^RSS-[A-F0-9]{12}$" },
+    "audit_version": { "type": "string", "minLength": 1 },
+    "artifact_id": { "type": "string", "minLength": 1 },
+    "artifact_sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+    "policy": { "type": "string", "minLength": 1 },
+    "passed": { "type": "boolean" },
+    "blocking": { "type": "boolean" },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/finding" }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/rule" }
+    }
+  },
+  "$defs": {
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["line", "start", "end"],
+      "properties": {
+        "line": { "type": "integer", "minimum": 1 },
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "finding_id",
+        "rule_id",
+        "category",
+        "severity",
+        "excerpt",
+        "location",
+        "reason",
+        "required_action",
+        "disposition_allowed"
+      ],
+      "properties": {
+        "finding_id": { "type": "string", "pattern": "^RSS-[0-9]{3,}$" },
+        "rule_id": { "type": "string", "enum": ["REV-STYLE-HARD-001", "REV-STYLE-HARD-002"] },
+        "category": { "type": "string", "enum": ["antithesis", "dash-in-running-text"] },
+        "severity": { "const": "critical" },
+        "excerpt": { "type": "string", "minLength": 1 },
+        "location": { "$ref": "#/$defs/location" },
+        "reason": { "type": "string", "minLength": 1 },
+        "required_action": { "type": "string", "minLength": 1 },
+        "disposition_allowed": { "const": false }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule_id", "description"],
+      "properties": {
+        "rule_id": { "type": "string", "enum": ["REV-STYLE-HARD-001", "REV-STYLE-HARD-002"] },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
