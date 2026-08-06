@@ -19,17 +19,20 @@ class StrictStyleAuditTests(unittest.TestCase):
         return [item["category"] for item in audit_strict_style(text)["findings"]]
 
     def test_direct_antithesis_is_blocking(self) -> None:
-        report = audit_strict_style("O resultado não é definitivo, mas orienta a decisão.")
+        text = "O resultado não é definitivo, mas orienta a decisão."
+        report = audit_strict_style(text)
         self.assertFalse(report["passed"])
         self.assertTrue(report["blocking"])
-        self.assertIn("antithesis", self.categories("O resultado não é definitivo, mas orienta a decisão."))
+        self.assertIn("antithesis", self.categories(text))
 
     def test_corrective_negation_is_blocking_without_connector(self) -> None:
         report = audit_strict_style(
             "A avaliação não se resume ao peso. Ela inclui sintomas e função muscular."
         )
         self.assertFalse(report["passed"])
-        finding = next(item for item in report["findings"] if item["category"] == "antithesis")
+        finding = next(
+            item for item in report["findings"] if item["category"] == "antithesis"
+        )
         self.assertEqual(finding["rule_id"], "REV-STYLE-HARD-001")
         self.assertFalse(finding["disposition_allowed"])
 
@@ -38,7 +41,10 @@ class StrictStyleAuditTests(unittest.TestCase):
             "Apesar da certeza baixa, o painel emitiu recomendação forte."
         )
         self.assertFalse(report["passed"])
-        self.assertIn("antithesis", {item["category"] for item in report["findings"]})
+        self.assertIn(
+            "antithesis",
+            {item["category"] for item in report["findings"]},
+        )
 
     def test_direct_clinical_negative_recommendation_is_allowed(self) -> None:
         report = audit_strict_style(
@@ -47,11 +53,22 @@ class StrictStyleAuditTests(unittest.TestCase):
         self.assertTrue(report["passed"])
         self.assertEqual(report["findings"], [])
 
+    def test_direct_factual_negative_is_allowed(self) -> None:
+        report = audit_strict_style(
+            "Não foram encontrados estudos elegíveis para esta pergunta."
+        )
+        self.assertTrue(report["passed"])
+        self.assertEqual(report["findings"], [])
+
     def test_dash_and_hyphen_in_running_text_are_blocking(self) -> None:
         report = audit_strict_style(
             "O acompanhamento ocorre no pós-operatório por 4–6 semanas."
         )
-        findings = [item for item in report["findings"] if item["category"] == "dash-in-running-text"]
+        findings = [
+            item
+            for item in report["findings"]
+            if item["category"] == "dash-in-running-text"
+        ]
         self.assertGreaterEqual(len(findings), 2)
         self.assertFalse(report["passed"])
 
@@ -73,7 +90,10 @@ class StrictStyleCliTests(unittest.TestCase):
             root = Path(temporary)
             draft = root / "draft.md"
             output = root / "strict-style-report.json"
-            draft.write_text("O valor não é fixo, mas serve como referência.", encoding="utf-8")
+            draft.write_text(
+                "O valor não é fixo, mas serve como referência.",
+                encoding="utf-8",
+            )
             result = subprocess.run(
                 [
                     sys.executable,
