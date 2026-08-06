@@ -1,27 +1,74 @@
 schema_version: "1.0.0"
-config_version: "0.1.0"
-config_status: provisional
+config_version: "1.0.0"
+config_status: canonical
 language: pt-BR
 governance:
-  canonical: false
-  operational_use: allowed-for-mvp
-  approval_status: pending-editorial-approval
+  canonical: true
+  operational_use: mandatory
+  approval_status: approved-by-editorial-authority
   approval_authority: human-editor
   created_on: "2026-07-22"
-  corpus_preferences_applied: false
+  updated_on: "2026-08-06"
+  corpus_preferences_applied: true
   source_basis:
-    document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
-    section: "13. Revisão anti-IA"
+    document: "Proibições rígidas de estilo"
+    rules:
+      - "REV-STYLE-HARD-001"
+      - "REV-STYLE-HARD-002"
     descriptive_reference: "https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing"
 
 enforcement:
   automatic_authorship_inference: false
   detector_is_authority: false
-  phrase_is-automatic-failure: false
   contextual_human_review_required: true
-  rule: "Sinais superficiais geram revisão contextual; invenção e citação sem suporte são falhas factuais."
+  hard_rules_are_automatic_failure: true
+  hard_rules_allow_false_positive_disposition: false
+  rule: "Antítese e traços em texto corrido bloqueiam a edição. Outros sinais permanecem sujeitos a revisão contextual."
 
 rules:
+  - id: antithesis
+    policy_id: REV-STYLE-HARD-001
+    kind: hard-prohibition
+    description: "Antítese, oposição corretiva, contraste adversativo ou concessivo e qualquer construção equivalente."
+    severity: critical
+    action: rewrite-as-direct-independent-statements
+    examples:
+      - "não é X, mas Y"
+      - "não é X, e sim Y"
+      - "não apenas X, mas também Y"
+      - "não se resume a X. Inclui Y"
+    markers:
+      - "mas"
+      - "porém"
+      - "contudo"
+      - "entretanto"
+      - "todavia"
+      - "no entanto"
+      - "ainda assim"
+      - "por outro lado"
+      - "ao contrário"
+      - "em contrapartida"
+      - "em vez de"
+      - "embora"
+      - "apesar de"
+      - "ainda que"
+      - "mesmo que"
+      - "mesmo sem"
+    allowed_negative_scope: "Negativa clínica direta que não prepara oposição, como contraindicação, ausência de estudo ou resultado negativo."
+
+  - id: dash-in-running-text
+    policy_id: REV-STYLE-HARD-002
+    kind: hard-prohibition
+    description: "Hífen, meia risca, travessão, sinal de menos ou traço equivalente em texto corrido."
+    severity: critical
+    action: rewrite-with-simple-punctuation-or-words
+    characters:
+      - "-"
+      - "–"
+      - "—"
+      - "−"
+    narrow_exception: "Elemento exclusivamente organizacional, identificador técnico, endereço eletrônico, DOI ou URL."
+
   - id: fabricated-detail
     kind: hard-prohibition
     description: "Detalhe, número, mecanismo, referência ou atribuição criado para dar fluidez ou autoridade."
@@ -37,7 +84,7 @@ rules:
   - id: chatbot-artifact
     kind: hard-prohibition
     description: "Metacomentário, marcador interno, instrução ao operador ou fragmento de resposta de chatbot no texto editorial."
-    severity: error
+    severity: critical
     action: remove-and-review-context
 
   - id: generic-opening
@@ -64,12 +111,6 @@ rules:
     severity: review
     action: preserve-only-natural-structure
 
-  - id: artificial-negative-parallelism
-    kind: contextual-review
-    description: "Uso ornamental e recorrente de construções como 'não apenas X, mas também Y'."
-    severity: review
-    action: state-the-actual-relation
-
   - id: mechanical-connectors
     kind: contextual-review
     phrases:
@@ -80,7 +121,7 @@ rules:
       - "de maneira geral"
       - "em suma"
       - "em conclusão"
-    description: "Expressões não são proibidas isoladamente; repetição ou ausência de função exige revisão."
+    description: "Repetição ou ausência de função exige revisão."
     severity: review
     action: verify-logical-function
 
@@ -95,12 +136,6 @@ rules:
     description: "Transição que apenas anuncia, resume ou recapitula sem avançar a análise."
     severity: error
     action: connect-content-relations
-
-  - id: excessive-dashes
-    kind: contextual-review
-    description: "Travessões repetidos substituindo pontuação, hierarquia ou construção sintática."
-    severity: review
-    action: revise-sentence-structure
 
   - id: repeated-question
     kind: contextual-review
@@ -122,5 +157,7 @@ rules:
 
 candidate_gate:
   require_all_critical_resolved: true
+  require_strict_style_report: true
+  require_strict_style_passed: true
   detector_score_threshold: null
   unresolved_contextual_flags_require-disposition: true
