@@ -12,6 +12,7 @@ from .constants import (
     PIPELINE_STATES,
     REQUIRED_OUTPUTS_BY_STATE,
 )
+from .guideline_intro import audit_guideline_introduction
 from .io import dump_data, load_data
 from .jobs import load_job, utc_now, validate_job_shape
 from .strict_style import audit_strict_style
@@ -102,6 +103,40 @@ def _run_strict_style_gate(root: Path, state: str, errors: list[str]) -> None:
         )
 
 
+def _is_guideline_job(root: Path) -> bool:
+    brief_path = root / "planning" / "editorial-brief.json"
+    if not brief_path.is_file():
+        return False
+    brief = load_data(brief_path)
+    edition_type = str(brief.get("edition_type") or "").casefold()
+    return "guideline" in edition_type or "diretriz" in edition_type
+
+
+def _run_guideline_introduction_gate(root: Path, state: str, errors: list[str]) -> None:
+    if not _is_guideline_job(root):
+        return
+    selected = _strict_style_artifact(root, state)
+    if selected is None:
+        return
+    artifact_path, _ = selected
+    final_stage = state_index(state) >= state_index("final_audit_complete")
+    report_path = root / "audits" / (
+        "guideline-introduction-final.json"
+        if final_stage
+        else "guideline-introduction-audit.json"
+    )
+    report = audit_guideline_introduction(
+        artifact_path.read_text(encoding="utf-8-sig"),
+        artifact_id=str(artifact_path.relative_to(root)),
+    )
+    dump_data(report_path, report)
+    if report.get("passed") is not True:
+        rules = sorted({str(item.get("rule_id")) for item in report.get("findings", [])})
+        errors.append(
+            f"gate de introdução de diretriz bloqueou {artifact_path.relative_to(root)}: {rules}"
+        )
+
+
 def validate_pipeline(job_dir: str | Path, target_state: str | None = None) -> dict[str, Any]:
     root = Path(job_dir).resolve()
     job = load_job(root)
@@ -111,6 +146,7 @@ def validate_pipeline(job_dir: str | Path, target_state: str | None = None) -> d
 
     if state_index(state) >= state_index("first_draft"):
         _run_strict_style_gate(root, state, errors)
+        _run_guideline_introduction_gate(root, state, errors)
 
     missing_outputs = [
         relative for relative in required_outputs_through(state) if not (root / relative).is_file()
