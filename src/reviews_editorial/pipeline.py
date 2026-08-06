@@ -14,6 +14,7 @@ from .constants import (
 )
 from .io import dump_data, load_data
 from .jobs import load_job, utc_now, validate_job_shape
+from .strict_style import audit_strict_style
 
 
 def state_index(state: str) -> int:
@@ -37,7 +38,8 @@ def _collect_critical_issues(payload: Any) -> list[str]:
         severity = str(payload.get("severity", "")).casefold()
         status = str(payload.get("status", "")).casefold()
         if severity == "critical" or status in CRITICAL_AUDIT_STATUSES:
-            issues.append(str(payload.get("issue_id") or payload.get("message") or status))
+            identifier = payload.get("issue_id") or payload.get("finding_id") or payload.get("message") or status
+            issues.append(str(identifier))
         for value in payload.values():
             issues.extend(_collect_critical_issues(value))
     elif isinstance(payload, list):
@@ -65,12 +67,51 @@ def _require_boolean_gate(
         errors.append(f"{relative} não passou o gate {'.'.join(keys)}")
 
 
+def _strict_style_artifact(root: Path, state: str) -> tuple[Path, Path] | None:
+    """Selecionar a versão pública vigente e o relatório correspondente."""
+
+    index = state_index(state)
+    candidates: list[tuple[str, str, str]] = [
+        ("candidate_for_review", "final/candidate.md", "audits/strict-style-final.json"),
+        ("coherence_review_complete", "drafts/v4-candidate.md", "audits/strict-style-final.json" if index >= state_index("final_audit_complete") else "audits/strict-style-v4.json"),
+        ("style_review_complete", "drafts/v3-style.md", "audits/strict-style-audit.json"),
+        ("structural_review_complete", "drafts/v2-structure.md", "audits/strict-style-v2.json"),
+        ("first_draft", "drafts/v1-content.md", "audits/strict-style-v1.json"),
+    ]
+    for minimum_state, artifact, report in candidates:
+        path = root / artifact
+        if index >= state_index(minimum_state) and path.is_file():
+            return path, root / report
+    return None
+
+
+def _run_strict_style_gate(root: Path, state: str, errors: list[str]) -> None:
+    selected = _strict_style_artifact(root, state)
+    if selected is None:
+        return
+    artifact_path, report_path = selected
+    report = audit_strict_style(
+        artifact_path.read_text(encoding="utf-8-sig"),
+        artifact_id=str(artifact_path.relative_to(root)),
+    )
+    dump_data(report_path, report)
+    if report.get("passed") is not True:
+        categories = sorted({str(item.get("category")) for item in report.get("findings", [])})
+        errors.append(
+            f"gate rígido de estilo bloqueou {artifact_path.relative_to(root)}: {categories}"
+        )
+
+
 def validate_pipeline(job_dir: str | Path, target_state: str | None = None) -> dict[str, Any]:
     root = Path(job_dir).resolve()
     job = load_job(root)
     state = target_state or job.get("state")
     errors = validate_job_shape(job)
     warnings: list[str] = []
+
+    if state_index(state) >= state_index("first_draft"):
+        _run_strict_style_gate(root, state, errors)
+
     missing_outputs = [
         relative for relative in required_outputs_through(state) if not (root / relative).is_file()
     ]
