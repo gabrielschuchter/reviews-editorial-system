@@ -37,9 +37,7 @@ _CORRECTIVE_NEGATION = re.compile(
     r"equivale|equivalem|implica|implicam|significa|significam|"
     r"representa|representam|constitui|constituem|"
     r"funciona\s+como|funcionam\s+como|substitui|substituem|"
-    r"autoriza|autorizam|sustenta|sustentam|demonstra|demonstram|"
-    r"estabelece|estabelecem|oferece|oferecem|ocupa|ocupam|"
-    r"serve|servem|basta|bastam|garante|garantem|"
+    r"ocupa|ocupam|serve|servem|basta|bastam|garante|garantem|"
     r"depende|dependem|decide|decidem|resolve|resolvem|"
     r"exige|exigem)\b",
     re.IGNORECASE,
