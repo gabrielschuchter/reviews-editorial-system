@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:guideline-introduction-report:1",
+  "title": "Relatório de introdução de diretriz",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "report_id",
+    "audit_version",
+    "artifact_id",
+    "artifact_sha256",
+    "policy",
+    "passed",
+    "blocking",
+    "introduction",
+    "findings"
+  ],
+  "properties": {
+    "report_id": {"type": "string"},
+    "audit_version": {"type": "string"},
+    "artifact_id": {"type": "string"},
+    "artifact_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "policy": {"type": "string"},
+    "passed": {"type": "boolean"},
+    "blocking": {"type": "boolean"},
+    "introduction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "found",
+        "start_line",
+        "end_line",
+        "paragraph_count",
+        "context_paragraphs_before_guideline",
+        "guideline_or_method_paragraphs",
+        "total_words",
+        "guideline_or_method_words",
+        "guideline_or_method_share",
+        "coverage"
+      ],
+      "properties": {
+        "found": {"type": "boolean"},
+        "start_line": {"type": ["integer", "null"]},
+        "end_line": {"type": ["integer", "null"]},
+        "paragraph_count": {"type": "integer", "minimum": 0},
+        "context_paragraphs_before_guideline": {"type": "integer", "minimum": 0},
+        "guideline_or_method_paragraphs": {"type": "array", "items": {"type": "integer"}},
+        "total_words": {"type": "integer", "minimum": 0},
+        "guideline_or_method_words": {"type": "integer", "minimum": 0},
+        "guideline_or_method_share": {"type": "number", "minimum": 0, "maximum": 1},
+        "coverage": {
+          "type": "object",
+          "additionalProperties": {"type": "boolean"}
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "rule_id",
+          "severity",
+          "status",
+          "issue",
+          "evidence",
+          "required_action",
+          "disposition_allowed"
+        ],
+        "properties": {
+          "finding_id": {"type": "string"},
+          "rule_id": {"const": "REV-STRUCT-HARD-003"},
+          "severity": {"const": "critical"},
+          "status": {"const": "confirmed"},
+          "issue": {"type": "string"},
+          "evidence": {},
+          "required_action": {"type": "string"},
+          "disposition_allowed": {"const": false}
+        }
+      }
+    }
+  }
+}
