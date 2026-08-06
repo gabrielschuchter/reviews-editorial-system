@@ -14,7 +14,7 @@ import re
 from dataclasses import dataclass
 from typing import Any, Iterable
 
-AUDIT_VERSION = "1.0.0"
+AUDIT_VERSION = "1.0.1"
 _DASH_CHARS = "-–—−"
 
 _DIRECT_ANTITHESIS = re.compile(
@@ -32,7 +32,7 @@ _CONCESSIVE_CONNECTOR = re.compile(
     re.IGNORECASE,
 )
 _CORRECTIVE_NEGATION = re.compile(
-    r"\bnão\s+(?:é|são|era|eram|foi|foram|será|serão|"
+    r"\bnão\s+(?:é|são|era|eram|será|serão|"
     r"se\s+resume|se\s+resumem|se\s+limita|se\s+limitam|"
     r"equivale|equivalem|implica|implicam|significa|significam|"
     r"representa|representam|constitui|constituem|"
@@ -42,9 +42,9 @@ _CORRECTIVE_NEGATION = re.compile(
     r"exige|exigem)\b",
     re.IGNORECASE,
 )
-
 _URL_OR_IDENTIFIER = re.compile(
-    r"https?://\S+|\bdoi:\s*\S+|\b10\.\d{4,9}/\S+|\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b",
+    r"https?://\S+|\bdoi:\s*\S+|\b10\.\d{4,9}/\S+|"
+    r"\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b",
     re.IGNORECASE,
 )
 
@@ -70,13 +70,12 @@ def _lines(text: str) -> list[_Line]:
             order = nonblank_order
         result.append(_Line(value, offset, offset + len(value), number, order))
         offset += len(raw)
-    if not result and text == "":
-        return []
     if text and (not result or result[-1].end < len(text)):
         number = len(result) + 1
-        order = nonblank_order + 1 if text[result[-1].end if result else 0 :].strip() else None
         start = result[-1].end if result else 0
-        result.append(_Line(text[start:], start, len(text), number, order))
+        tail = text[start:]
+        order = nonblank_order + 1 if tail.strip() else None
+        result.append(_Line(tail, start, len(text), number, order))
     return result
 
 
@@ -88,15 +87,21 @@ def _organizational_line(line: _Line) -> bool:
         return True
     if re.match(r"^#{1,6}\s+", stripped):
         return True
-    if re.match(r"^(?:Seção\s+[IVXLCDM0-9]+\.?|Tabela\s+\d+\.?|Quadro\s+\d+\.?|Figura\s+\d+\.?|Referências|Anexo|Apêndice)\b", stripped, re.IGNORECASE):
+    if re.match(
+        r"^(?:Seção\s+[IVXLCDM0-9]+\.?|Tabela\s+\d+\.?|Quadro\s+\d+\.?|"
+        r"Figura\s+\d+\.?|Referências|Anexo|Apêndice)\b",
+        stripped,
+        re.IGNORECASE,
+    ):
         return True
-    if re.fullmatch(r"[-:|\s]+", stripped):
-        return True
-    return False
+    return bool(re.fullmatch(r"[-:|\s]+", stripped))
 
 
 def _inside_identifier(line: str, position: int) -> bool:
-    return any(match.start() <= position < match.end() for match in _URL_OR_IDENTIFIER.finditer(line))
+    return any(
+        match.start() <= position < match.end()
+        for match in _URL_OR_IDENTIFIER.finditer(line)
+    )
 
 
 def _excerpt(text: str, start: int, end: int, limit: int = 300) -> str:
@@ -119,7 +124,11 @@ def _finding(
     required_action: str,
 ) -> None:
     key = (category, start, end)
-    if any((item["category"], item["location"]["start"], item["location"]["end"]) == key for item in findings):
+    if any(
+        (item["category"], item["location"]["start"], item["location"]["end"])
+        == key
+        for item in findings
+    ):
         return
     findings.append(
         {
@@ -142,8 +151,6 @@ def _scan_pattern(
     lines: Iterable[_Line],
     pattern: re.Pattern[str],
     *,
-    category: str,
-    rule_id: str,
     reason: str,
     required_action: str,
 ) -> None:
@@ -152,8 +159,8 @@ def _scan_pattern(
             _finding(
                 findings,
                 text,
-                category=category,
-                rule_id=rule_id,
+                category="antithesis",
+                rule_id="REV-STYLE-HARD-001",
                 start=line.start + match.start(),
                 end=line.start + match.end(),
                 line=line.number,
@@ -176,8 +183,6 @@ def audit_strict_style(text: str, *, artifact_id: str = "draft") -> dict[str, An
         text,
         lines,
         _DIRECT_ANTITHESIS,
-        category="antithesis",
-        rule_id="REV-STYLE-HARD-001",
         reason="A frase constrói sentido por negação seguida de substituição ou oposição.",
         required_action="Reescrever em afirmações diretas, sem estrutura de oposição.",
     )
@@ -186,18 +191,14 @@ def audit_strict_style(text: str, *, artifact_id: str = "draft") -> dict[str, An
         text,
         lines,
         _CONTRASTIVE_CONNECTOR,
-        category="antithesis",
-        rule_id="REV-STYLE-HARD-001",
         reason="O conector organiza a ideia por contraste retórico.",
-        required_action="Separar as informações e declarar cada uma diretamente, sem contraste.",
+        required_action="Separar as informações e declarar cada uma diretamente.",
     )
     _scan_pattern(
         findings,
         text,
         lines,
         _CONCESSIVE_CONNECTOR,
-        category="antithesis",
-        rule_id="REV-STYLE-HARD-001",
         reason="A construção concessiva apresenta uma ideia pela oposição com outra.",
         required_action="Reorganizar a relação em frases diretas e independentes.",
     )
@@ -206,21 +207,24 @@ def audit_strict_style(text: str, *, artifact_id: str = "draft") -> dict[str, An
         text,
         lines,
         _CORRECTIVE_NEGATION,
-        category="antithesis",
-        rule_id="REV-STYLE-HARD-001",
         reason="A negação define o argumento por contraste com uma formulação alternativa.",
-        required_action="Afirmar diretamente o conteúdo pretendido e remover a negação corretiva.",
+        required_action="Afirmar diretamente o conteúdo pretendido.",
     )
 
     for line in lines:
         if _organizational_line(line):
             continue
+        first_nonspace = len(line.text) - len(line.text.lstrip())
         for position, char in enumerate(line.text):
             if char not in _DASH_CHARS:
                 continue
             if _inside_identifier(line.text, position):
                 continue
-            if char == "-" and position == len(line.text) - len(line.text.lstrip()) and line.text[position : position + 2] == "- ":
+            if (
+                char == "-"
+                and position == first_nonspace
+                and line.text[position : position + 2] == "- "
+            ):
                 continue
             _finding(
                 findings,
@@ -231,7 +235,7 @@ def audit_strict_style(text: str, *, artifact_id: str = "draft") -> dict[str, An
                 end=line.start + position + 1,
                 line=line.number,
                 reason="Traços e hífens são proibidos em texto corrido do Reviews.",
-                required_action="Reescrever a frase com pontuação simples ou expressão por extenso.",
+                required_action="Reescrever com pontuação simples ou expressão por extenso.",
             )
 
     source_hash = hashlib.sha256(text.encode("utf-8")).hexdigest()
@@ -251,7 +255,7 @@ def audit_strict_style(text: str, *, artifact_id: str = "draft") -> dict[str, An
             },
             {
                 "rule_id": "REV-STYLE-HARD-002",
-                "description": "Proibição de traço, travessão, meia risca, sinal de menos ou hífen em texto corrido.",
+                "description": "Proibição de traços em texto corrido.",
             },
         ],
     }
