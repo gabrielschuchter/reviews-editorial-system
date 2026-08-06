@@ -86,7 +86,7 @@ def _organizational_line(line: _Line) -> bool:
     stripped = line.text.strip()
     if not stripped:
         return True
-    if line.nonblank_order is not None and line.nonblank_order <= 3:
+    if line.nonblank_order == 1:
         return True
     if re.match(r"^#{1,6}\s+", stripped):
         return True
