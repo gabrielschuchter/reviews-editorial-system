@@ -1,5 +1,5 @@
 ---
-document_version: "1.0.0"
+document_version: "1.0.1"
 status: canonical
 approval_status: approved-by-editorial-authority
 updated_on: "2026-08-06"
@@ -53,6 +53,10 @@ Execute `scripts/audit_strict_style.py`:
 6. depois de qualquer correção final.
 
 Cada execução deve usar a versão exata do artefato e registrar seu hash. O relatório deve apresentar `passed: true`. Uma ocorrência não pode ser rejeitada como falso positivo. A única exceção possível é a classificação documentada de um traço como elemento exclusivamente organizacional.
+
+## Regressão automatizada
+
+O workflow `.github/workflows/strict-editorial-style.yml` executa os testes específicos e os checks estruturais do repositório em cada push para `main` e em cada pull request. Novos padrões devem ser acompanhados por teste de regressão.
 
 ## Gate de publicação
 
