@@ -151,7 +151,9 @@ def validate_pipeline(job_dir: str | Path, target_state: str | None = None) -> d
         ("structural_review_complete", "audits/structural-audit.json"),
         ("style_review_complete", "audits/style-audit.json"),
         ("style_review_complete", "audits/anti-ai-audit.json"),
+        ("style_review_complete", "audits/strict-style-audit.json"),
         ("coherence_review_complete", "audits/coherence-audit.json"),
+        ("final_audit_complete", "audits/strict-style-final.json"),
         ("final_audit_complete", "audits/final-audit.json"),
     )
     for gate_state, relative in structured_audit_gates:
