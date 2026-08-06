@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-SYSTEM_VERSION = "0.4.0"
-SKILL_VERSION = "0.3.0"
+SYSTEM_VERSION = "0.4.1"
+SKILL_VERSION = "0.3.1"
 EDITORIAL_CONSTITUTION_VERSION = "0.1.0-provisional"
 
 SOURCE_LEVELS = {
@@ -122,6 +122,7 @@ REQUIRED_OUTPUTS_BY_STATE = {
     "style_review_complete": (
         "audits/style-audit.json",
         "audits/anti-ai-audit.json",
+        "audits/strict-style-audit.json",
         "drafts/v3-style.md",
     ),
     "coherence_review_complete": (
@@ -129,7 +130,10 @@ REQUIRED_OUTPUTS_BY_STATE = {
         "audits/coherence-audit.json",
         "drafts/v4-candidate.md",
     ),
-    "final_audit_complete": ("audits/final-audit.json",),
+    "final_audit_complete": (
+        "audits/strict-style-final.json",
+        "audits/final-audit.json",
+    ),
     "candidate_for_review": (
         "final/candidate.md",
         "final/candidate.docx",
