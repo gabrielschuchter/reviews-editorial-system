@@ -20,6 +20,16 @@ uma revisão posterior não altere a outra silenciosamente.
 | limite | perto do claim afetado | ressalva genérica no último parágrafo |
 | tabela | população, condição, ação e exceção | célula que depende de contexto oculto |
 
+## Edições baseadas em diretrizes
+
+Quando a candidata for uma edição de diretriz, aplique `REV-STRUCT-HARD-003` à introdução e `REV-STRUCT-HARD-004` à formulação das recomendações.
+
+A recomendação pública deve ser declarada diretamente. Recuse construções como “A ASPEN recomenda”, “Segundo a ACG, recomenda-se”, “A diretriz orienta”, “O documento recomenda”, “Os autores sugerem” ou equivalentes. A fonte continua identificável no título, subtítulo, legenda, introdução, escopo, proveniência e metodologia quando essa informação é útil.
+
+A retirada da atribuição não pode alterar a modalidade. Preserve integralmente força, certeza, população, condição, exceção e grau de obrigação. Uma recomendação condicional não pode virar imperativo forte por simplificação de estilo.
+
+Antes do handoff, execute `scripts/audit_guideline_attribution.py` sobre a versão exata da candidata e exija `passed: true`.
+
 ## Revisão de números
 
 Compare valor literal, sinal, unidade, população analítica, denominador,
