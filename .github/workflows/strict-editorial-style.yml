@@ -27,5 +27,8 @@ jobs:
       - name: Run guideline introduction regression tests
         run: python -m unittest tests.test_guideline_intro -v
 
+      - name: Run guideline attribution regression tests
+        run: python -m unittest tests.test_guideline_attribution -v
+
       - name: Run repository checks
         run: python scripts/run_checks.py
