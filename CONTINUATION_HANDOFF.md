@@ -1,87 +1,95 @@
 # Handoff para retomada
 
-Atualizado em 25/07/2026. Não houve commit, push, upload ou qualquer escrita no Google Drive.
+Atualizado em 14/08/2026. Este arquivo substitui os números operacionais congelados em 25/07; resultados de testes, contagens de schemas e estado do CI devem ser obtidos por nova execução, não copiados de checkpoints antigos.
 
-## Onde continuar
+## Estado operacional atual
 
-`C:\Users\gabsc\Documents\Codex\2026-07-22\https-drive-google-com-drive-folders\outputs\reviews-editorial-system`
+O Reviews Editorial System é um fluxo local, auditável e orientado a arquivos. `reviews-writer` continua sendo a porta de entrada e coordena as capacidades especializadas. `job.yml` permanece a fonte operacional de estado de cada job; o registro editorial local preserva versões, eventos, linhagem, execuções de agentes, memória histórica e memória validada.
 
-## Estado real
+A arquitetura vigente inclui:
 
-O núcleo local `0.2.0` está implementado e verificável, mas ainda não houve um piloto editorial científico completo pelos vinte estados. Não confundir checks verdes com validação de qualidade de uma edição real.
+- onze skills especializadas;
+- normalização documental e confirmação manual antes da extração;
+- extração estruturada, verificação numérica e claim ledger antes da redação;
+- appraisal, brief e framing antes da candidata pública;
+- auditorias factual, estatística, metodológica, estrutural, de estilo, coerência e final;
+- aprovação humana como condição necessária para publicação;
+- memória histórica separada de memória validada e promoção de aprendizado sujeita a gate humano.
 
-- inventário-base: 301 registros;
-- catálogo incremental `Testes`: 7 referências B próximas do ideal, todas com limitações conhecidas;
-- total efetivo carregado: 308 registros;
-- corpus A canônico: 0;
-- treinamento/recuperação: 6 referências;
-- holdout: `07-sii-acg-2021`, excluído da recuperação;
-- perfil de estilo: candidato e descritivo, nunca limite automático;
-- pasta de produção verificada vazia em 25/07/2026;
-- upload/readback no Drive: não executado;
-- piloto real e inspeção visual do DOCX: não executados.
+## Regras canônicas adicionadas em agosto
 
-Os “finais” da pasta `Testes` são uma fonte crucial de aprendizado, mas não são exemplos perfeitos nem especificação encerrada.
+Quatro gates rígidos merecem atenção especial em qualquer retomada:
 
-## Verificação inicial
+1. `REV-STYLE-HARD-001`: antítese, oposição corretiva e construções contrastivas proibidas na prosa pública.
+2. `REV-STYLE-HARD-002`: traços e hífens proibidos em texto corrido, ressalvadas funções organizacionais e identificadores técnicos documentados.
+3. `REV-STRUCT-HARD-003`: introduções de diretrizes devem começar pelo problema clínico, carga, desafios do cuidado e necessidade da orientação; a metodologia fica subordinada à interpretação.
+4. `REV-STRUCT-HARD-004`: recomendações de diretrizes devem ser formuladas diretamente, sem usar instituição, diretriz, documento, painel ou autores como sujeito ou moldura de atribuição. Formulações como `A ASPEN recomenda...`, `Segundo a ACG, recomenda-se...` e equivalentes são bloqueadoras. A instituição continua permitida em introdução, proveniência, escopo, metodologia, comparação entre documentos, título, legenda e referências quando sua identificação é informativa.
 
-```powershell
-$py = 'C:\Users\gabsc\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
-Set-Location 'C:\Users\gabsc\Documents\Codex\2026-07-22\https-drive-google-com-drive-folders\outputs\reviews-editorial-system'
-& $py -m unittest discover -s tests -v
-& $py scripts\run_evals.py
-& $py scripts\run_checks.py
-```
+A remoção de atribuição institucional nunca autoriza mudar força, certeza, modalidade, população, condição, exceção ou direção da recomendação.
 
-Último resultado confirmado em 25/07/2026:
+## Corpus e memória humana
 
-- 21/21 testes unitários e de integração local passaram;
-- 5/5 evals determinísticos passaram;
-- `run_checks.py` passou com 13 schemas, 308 registros efetivos, 7 referências B e 1 holdout.
+A pasta `Testes` permanece uma fonte prioritária de aprendizado humano. As sete publicações históricas foram tratadas como referências B próximas do ideal, com limitações conhecidas. A edição `07-sii-acg-2021` permanece reservada como holdout enquanto não houver decisão editorial explícita em contrário.
 
-Substitua esses números pelo resultado da nova execução ao retomar.
+A edição de prática psicológica baseada em evidências possui histórico humano comparável, revisão final preservada e propostas de aprendizado registradas. Observações derivadas de correções humanas continuam subordinadas à governança: uma preferência local ou um exemplar histórico não prevalece sobre uma regra canônica posterior.
 
-## Fontes e decisões preservadas
+A memória editorial no Google Drive funciona como camada humana legível de decisões, lições, casos e QA. O registro local do sistema continua responsável por identidade, versionamento, eventos, hashes e memória validada. Divergências entre essas camadas devem ser identificadas explicitamente.
 
-- ZIPs originais em `D:\drive-download-20260722T201201Z-1-001.zip` e `D:\drive-download-20260722T201133Z-1-001.zip`;
-- documentação visual em `D:\documentação design reviews.md`;
-- Drive-fonte somente leitura: `1eIfDPteYjjijHv-u9JPMkgfvVSY0fv6f`;
-- pasta `Testes`: `1-l8YAR19a9pu63rpysZ8BgqsZ6znzQv1`;
-- produção autorizada pretendida: `1q1DoS2nm9JKq-zreLaNk7i5YO1-rqo7s`;
-- catálogo curado: `corpus/testes-learning-catalog.yml`;
-- perfil candidato: `editorial/style/style-profile-testes-candidate.json`.
+## Verificação ao retomar
 
-`SOURCE_INVENTORY.csv` e os 301 registros embutidos em `corpus/manifest.yml` refletem o snapshot-base de 22/07. O carregador acrescenta o catálogo `Testes`, criado depois desse snapshot, sem fingir que ele fazia parte da captura antiga.
-
-## Próxima execução recomendada
-
-1. Escolher um dos seis pacotes de treinamento com artigo completo e materiais associados; não usar o holdout 07.
-2. Criar o job real com `scripts/create_job.py`.
-3. Normalizar as fontes e preencher todos os itens de `normalized/manual-document-review.json`.
-4. Confirmar a validação documental com um revisor identificado.
-5. Executar extração, números, claim ledger e auditorias, mantendo claims qualitativas sob revisão adversarial/humana.
-6. Produzir e inspecionar visualmente o DOCX.
-7. Somente depois preparar a transferência à pasta de produção autorizada e realizar upload/readback com autorização explícita.
-
-Exemplo:
+Execute a suíte atual a partir da raiz do repositório e registre os resultados da execução corrente:
 
 ```powershell
-& $py scripts\create_job.py --source 'C:\caminho\artigo-completo.pdf' --topic 'Tema do piloto' --editor 'Nome'
-& $py scripts\normalize_documents.py 'jobs\JOB-2026-001'
+python -m unittest discover -s tests -v
+python scripts/run_checks.py
+python scripts/run_evals.py
+python scripts/run_skill_evals.py
+python scripts/scan_skills.py
+python scripts/run_integration_smoke.py
+python scripts/editorial_registry.py validate-registry
 ```
 
-Antes da confirmação, editar `jobs\JOB-2026-001\normalized\manual-document-review.json` e marcar cada `confirmed` como `true` apenas após a checagem real:
+Para alterações em regras de diretrizes, confirme também as regressões específicas:
 
 ```powershell
-& $py scripts\validate_job.py 'jobs\JOB-2026-001' --confirm-documents 'Nome do revisor'
+python -m unittest tests.test_guideline_intro -v
+python -m unittest tests.test_guideline_attribution -v
+python -m unittest tests.test_strict_style -v
 ```
 
-## Lacunas que continuam reais
+Não trate a existência de um workflow ou um PR mergeado como evidência de CI verde. Verifique a execução correspondente ao commit atual.
 
-1. Nenhum corpus A foi aprovado.
-2. A associação integral de todas as edições históricas aos artigos não foi concluída.
-3. A auditoria automática não prova suporte semântico de prosa factual qualitativa; claim ledger, mapa de fontes e revisão adversarial continuam obrigatórios.
-4. Não há runner de lote; cada edição deve permanecer em job independente.
-5. Ainda faltam o piloto científico completo, a inspeção renderizada do DOCX e o teste controlado de upload/readback.
+## Fluxo seguro para uma edição real
 
-Essas lacunas não impedem continuar o desenvolvimento local, mas impedem declarar o sistema editorial integralmente validado em produção.
+1. Confirmar o job e a identidade das fontes.
+2. Normalizar os documentos e revisar manualmente paginação, tabelas, figuras e materiais ausentes.
+3. Confirmar a validação documental.
+4. Extrair evidência e verificar números.
+5. Construir o claim ledger.
+6. Produzir appraisal, limites de inferência, brief e framing.
+7. Redigir a candidata com os contratos do tipo de edição vigente.
+8. Executar os gates rígidos aplicáveis à versão exata.
+9. Executar auditorias independentes na ordem definida.
+10. Gerar e inspecionar o documento final.
+11. Manter `AGUARDANDO REVISÃO EDITORIAL` até decisão humana explícita.
+
+## Pontos que não devem ser inferidos a partir deste handoff
+
+- Não declarar que existe corpus A canônico sem uma aprovação nova registrada.
+- Não declarar concluído um piloto científico de vinte estados apenas porque uma edição foi revisada no Drive; confirmar o job e a trilha no registro editorial.
+- Não declarar concluído upload/readback de produção sem evidência no registro ou no Drive.
+- Não assumir que contagens antigas de testes, schemas, registros ou arquivos continuam atuais.
+- Não promover observação de corpus, diff humano ou saída de agente a regra canônica sem decisão editorial explícita.
+
+## Fontes operacionais
+
+- Drive da memória editorial: usar como camada humana de leitura e decisão.
+- Pasta `Testes`: `1-l8YAR19a9pu63rpysZ8BgqsZ6znzQv1`.
+- Catálogo curado: `corpus/testes-learning-catalog.yml`.
+- Evidência humana derivada: `corpus/reviews-human-style-evidence.json`.
+- Regras canônicas: `editorial/`.
+- Operação diária: `README-OPERACIONAL.md`.
+- Arquitetura: `docs/ARCHITECTURE.md`.
+- Registro e memória: `docs/EDITORIAL_REGISTRY.md`.
+
+O princípio de retomada é conservador: primeiro reconstruir o estado verificável atual, depois continuar. Nenhum checkpoint histórico substitui a execução corrente dos gates.
