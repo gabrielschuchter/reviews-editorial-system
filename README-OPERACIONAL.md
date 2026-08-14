@@ -50,6 +50,14 @@ Redija apenas com o pacote validado, o plano editorial e os exemplares seleciona
 
 `scripts/audit_draft.py` bloqueia ledger inválido, claim explicitamente proibida e número sem correspondência exata em claim público verificado. Ele não prova, sozinho, que toda frase factual qualitativa é semanticamente sustentada. A cobertura completa exige claim ledger, mapa de fontes e auditoria adversarial/humana registrada em `audits/factual-audit.json`.
 
+### Gates específicos para diretrizes
+
+Edições classificadas como diretriz possuem dois gates canônicos adicionais. `scripts/audit_guideline_intro.py` aplica `REV-STRUCT-HARD-003` à introdução. `scripts/audit_guideline_attribution.py` aplica `REV-STRUCT-HARD-004` às recomendações.
+
+Nas recomendações, escreva a conduta diretamente. Formulações como `A ASPEN recomenda...`, `Segundo a ACG, recomenda-se...`, `A diretriz orienta...`, `O documento recomenda...` e equivalentes são bloqueadas. A instituição pode aparecer em introdução, proveniência, escopo, metodologia, comparação entre documentos, título, subtítulo, legenda e referências quando essa identificação tiver função editorial. A remoção da atribuição não pode alterar força, certeza, modalidade, população, condição ou exceção.
+
+O pipeline executa ambos os auditores automaticamente a partir do primeiro rascunho e novamente sobre a versão vigente durante as validações posteriores.
+
 ## 5. Exportar e revisar
 
 1. Gere `final/candidate.md` e `final/editorial-report.md`.

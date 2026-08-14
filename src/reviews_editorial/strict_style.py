@@ -14,7 +14,7 @@ import re
 from dataclasses import dataclass
 from typing import Any, Iterable
 
-AUDIT_VERSION = "1.0.1"
+AUDIT_VERSION = "1.0.2"
 _DASH_CHARS = "-–—−"
 
 _DIRECT_ANTITHESIS = re.compile(
@@ -28,7 +28,7 @@ _CONTRASTIVE_CONNECTOR = re.compile(
     re.IGNORECASE,
 )
 _CONCESSIVE_CONNECTOR = re.compile(
-    r"\b(?:embora|apesar de|ainda que|mesmo que|mesmo sem|se bem que)\b",
+    r"\b(?:embora|apesar\s+(?:de|da|do|das|dos)|ainda que|mesmo que|mesmo sem|se bem que)\b",
     re.IGNORECASE,
 )
 _CORRECTIVE_NEGATION = re.compile(
@@ -83,7 +83,14 @@ def _organizational_line(line: _Line) -> bool:
     stripped = line.text.strip()
     if not stripped:
         return True
-    if line.nonblank_order == 1:
+    # Um título simples sem marcação Markdown pode ocupar a primeira linha. A
+    # exceção não pode transformar qualquer frase inicial em cabeçalho, porque
+    # isso esconderia achados reais em artefatos curtos ou trechos auditados.
+    if (
+        line.nonblank_order == 1
+        and len(stripped) <= 140
+        and not re.search(r"[.!?][\"'”’)]?$", stripped)
+    ):
         return True
     if re.match(r"^#{1,6}\s+", stripped):
         return True

@@ -9,6 +9,7 @@
 - Vincule cada afirmação factual relevante a uma fonte no claim ledger.
 - Interrompa o avanço quando houver erro crítico, fonte trocada, direção de efeito incerta ou documento essencial ilegível.
 - Execute as auditorias factual, numérica, metodológica, estrutural, de estilo e final na ordem definida.
+- Em edições de diretrizes, aplique `REV-STRUCT-HARD-003` à introdução e `REV-STRUCT-HARD-004` às recomendações; nunca formule a recomendação como `A instituição recomenda`, `A diretriz orienta`, `Segundo a instituição...` ou equivalente.
 - Não edite o corpus canônico nem promova feedback local a regra geral sem aprovação editorial.
 - Não publique nem marque uma edição como aprovada sem autorização humana explícita.
 - Registre cada artefato produzido no job; para saídas fora dele, use `scripts/editorial_registry.py register-output` com prompt, contexto, configuração e resultado integrais.

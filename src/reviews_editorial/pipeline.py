@@ -12,6 +12,7 @@ from .constants import (
     PIPELINE_STATES,
     REQUIRED_OUTPUTS_BY_STATE,
 )
+from .guideline_attribution import audit_guideline_attribution
 from .guideline_intro import audit_guideline_introduction
 from .io import dump_data, load_data
 from .jobs import load_job, utc_now, validate_job_shape
@@ -137,6 +138,31 @@ def _run_guideline_introduction_gate(root: Path, state: str, errors: list[str]) 
         )
 
 
+def _run_guideline_attribution_gate(root: Path, state: str, errors: list[str]) -> None:
+    if not _is_guideline_job(root):
+        return
+    selected = _strict_style_artifact(root, state)
+    if selected is None:
+        return
+    artifact_path, _ = selected
+    final_stage = state_index(state) >= state_index("final_audit_complete")
+    report_path = root / "audits" / (
+        "guideline-attribution-final.json"
+        if final_stage
+        else "guideline-attribution-audit.json"
+    )
+    report = audit_guideline_attribution(
+        artifact_path.read_text(encoding="utf-8-sig"),
+        artifact_id=str(artifact_path.relative_to(root)),
+    )
+    dump_data(report_path, report)
+    if report.get("passed") is not True:
+        rules = sorted({str(item.get("rule_id")) for item in report.get("findings", [])})
+        errors.append(
+            f"gate de atribuição em diretriz bloqueou {artifact_path.relative_to(root)}: {rules}"
+        )
+
+
 def validate_pipeline(job_dir: str | Path, target_state: str | None = None) -> dict[str, Any]:
     root = Path(job_dir).resolve()
     job = load_job(root)
@@ -147,6 +173,7 @@ def validate_pipeline(job_dir: str | Path, target_state: str | None = None) -> d
     if state_index(state) >= state_index("first_draft"):
         _run_strict_style_gate(root, state, errors)
         _run_guideline_introduction_gate(root, state, errors)
+        _run_guideline_attribution_gate(root, state, errors)
 
     missing_outputs = [
         relative for relative in required_outputs_through(state) if not (root / relative).is_file()

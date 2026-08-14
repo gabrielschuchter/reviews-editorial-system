@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:reviews-editorial-system:schema:guideline-attribution-report:1",
+  "title": "Relatório de atribuição em recomendações de diretriz",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "report_id",
+    "audit_version",
+    "artifact_id",
+    "artifact_sha256",
+    "policy",
+    "passed",
+    "blocking",
+    "finding_count",
+    "findings"
+  ],
+  "properties": {
+    "report_id": {"type": "string"},
+    "audit_version": {"type": "string"},
+    "artifact_id": {"type": "string"},
+    "artifact_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "policy": {"type": "string"},
+    "passed": {"type": "boolean"},
+    "blocking": {"type": "boolean"},
+    "finding_count": {"type": "integer", "minimum": 0},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "rule_id",
+          "severity",
+          "status",
+          "line",
+          "pattern",
+          "source_expression",
+          "evidence",
+          "issue",
+          "required_action",
+          "disposition_allowed"
+        ],
+        "properties": {
+          "finding_id": {"type": "string"},
+          "rule_id": {"const": "REV-STRUCT-HARD-004"},
+          "severity": {"const": "high"},
+          "status": {"const": "confirmed"},
+          "line": {"type": "integer", "minimum": 1},
+          "pattern": {
+            "enum": [
+              "institution-as-recommendation-subject",
+              "institution-reporting-recommendation",
+              "attribution-prefix-before-recommendation",
+              "recommendation-owned-by-institution"
+            ]
+          },
+          "source_expression": {"type": "string"},
+          "evidence": {"type": "string"},
+          "issue": {"type": "string"},
+          "required_action": {"type": "string"},
+          "disposition_allowed": {"const": false}
+        }
+      }
+    }
+  }
+}

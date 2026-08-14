@@ -1,5 +1,5 @@
 schema_version: "1.0.0"
-contract_version: "0.1.0"
+contract_version: "0.2.0"
 edition_type_id: guideline-summary
 contract_status: provisional
 language: pt-BR
@@ -9,10 +9,14 @@ governance:
   approval_status: pending-editorial-approval
   approval_authority: human-editor
   created_on: "2026-07-22"
+  updated_on: "2026-08-14"
   corpus_preferences_applied: false
   source_basis:
     document: "PROMPT MESTRE — CONSTRUÇÃO DO SISTEMA EDITORIAL REVIEWS"
     section: "9.3. Edição de diretriz clínica"
+  canonical_overrides:
+    - REV-STRUCT-HARD-003
+    - REV-STRUCT-HARD-004
 
 purpose: "Apresentar recomendações centrais de uma diretriz de modo curto, direto e clinicamente útil."
 selection:
@@ -33,6 +37,17 @@ structure_policy:
   fixed_sequence: false
   display_titles_status: pending-editorial-definition
   organization: central-recommendations-and-decision-points
+  guideline_introduction_rule: REV-STRUCT-HARD-003
+  recommendation_attribution_rule: REV-STRUCT-HARD-004
+
+recommendation_voice:
+  mode: direct
+  institution_as_subject: prohibited
+  document_as_subject: prohibited
+  panel_or_authors_as_subject: prohibited
+  attribution_prefix_before_recommendation: prohibited
+  source_identification_outside_recommendation: allowed
+  preserve_original_modality: required
 
 required_content:
   prioritize:
@@ -60,6 +75,7 @@ constraints:
     - fill-gaps-with-opinion
     - extrapolate-to-uncovered-populations
     - equate-strong-recommendation-with-high-certainty-evidence
+    - attribute-recommendation-to-institution-document-panel-or-authors
 
 traceability:
   each_recommendation_requires:
