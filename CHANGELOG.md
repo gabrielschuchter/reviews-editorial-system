@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.0 - 2026-08-14
+
+- Canoniza `REV-STRUCT-HARD-004`: em edições de diretrizes, recomendações públicas devem ser apresentadas diretamente, sem usar instituição, diretriz, documento, painel ou autores como sujeito ou moldura de atribuição.
+- Mantém a instituição permitida em introdução, proveniência, escopo, metodologia, comparação entre documentos, títulos, legendas e referências quando essa identificação é informativa.
+- Adiciona auditor determinístico, schema, CLI e regressões para detectar formulações como `A ASPEN recomenda`, `Segundo a ACG, recomenda-se`, `A diretriz orienta` e equivalentes.
+- Integra o novo gate ao pipeline de jobs classificados como diretriz e à regressão do GitHub Actions.
+- Atualiza o contrato `guideline-summary` e o guia operacional para preservar força, certeza, modalidade, população, condições e exceções ao remover a atribuição institucional.
+- Atualiza a documentação de continuidade para refletir os gates canônicos adicionados em agosto e remover números históricos tratados indevidamente como estado atual.
+
 ## 0.4.0 - 2026-07-30
 
 - Adiciona registro editorial local integrado aos jobs, com identidades de edição e documento, versões imutáveis, eventos append-only, aprovações e publicação vinculada à versão exata.
